@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos | Admin Essence Beauty</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
+
+        body { background: #fefefe; color: #000; }
+
+        header {
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo { font-size: 28px; letter-spacing: 3px; color: #000; text-decoration: none; font-weight: bold; }
+
+        header nav a { color: #000; text-decoration: none; margin-left: 20px; font-size: 14px; }
+
+        main { max-width: 1100px; margin: 40px auto; padding: 0 16px; }
+
+        h1 { font-size: 26px; letter-spacing: 2px; margin-bottom: 8px; }
+        .sub { color: #777; margin-bottom: 30px; }
+
+        .caixa {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.08);
+            padding: 28px;
+            margin-bottom: 40px;
+        }
+
+        .caixa h2 { font-size: 18px; margin-bottom: 20px; }
+
+        .grade { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .grade .inteiro { grid-column: 1 / -1; }
+
+        label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 6px; color: #444; }
+        label small { font-weight: normal; color: #888; }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 15px;
+            background: #fff;
+        }
+
+        textarea { min-height: 90px; resize: vertical; }
+
+        input:focus, select:focus, textarea:focus { outline: 2px solid #000; border-color: transparent; }
+
+        .previa {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .previa img { width: 80px; height: 80px; object-fit: cover; border-radius: 12px; background: #f2f2f2; }
+
+        .botoes { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+
+        .btn {
+            background: #000;
+            color: #fff;
+            padding: 13px 30px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: .3s;
+        }
+
+        .btn:hover { opacity: .85; }
+        .btn:disabled { opacity: .5; cursor: default; }
+        .btn.claro { background: #f2f2f2; color: #000; }
+        .btn.pequeno { padding: 7px 14px; font-size: 12px; }
+        .btn.perigo { background: #c62828; }
+
+        .mensagem { display: none; margin-top: 18px; padding: 12px 16px; border-radius: 12px; font-size: 14px; }
+        .mensagem.sucesso { display: block; background: #e8f5e9; color: #2e7d32; }
+        .mensagem.erro { display: block; background: #ffebee; color: #c62828; }
+
+        .aviso { text-align: center; padding: 60px 20px; color: #555; line-height: 1.6; }
+        .aviso code { background: #f2f2f2; padding: 2px 6px; border-radius: 6px; }
+
+        .filtro-lista { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
+        .filtro-lista select { width: auto; }
+
+        .tabela-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #eee; vertical-align: middle; }
+        th { font-size: 12px; color: #777; text-transform: uppercase; letter-spacing: 1px; }
+        td img { width: 48px; height: 48px; object-fit: cover; border-radius: 10px; background: #f2f2f2; }
+        td.acoes, td.preco { white-space: nowrap; }
+        tr.inativo td { opacity: .45; }
+        .preco-old { color: #999; text-decoration: line-through; font-size: 12px; display: block; }
+
+        .escondido { display: none !important; }
+
+        @media (max-width: 700px) {
+            .grade { grid-template-columns: 1fr; }
+            header { flex-direction: column; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">ESSENCE BEAUTY</a>
+    <nav>
+        <a href="index.html">Ver loja</a>
+        <a href="#" id="sair">Sair</a>
+    </nav>
+</header>
+
+<main>
+    <h1>PRODUTOS</h1>
+    <p class="sub">Cadastre, edite ou oculte os produtos da loja. As mudanças aparecem no site na hora.</p>
+
+    <!-- Mensagem quando não está logada / não é admin -->
+    <div id="semAcesso" class="caixa aviso escondido"></div>
+
+    <div id="painel" class="escondido">
+
+        <!-- FORMULÁRIO -->
+        <form id="formProduto" class="caixa">
+            <h2 id="tituloForm">Cadastrar novo produto</h2>
+            <input type="hidden" id="produtoId">
+
+            <div class="grade">
+                <div class="inteiro">
+                    <label for="nome">Nome do produto *</label>
+                    <input id="nome" required maxlength="150">
+                </div>
+
+                <div>
+                    <label for="pagina">Página onde aparece *</label>
+                    <select id="pagina" required>
+                        <option value="skin-care">Skin Care</option>
+                        <option value="maquiagem">Maquiagem</option>
+                        <option value="cabelos">Cabelos</option>
+                        <option value="corpo">Corpo</option>
+                        <option value="kits">Kits</option>
+                        <option value="promocoes">Promoções</option>
+                        <option value="destaques">Início: Produtos</option>
+                        <option value="mais-vendidos">Início: Mais vendidos</option>
+                    </select>
+                </div>
+
+                <div id="campoCategoria">
+                    <label for="categoria">Categoria (filtro da página) *</label>
+                    <select id="categoria"></select>
+                </div>
+
+                <div>
+                    <label for="preco">Preço de venda (R$) *</label>
+                    <input id="preco" type="number" step="0.01" min="0" required placeholder="49.90">
+                </div>
+
+                <div>
+                    <label for="precoOriginal">Preço original "de" (R$) <small id="dicaOriginal">opcional: preencha para mostrar desconto</small></label>
+                    <input id="precoOriginal" type="number" step="0.01" min="0" placeholder="69.90">
+                </div>
+
+                <div class="inteiro" id="campoDescricao">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" maxlength="500"></textarea>
+                </div>
+
+                <div class="inteiro escondido" id="campoItens">
+                    <label for="itensKit">Itens do kit <small>ex.: Shampoo + máscara + condicionador</small></label>
+                    <input id="itensKit" maxlength="300">
+                </div>
+
+                <div>
+                    <label for="foto">Foto do produto <small>envie um arquivo…</small></label>
+                    <input id="foto" type="file" accept="image/*">
+                </div>
+
+                <div>
+                    <label for="imagem"><small>…ou digite o nome de uma foto que já está na pasta do site</small></label>
+                    <input id="imagem" placeholder="ex.: shampoo.jpg">
+                </div>
+
+                <div class="inteiro previa">
+                    <img id="previa" alt="" class="escondido">
+                </div>
+
+                <div>
+                    <label for="ordem">Ordem na página <small>menor aparece primeiro</small></label>
+                    <input id="ordem" type="number" step="1" value="100">
+                </div>
+            </div>
+
+            <div class="botoes">
+                <button type="submit" class="btn" id="btnSalvar">Cadastrar produto</button>
+                <button type="button" class="btn claro escondido" id="btnCancelar">Cancelar edição</button>
+            </div>
+
+            <div id="mensagem" class="mensagem"></div>
+        </form>
+
+        <!-- LISTA -->
+        <section class="caixa">
+            <h2>Produtos cadastrados</h2>
+
+            <div class="filtro-lista">
+                <label for="filtroPagina" style="margin:0">Mostrar:</label>
+                <select id="filtroPagina">
+                    <option value="">Todas as páginas</option>
+                    <option value="skin-care">Skin Care</option>
+                    <option value="maquiagem">Maquiagem</option>
+                    <option value="cabelos">Cabelos</option>
+                    <option value="corpo">Corpo</option>
+                    <option value="kits">Kits</option>
+                    <option value="promocoes">Promoções</option>
+                    <option value="destaques">Início: Produtos</option>
+                    <option value="mais-vendidos">Início: Mais vendidos</option>
+                </select>
+            </div>
+
+            <div class="tabela-wrap">
+                <table>
+                    <thead>
+                        <tr><th></th><th>Produto</th><th>Página</th><th>Categoria</th><th>Preço</th><th></th></tr>
+                    </thead>
+                    <tbody id="tabela"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="produtos.js"></script>
+
+<script>
+// ==========================================================
+// CATEGORIAS DE CADA PÁGINA (iguais aos botões de filtro do site)
+// ==========================================================
+const CATEGORIAS = {
+    'skin-care': { limpeza: 'Limpeza', tratamento: 'Tratamento', hidratacao: 'Hidratação', protecao: 'Proteção Solar' },
+    'maquiagem': { rosto: 'Rosto', olhos: 'Olhos', labios: 'Lábios' },
+    'cabelos':   { shampoo: 'Shampoo', condicionador: 'Condicionador', mascara: 'Máscara', oleo: 'Óleo & Finalizador' },
+    'corpo':     { hidratante: 'Hidratante', esfoliante: 'Esfoliante', oleo: 'Óleo Corporal', splash: 'Body Splash' },
+    'promocoes': { 'skin-care': 'Skin Care', maquiagem: 'Maquiagem', cabelos: 'Cabelos', corpo: 'Corpo' }
+};
+
+const NOMES_PAGINAS = {
+    'skin-care': 'Skin Care', maquiagem: 'Maquiagem', cabelos: 'Cabelos', corpo: 'Corpo', kits: 'Kits',
+    promocoes: 'Promoções', destaques: 'Início: Produtos', 'mais-vendidos': 'Início: Mais vendidos'
+};
+
+const $ = id => document.getElementById(id);
+let produtos = [];
+
+// ==========================================================
+// ACESSO: precisa estar logada E estar na tabela "admins"
+// ==========================================================
+async function verificarAcesso() {
+    const { data: { session } } = await db.auth.getSession();
+
+    if (!session) {
+        mostrarSemAcesso(`Faça login para gerenciar os produtos.<br><br>
+            <a class="btn" href="login.html" onclick="localStorage.setItem('voltarPara','admin-produtos.html')">Fazer login</a>`);
+        return;
+    }
+
+    const { data, error } = await db.from('admins').select('email');
+
+    if (error || !data || !data.length) {
+        mostrarSemAcesso(`A conta <b>${escaparHtml(session.user.email)}</b> não tem permissão para cadastrar produtos.<br>
+            Para liberar, rode no SQL Editor do Supabase:<br><br>
+            <code>insert into public.admins (email) values ('${escaparHtml(session.user.email)}');</code>`);
+        return;
+    }
+
+    $('painel').classList.remove('escondido');
+    atualizarCategorias();
+    carregarLista();
+}
+
+function mostrarSemAcesso(html) {
+    $('semAcesso').innerHTML = html;
+    $('semAcesso').classList.remove('escondido');
+}
+
+$('sair').addEventListener('click', async (e) => {
+    e.preventDefault();
+    await db.auth.signOut();
+    window.location.href = 'index.html';
+});
+
+// ==========================================================
+// FORMULÁRIO
+// ==========================================================
+function atualizarCategorias(valorAtual) {
+    const pagina = $('pagina').value;
+    const opcoes = CATEGORIAS[pagina];
+
+    $('campoCategoria').classList.toggle('escondido', !opcoes);
+    $('categoria').required = !!opcoes;
+    $('categoria').innerHTML = opcoes
+        ? Object.entries(opcoes).map(([v, t]) => `<option value="${v}">${t}</option>`).join('')
+        : '';
+    if (valorAtual && opcoes && opcoes[valorAtual]) $('categoria').value = valorAtual;
+
+    const ehKit = pagina === 'kits';
+    $('campoItens').classList.toggle('escondido', !ehKit);
+    $('campoDescricao').classList.toggle('escondido', ehKit);
+
+    const precisaOriginal = pagina === 'promocoes';
+    $('precoOriginal').required = precisaOriginal;
+    $('dicaOriginal').textContent = precisaOriginal
+        ? 'obrigatório em promoções'
+        : 'opcional: preencha para mostrar desconto';
+}
+
+$('pagina').addEventListener('change', () => atualizarCategorias());
+
+// Prévia da foto
+function mostrarPrevia(src) {
+    $('previa').classList.toggle('escondido', !src);
+    if (src) $('previa').src = src;
+}
+
+$('foto').addEventListener('change', () => {
+    const arquivo = $('foto').files[0];
+    mostrarPrevia(arquivo ? URL.createObjectURL(arquivo) : $('imagem').value.trim());
+});
+
+$('imagem').addEventListener('input', () => {
+    if (!$('foto').files[0]) mostrarPrevia($('imagem').value.trim());
+});
+
+function mostrarMensagem(texto, tipo) {
+    $('mensagem').textContent = texto;
+    $('mensagem').className = 'mensagem ' + tipo;
+}
+
+// Envia a foto para o Storage (bucket "produtos") e devolve o link público
+async function enviarFoto(arquivo) {
+    const extensao = (arquivo.name.split('.').pop() || 'jpg').toLowerCase();
+    const caminho = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${extensao}`;
+
+    const { error } = await db.storage.from('produtos').upload(caminho, arquivo, {
+        cacheControl: '3600',
+        contentType: arquivo.type
+    });
+    if (error) throw error;
+
+    return db.storage.from('produtos').getPublicUrl(caminho).data.publicUrl;
+}
+
+function limparFormulario() {
+    $('formProduto').reset();
+    $('produtoId').value = '';
+    $('ordem').value = 100;
+    $('tituloForm').textContent = 'Cadastrar novo produto';
+    $('btnSalvar').textContent = 'Cadastrar produto';
+    $('btnCancelar').classList.add('escondido');
+    mostrarPrevia('');
+    atualizarCategorias();
+}
+
+$('btnCancelar').addEventListener('click', () => {
+    limparFormulario();
+    $('mensagem').className = 'mensagem';
+});
+
+$('formProduto').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const id = $('produtoId').value;
+    const pagina = $('pagina').value;
+    const preco = parseFloat($('preco').value);
+    const precoOriginal = $('precoOriginal').value ? parseFloat($('precoOriginal').value) : null;
+
+    if (precoOriginal !== null && precoOriginal <= preco) {
+        mostrarMensagem('O preço original precisa ser maior que o preço de venda.', 'erro');
+        return;
+    }
+
+    const arquivo = $('foto').files[0];
+    let imagem = $('imagem').value.trim();
+
+    if (!arquivo && !imagem) {
+        mostrarMensagem('Envie uma foto ou digite o nome de uma foto da pasta.', 'erro');
+        return;
+    }
+
+    $('btnSalvar').disabled = true;
+    $('btnSalvar').textContent = 'Salvando...';
+
+    try {
+        if (arquivo) imagem = await enviarFoto(arquivo);
+
+        const dados = {
+            nome: $('nome').value.trim(),
+            pagina,
+            categoria: CATEGORIAS[pagina] ? $('categoria').value : null,
+            preco,
+            preco_original: precoOriginal,
+            descricao: pagina === 'kits' ? null : ($('descricao').value.trim() || null),
+            itens_kit: pagina === 'kits' ? ($('itensKit').value.trim() || null) : null,
+            imagem,
+            ordem: parseInt($('ordem').value, 10) || 100
+        };
+
+        const { error } = id
+            ? await db.from('produtos').update(dados).eq('id', id)
+            : await db.from('produtos').insert(dados);
+
+        if (error) throw error;
+
+        mostrarMensagem(id ? 'Produto atualizado!' : 'Produto cadastrado! Ele já aparece no site.', 'sucesso');
+        limparFormulario();
+        carregarLista();
+    } catch (erro) {
+        mostrarMensagem(traduzirErro(erro.message), 'erro');
+    } finally {
+        $('btnSalvar').disabled = false;
+        $('btnSalvar').textContent = $('produtoId').value ? 'Salvar alterações' : 'Cadastrar produto';
+    }
+});
+
+// ==========================================================
+// LISTA DE PRODUTOS
+// ==========================================================
+async function carregarLista() {
+    const { data, error } = await db
+        .from('produtos')
+        .select('*')
+        .order('pagina')
+        .order('ordem')
+        .order('criado_em');
+
+    if (error) {
+        $('tabela').innerHTML = `<tr><td colspan="6">Erro ao carregar: ${escaparHtml(error.message)}</td></tr>`;
+        return;
+    }
+
+    produtos = data;
+    desenharLista();
+}
+
+function desenharLista() {
+    const filtro = $('filtroPagina').value;
+    const lista = filtro ? produtos.filter(p => p.pagina === filtro) : produtos;
+
+    if (!lista.length) {
+        $('tabela').innerHTML = '<tr><td colspan="6">Nenhum produto aqui ainda.</td></tr>';
+        return;
+    }
+
+    $('tabela').innerHTML = lista.map(p => `
+        <tr class="${p.ativo ? '' : 'inativo'}">
+            <td><img src="${escaparHtml(p.imagem)}" alt=""></td>
+            <td>${escaparHtml(p.nome)}${p.ativo ? '' : ' <small>(oculto)</small>'}</td>
+            <td>${NOMES_PAGINAS[p.pagina] || p.pagina}</td>
+            <td>${escaparHtml((CATEGORIAS[p.pagina] || {})[p.categoria] || p.categoria || '-')}</td>
+            <td class="preco">
+                ${p.preco_original ? `<span class="preco-old">${formatarPrecoBR(p.preco_original)}</span>` : ''}
+                ${formatarPrecoBR(p.preco)}
+            </td>
+            <td class="acoes">
+                <button class="btn pequeno claro" data-acao="editar" data-id="${escaparHtml(p.id)}">Editar</button>
+                <button class="btn pequeno claro" data-acao="ativo" data-id="${escaparHtml(p.id)}">${p.ativo ? 'Ocultar' : 'Mostrar'}</button>
+                <button class="btn pequeno perigo" data-acao="excluir" data-id="${escaparHtml(p.id)}">Excluir</button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+$('filtroPagina').addEventListener('change', desenharLista);
+
+$('tabela').addEventListener('click', async (e) => {
+    const botao = e.target.closest('button[data-acao]');
+    if (!botao) return;
+
+    const produto = produtos.find(p => p.id === botao.dataset.id);
+    if (!produto) return;
+
+    if (botao.dataset.acao === 'editar') {
+        $('produtoId').value = produto.id;
+        $('nome').value = produto.nome;
+        $('pagina').value = produto.pagina;
+        atualizarCategorias(produto.categoria);
+        $('preco').value = produto.preco;
+        $('precoOriginal').value = produto.preco_original ?? '';
+        $('descricao').value = produto.descricao ?? '';
+        $('itensKit').value = produto.itens_kit ?? '';
+        $('imagem').value = produto.imagem ?? '';
+        $('foto').value = '';
+        $('ordem').value = produto.ordem;
+        mostrarPrevia(produto.imagem);
+
+        $('tituloForm').textContent = 'Editar produto';
+        $('btnSalvar').textContent = 'Salvar alterações';
+        $('btnCancelar').classList.remove('escondido');
+        $('mensagem').className = 'mensagem';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+    }
+
+    if (botao.dataset.acao === 'ativo') {
+        const { error } = await db.from('produtos').update({ ativo: !produto.ativo }).eq('id', produto.id);
+        if (error) return alert(traduzirErro(error.message));
+        carregarLista();
+        return;
+    }
+
+    if (botao.dataset.acao === 'excluir') {
+        if (!confirm(`Excluir "${produto.nome}"? Isso não pode ser desfeito.\n(Se quiser só tirar do site, use "Ocultar".)`)) return;
+        const { error } = await db.from('produtos').delete().eq('id', produto.id);
+        if (error) return alert(traduzirErro(error.message));
+        carregarLista();
+    }
+});
+
+verificarAcesso();
+</script>
+
+</body>
+</html>

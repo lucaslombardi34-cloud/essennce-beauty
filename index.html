@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essence Beauty</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty">
+    <meta property="og:description" content="Loja virtual de cosméticos moderna e elegante.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        /* ---------- CABEÇALHO ---------- */
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 36px;
+            letter-spacing: 3px;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .logo:hover {
+            color: #5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        nav ul {
+            align-items: center;
+        }
+
+        /* ---------- ÁREA DO USUÁRIO ---------- */
+        .item-usuario {
+            position: relative;
+        }
+
+        .usuario-botao {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: none;
+            border: 1px solid #e5e5e5;
+            border-radius: 40px;
+            padding: 5px 14px 5px 5px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 15px;
+            color: #000;
+            transition: .3s;
+        }
+
+        .usuario-botao:hover {
+            border-color: #000;
+        }
+
+        /* Deslogada: só o ícone redondo */
+        .item-usuario:not(.logado) .usuario-botao {
+            padding: 5px;
+        }
+
+        .item-usuario:not(.logado) .usuario-nome-curto {
+            display: none;
+        }
+
+        .usuario-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .item-usuario:not(.logado) .usuario-avatar {
+            background: #f2f2f2;
+            color: #000;
+        }
+
+        .usuario-avatar svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .usuario-avatar.grande {
+            width: 48px;
+            height: 48px;
+            font-size: 20px;
+        }
+
+        .usuario-nome-curto {
+            font-weight: bold;
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .usuario-seta {
+            font-size: 10px;
+            transition: .3s;
+        }
+
+        .item-usuario:not(.logado) .usuario-seta {
+            display: none;
+        }
+
+        .item-usuario.aberto .usuario-seta {
+            transform: rotate(180deg);
+        }
+
+        /* Menu que abre ao clicar */
+        .usuario-menu {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 12px);
+            width: 270px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.12);
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: .25s;
+            z-index: 1100;
+        }
+
+        .item-usuario.aberto .usuario-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .usuario-menu-topo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 10px 16px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 6px;
+        }
+
+        .usuario-menu-topo div {
+            min-width: 0;
+        }
+
+        .usuario-menu-topo strong {
+            display: block;
+            font-size: 15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .usuario-menu-topo small {
+            display: block;
+            font-size: 12.5px;
+            color: #888;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .usuario-desde {
+            margin-top: 3px;
+            font-size: 11.5px !important;
+            color: #aaa !important;
+        }
+
+        /* Ícone do carrinho com bolinha de quantidade */
+        .cart-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -7px;
+            right: -10px;
+            min-width: 19px;
+            height: 19px;
+            padding: 0 5px;
+            border-radius: 20px;
+            background: #000;
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+        }
+
+        .cart-badge:empty {
+            display: none;
+        }
+
+        .usuario-menu svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .usuario-menu a,
+        .usuario-menu button.usuario-sair {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            text-align: left;
+            padding: 11px 12px;
+            border-radius: 10px;
+            font-size: 14.5px;
+            letter-spacing: 0;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .usuario-menu a:hover,
+        .usuario-menu button.usuario-sair:hover {
+            background: #f5f5f5;
+            color: #000;
+        }
+
+        .usuario-menu button.usuario-sair {
+            color: #c0392b;
+            margin-top: 4px;
+            border-top: 1px solid #eee;
+            border-radius: 0 0 10px 10px;
+        }
+
+        /* ---------- CATEGORIAS ---------- */
+        .categorias {
+            display: flex;
+            justify-content: center;
+            gap: 45px;
+            background: #fff;
+            padding: 25px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .categorias a {
+            text-decoration: none;
+            color: #333;
+            font-size: 17px;
+            letter-spacing: 2px;
+            font-weight: 500;
+            transition: .3s;
+        }
+
+        .categorias a:hover {
+            color: #9c9b9b;
+        }
+
+        /* ---------- BANNER ---------- */
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 85vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            background: #f7fcff;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .seta {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+
+        .esquerda { left: 20px; }
+        .direita  { right: 20px; }
+
+        /* ---------- BOTÕES ---------- */
+        .btn {
+            background: #000;
+            color: #fff;
+            padding: 14px 35px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            transition: .3s;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #535353;
+            transform: scale(1.05);
+        }
+
+        .btn:disabled {
+            opacity: .6;
+            cursor: wait;
+            transform: none;
+        }
+
+        /* ---------- SEÇÕES / PRODUTOS ---------- */
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 50px;
+            color: #000;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .product-card {
+            border-radius: 25px;
+            overflow: hidden;
+            background: #fff;
+            transition: .4s;
+            box-shadow: 0 8px 25px rgba(0,0,0,.08);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 20px 25px 0 0;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .descricao {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: #000;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* ---------- SELOS ---------- */
+        .selos {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 40px 8%;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+        }
+
+        .selo-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            justify-content: center;
+        }
+
+        .selo-icone {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+            color: #000;
+        }
+
+        .selo-icone svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .selo-item strong {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 2px;
+        }
+
+        .selo-item p {
+            font-size: 13px;
+            color: #888;
+        }
+
+        /* ---------- SOBRE ---------- */
+        .about {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h2 {
+            color: #7c7c7c;
+            margin-bottom: 20px;
+            font-size: 36px;
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            font-size: 18px;
+        }
+
+        /* ---------- AVALIAÇÕES ---------- */
+        .avaliacoes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+        }
+
+        .avaliacao-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 26px 24px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.06);
+        }
+
+        .estrelas {
+            color: #000;
+            font-size: 16px;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .avaliacao-card p {
+            font-size: 14.5px;
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .avaliacao-nome {
+            font-size: 13px;
+            color: #999;
+            font-weight: bold;
+        }
+
+        /* ---------- FAQ ---------- */
+        .faq-lista {
+            max-width: 760px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .faq-item {
+            background: #fff;
+            border-radius: 16px;
+            padding: 18px 22px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        }
+
+        .faq-item summary {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15.5px;
+            list-style: none;
+            position: relative;
+            padding-right: 24px;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: "+";
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 20px;
+            transition: .3s;
+        }
+
+        .faq-item[open] summary::after {
+            content: "−";
+        }
+
+        .faq-item p {
+            margin-top: 12px;
+            font-size: 14.5px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* ---------- NEWSLETTER ---------- */
+        .newsletter-caixa {
+            max-width: 560px;
+            margin: 0 auto;
+            text-align: center;
+            color: #fff;
+        }
+
+        .newsletter-caixa h2 {
+            font-size: 30px;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .newsletter-caixa p {
+            font-size: 15px;
+            color: #ccc;
+            margin-bottom: 26px;
+            line-height: 1.6;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 13px 18px;
+            border-radius: 40px;
+            border: none;
+            font-size: 14.5px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .newsletter-form .btn {
+            background: #fff;
+            color: #000;
+            white-space: nowrap;
+        }
+
+        .newsletter-form .btn:hover {
+            background: #ddd;
+        }
+
+        .newsletter-mensagem {
+            margin-top: 14px;
+            font-size: 14px;
+            color: #9be69b;
+            display: none;
+        }
+
+        .newsletter-mensagem.erro {
+            color: #ff9b9b;
+        }
+
+        /* ---------- RODAPÉ ---------- */
+        footer {
+            background: #e3f2fc;
+            color: #666;
+            padding: 50px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        /* ---------- RESPONSIVO ---------- */
+        @media (max-width: 860px) {
+            .selos {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .categorias {
+                flex-wrap: wrap;
+                gap: 20px;
+                padding: 20px 5%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">ESSENCE BEAUTY</a>
+
+    <nav>
+        <ul>
+            <!-- Estes ids são usados pelo supabase.js (atualizarMenu) -->
+            <li><a href="login.html" id="link-login">Login</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#contato">Contato</a></li>
+            <li>
+                <a href="carrinho.html" class="cart-icon" aria-label="Carrinho">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="8" cy="21" r="1"></circle>
+                        <circle cx="19" cy="21" r="1"></circle>
+                        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+                    </svg>
+                    <span class="cart-badge" id="cart-badge"></span>
+                </a>
+            </li>
+
+            <!-- ÁREA DO USUÁRIO (preenchida pelo supabase.js) -->
+            <li class="item-usuario" id="area-usuario">
+                <button type="button" class="usuario-botao" id="usuario-botao" aria-label="Minha conta">
+                    <span class="usuario-avatar" id="usuario-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="4"></circle>
+                            <path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path>
+                        </svg>
+                    </span>
+                    <span class="usuario-nome-curto" id="usuario-nome-curto"></span>
+                    <span class="usuario-seta">▼</span>
+                </button>
+
+                <div class="usuario-menu" id="usuario-menu">
+                    <div class="usuario-menu-topo">
+                        <span class="usuario-avatar grande" id="usuario-avatar-grande"></span>
+                        <div>
+                            <strong id="usuario-nome-completo"></strong>
+                            <small id="usuario-email"></small>
+                            <small class="usuario-desde" id="usuario-desde"></small>
+                        </div>
+                    </div>
+                    <a href="pedidos.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>
+                        Meus pedidos
+                    </a>
+                    <a href="carrinho.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+                        Meu carrinho
+                    </a>
+                    <a href="checkout.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
+                        Finalizar compra
+                    </a>
+                    <button type="button" class="usuario-sair" id="usuario-sair">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>
+                        Sair da conta
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<!-- CATEGORIAS -->
+<section class="categorias">
+    <a href="skin-care.html">SKIN CARE</a>
+    <a href="maquiagem.html">MAQUIAGEM</a>
+    <a href="cabelos.html">CABELOS</a>
+    <a href="corpo.html">CORPO</a>
+    <a href="kits.html">KITS</a>
+    <a href="promocoes.html">PROMOÇÕES</a>
+</section>
+
+<!-- BANNER -->
+<section class="banner" id="inicio">
+    <img src="principal.jpg" class="banner-img" alt="Banner">
+    <button class="seta esquerda">&#10094;</button>
+    <button class="seta direita">&#10095;</button>
+</section>
+
+<!-- SELOS DE CONFIANÇA -->
+<section class="selos">
+    <div class="selo-item">
+        <span class="selo-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="6" width="14" height="11"></rect>
+                <path d="M15 9h4l3 3v5h-7z"></path>
+                <circle cx="6" cy="19" r="2"></circle>
+                <circle cx="18" cy="19" r="2"></circle>
+            </svg>
+        </span>
+        <div>
+            <strong>Frete grátis</strong>
+            <p>Acima de R$ 150</p>
+        </div>
+    </div>
+    <div class="selo-item">
+        <span class="selo-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 11a8 8 0 1 0-2.6 5.9"></path>
+                <path d="M20 4v6h-6"></path>
+            </svg>
+        </span>
+        <div>
+            <strong>Troca garantida</strong>
+            <p>Até 7 dias corridos</p>
+        </div>
+    </div>
+    <div class="selo-item">
+        <span class="selo-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="10" width="16" height="10" rx="1.5"></rect>
+                <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+            </svg>
+        </span>
+        <div>
+            <strong>Pagamento seguro</strong>
+            <p>Pix, cartão ou boleto</p>
+        </div>
+    </div>
+    <div class="selo-item">
+        <span class="selo-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2 4 13h6l-1 9 9-13h-6z"></path>
+            </svg>
+        </span>
+        <div>
+            <strong>Entrega rápida</strong>
+            <p>Enviamos em até 24h</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUTOS -->
+<section id="produtos">
+
+    <h2 class="section-title">PRODUTOS</h2>
+
+    <div class="products" id="listaDestaques"></div>
+
+</section>
+
+<!-- MAIS VENDIDOS -->
+<section id="mais-vendidos" style="background:#f7fcff;">
+
+    <h2 class="section-title">MAIS VENDIDOS</h2>
+
+    <div class="products" id="listaMaisVendidos"></div>
+
+</section>
+
+<!-- SOBRE NÓS -->
+<section id="sobre">
+    <div class="about">
+        <img src="sobre.jpg" alt="Sobre a Essence Beauty">
+        <div class="about-text">
+            <h2>SOBRE NÓS</h2>
+            <p>
+                A Essence Beauty nasceu com um propósito simples: tornar produtos de beleza de
+                qualidade acessíveis para todas. Selecionamos cuidadosamente cada item do nosso
+                catálogo, das marcas internacionais de skin care às queridinhas nacionais, sempre
+                pensando em oferecer eficácia, segurança e um toque de sofisticação na rotina de
+                quem confia na gente.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- AVALIAÇÕES DE CLIENTES -->
+<section id="avaliacoes" style="background:#f7fcff;">
+
+    <h2 class="section-title">O QUE NOSSAS CLIENTES DIZEM</h2>
+
+    <div class="avaliacoes-grid">
+
+        <div class="avaliacao-card">
+            <div class="estrelas">★★★★★</div>
+            <p>"Comprei o sérum de vitamina C e já no primeiro mês notei diferença na pele. Entrega rapidíssima!"</p>
+            <span class="avaliacao-nome">— Camila R.</span>
+        </div>
+
+        <div class="avaliacao-card">
+            <div class="estrelas">★★★★★</div>
+            <p>"Site fácil de navegar e produtos originais. Já é a terceira vez que compro e nunca tive problema."</p>
+            <span class="avaliacao-nome">— Beatriz S.</span>
+        </div>
+
+        <div class="avaliacao-card">
+            <div class="estrelas">★★★★☆</div>
+            <p>"Adorei o kit de skin care, veio tudo bem embalado. Só acho que o frete podia ser um pouco mais rápido."</p>
+            <span class="avaliacao-nome">— Larissa M.</span>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PERGUNTAS FREQUENTES -->
+<section id="faq">
+
+    <h2 class="section-title">PERGUNTAS FREQUENTES</h2>
+
+    <div class="faq-lista">
+
+        <details class="faq-item">
+            <summary>Qual o prazo de entrega?</summary>
+            <p>O prazo médio é de 3 a 7 dias úteis, dependendo da sua região. Você recebe o código de rastreio assim que o pedido é enviado.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Quais formas de pagamento vocês aceitam?</summary>
+            <p>Aceitamos Pix, cartão de crédito (em até 3x sem juros) e boleto bancário.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Posso trocar um produto?</summary>
+            <p>Sim! Você tem até 7 dias corridos após o recebimento para solicitar troca ou devolução, desde que o produto esteja lacrado.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Os produtos são originais?</summary>
+            <p>Sim, todos os produtos vendidos na Essence Beauty são 100% originais, adquiridos diretamente de distribuidores autorizados.</p>
+        </details>
+
+    </div>
+
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter" style="background:#000; padding:60px 8%;">
+    <div class="newsletter-caixa">
+        <h2>RECEBA NOSSAS PROMOÇÕES</h2>
+        <p>Cadastre seu e-mail e seja a primeira a saber sobre lançamentos e descontos exclusivos.</p>
+        <form id="formNewsletter" class="newsletter-form">
+            <input type="email" id="emailNewsletter" placeholder="Digite seu e-mail" required>
+            <button type="submit" class="btn">Inscrever-se</button>
+        </form>
+        <p class="newsletter-mensagem" id="newsletterMensagem"></p>
+    </div>
+</section>
+
+<footer id="contato">
+    <h3>ESSENCE BEAUTY</h3>
+    <p>Email: essencebeauty@email.com</p>
+    <p>Instagram: @officialessencebeauty</p>
+    <p>© 2026 - Todos os direitos reservados.</p>
+</footer>
+
+<!-- 1º: biblioteca do Supabase  |  2º: sua conexão (cria "db")  |  3º: script da página -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="produtos.js"></script>
+
+<script>
+// ==========================================================
+// FUNÇÕES AUXILIARES (usam o "db" criado no supabase.js)
+// ==========================================================
+
+// Devolve o usuário logado, ou null se ninguém estiver logado
+async function usuarioLogado() {
+    const { data: { session } } = await db.auth.getSession();
+    return session ? session.user : null;
+}
+
+// Carrinho no navegador (mesma chave "carrinho" que o carrinho.html já usa)
+function lerCarrinho() {
+    return JSON.parse(localStorage.getItem('carrinho')) || [];
+}
+
+function adicionarAoCarrinho(produto) {
+    const carrinho = lerCarrinho();
+    const existente = carrinho.find(item => item.id === produto.id);
+
+    if (existente) {
+        existente.quantidade += 1;
+    } else {
+        carrinho.push({ ...produto, quantidade: 1 });
+    }
+
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+}
+
+// (atualizarContadorCarrinho() fica no supabase.js e serve para todas as páginas)
+
+// ==========================================================
+// PRODUTOS: vêm da tabela "produtos" do Supabase
+// pagina = 'destaques'     -> seção PRODUTOS
+// pagina = 'mais-vendidos' -> seção MAIS VENDIDOS
+// ==========================================================
+async function mostrarSecao(pagina, idLista) {
+    const lista = document.getElementById(idLista);
+    if (!lista) return;
+
+    mensagemProdutos(lista, 'Carregando produtos...');
+    const produtos = await carregarProdutos(pagina);
+    if (!produtos) return mensagemProdutos(lista, 'Não foi possível carregar os produtos. Tente novamente.');
+    if (!produtos.length) return mensagemProdutos(lista, 'Nenhum produto cadastrado ainda.');
+
+    lista.innerHTML = '';
+    produtos.forEach(produto => {
+        const card = montarCardProduto(produto);
+        lista.appendChild(card);
+        ativarCard(card);
+    });
+}
+
+mostrarSecao('destaques', 'listaDestaques');
+mostrarSecao('mais-vendidos', 'listaMaisVendidos');
+
+// ==========================================================
+// PRODUTOS: COMPRAR E ADICIONAR
+// ==========================================================
+function ativarCard(card) {
+    const produto = {
+        id: card.dataset.id,
+        nome: card.dataset.nome,
+        preco: parseFloat(card.dataset.preco),
+        imagem: card.querySelector('img').getAttribute('src')  // foto aparece no carrinho
+    };
+
+    // COMPRAR: precisa estar logada para ir ao checkout
+    card.querySelector('.btn-comprar').addEventListener('click', async () => {
+        const user = await usuarioLogado();
+
+        localStorage.setItem('compraDireta', JSON.stringify(produto));
+
+        if (!user) {
+            alert('Faça login para finalizar sua compra.');
+            // Guarda para onde voltar depois do login
+            localStorage.setItem('voltarPara', 'checkout.html');
+            window.location.href = 'login.html';
+            return;
+        }
+
+        window.location.href = 'checkout.html';
+    });
+
+    // ADICIONAR: funciona com ou sem login
+    card.querySelector('.btn-adicionar').addEventListener('click', () => {
+        adicionarAoCarrinho(produto);
+        atualizarContadorCarrinho();
+        alert(`${produto.nome} adicionado ao carrinho!`);
+    });
+}
+
+// ==========================================================
+// NEWSLETTER: salva o e-mail na tabela "newsletter" do Supabase
+// ==========================================================
+const formNewsletter = document.getElementById('formNewsletter');
+const inputNewsletter = document.getElementById('emailNewsletter');
+const msgNewsletter = document.getElementById('newsletterMensagem');
+
+function mostrarMensagemNewsletter(texto, erro = false) {
+    msgNewsletter.textContent = texto;
+    msgNewsletter.classList.toggle('erro', erro);
+    msgNewsletter.style.display = 'block';
+}
+
+formNewsletter.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const botao = formNewsletter.querySelector('button');
+    const email = inputNewsletter.value.trim().toLowerCase();
+
+    botao.disabled = true;
+    botao.textContent = 'Enviando...';
+
+    const { error } = await db.from('newsletter').insert({ email });
+
+    botao.disabled = false;
+    botao.textContent = 'Inscrever-se';
+
+    if (error) {
+        if (error.code === '23505') {
+            // 23505 = e-mail repetido (coluna "unique")
+            mostrarMensagemNewsletter('Este e-mail já está inscrito.');
+        } else {
+            // traduzirErro vem do supabase.js
+            mostrarMensagemNewsletter(traduzirErro(error.message), true);
+        }
+        return;
+    }
+
+    mostrarMensagemNewsletter('Inscrição realizada! Fique de olho no seu e-mail.');
+    formNewsletter.reset();
+});
+
+// ==========================================================
+// AO ABRIR A PÁGINA
+// ==========================================================
+// (o supabase.js já cuida de trocar "Cadastrar/Login" por "Olá, nome/Sair")
+document.addEventListener('DOMContentLoaded', async () => {
+    const user = await usuarioLogado();
+
+    // Se estiver logada, já preenche o e-mail da newsletter
+    if (user && inputNewsletter) {
+        inputNewsletter.value = user.email;
+    }
+});
+</script>
+
+</body>
+</html>

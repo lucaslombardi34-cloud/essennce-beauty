@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty - Promoções">
+    <meta property="og:description" content="Ofertas por tempo limitado na Essence Beauty.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <title>Promoções | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo{
+            font-size:36px;
+            letter-spacing:3px;
+            color:#000;
+            text-decoration:none;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .logo:hover{
+            color:#5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        /* CATEGORIAS */
+        .categorias{
+            display:flex;
+            justify-content:center;
+            gap:45px;
+            background:#fff;
+            padding:25px 0;
+            border-top:1px solid #eee;
+            border-bottom:1px solid #eee;
+        }
+
+        .categorias a{
+            text-decoration:none;
+            color:#333;
+            font-size:17px;
+            letter-spacing:2px;
+            font-weight:500;
+            transition:.3s;
+        }
+
+        .categorias a:hover{
+            color:#9c9b9b;
+        }
+
+        .categorias a.ativo{
+            color:#000;
+            border-bottom:2px solid #000;
+            padding-bottom:4px;
+        }
+
+        /* BANNER DE PROMOÇÃO */
+        .promo-banner{
+            position: relative;
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .promo-banner-img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.55;
+            display: block;
+        }
+
+        .promo-banner-texto{
+            position: absolute;
+            top: 50%;
+            left: 8%;
+            transform: translateY(-50%);
+            color: #fff;
+            max-width: 520px;
+        }
+
+        .promo-banner-texto h1{
+            font-size: 46px;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .promo-banner-texto p{
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        /* CONTAGEM REGRESSIVA */
+        .contagem{
+            display: flex;
+            gap: 16px;
+        }
+
+        .contagem div{
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 10px;
+            padding: 12px 16px;
+            min-width: 64px;
+            text-align: center;
+        }
+
+        .contagem span{
+            display: block;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .contagem small{
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .btn{
+            background:#000;
+            color:#fff;
+            padding:14px 35px;
+            border-radius:40px;
+            border:none;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#535353;
+            transform:translateY(-3px);
+            box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+        }
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 50px;
+            color: #000000;
+        }
+
+        .filtros{
+            display:flex;
+            justify-content:center;
+            gap:14px;
+            flex-wrap:wrap;
+            margin-bottom: 50px;
+        }
+
+        .filtro-btn{
+            padding: 10px 22px;
+            border: 1px solid #000;
+            border-radius: 40px;
+            background: #fff;
+            color: #000;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .filtro-btn:hover{
+            background: #f2f2f2;
+        }
+
+        .filtro-btn.ativo{
+            background: #000;
+            color: #fff;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .product-card{
+            position: relative;
+            border-radius:25px;
+            overflow:hidden;
+            background:#fff;
+            transition:.4s;
+            box-shadow:0 8px 25px rgba(0,0,0,.08);
+        }
+
+        .product-card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 20px 40px rgba(0,0,0,.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 20px 25px 0 0;
+        }
+
+        .desconto-tag{
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: #000;
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 6px 14px;
+            border-radius: 30px;
+            letter-spacing: 1px;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .precos{
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .price-old{
+            color: #999;
+            font-size: 15px;
+            text-decoration: line-through;
+        }
+
+        /* DESCRIÇÃO DO PRODUTO */
+        .descricao{
+            color: #777;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: #000000;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .product-info .btn{
+            padding: 12px 26px;
+            font-size: 14px;
+            margin: 4px;
+        }
+
+        footer{
+            background:#e3f2fc;
+            color:#666;
+            padding:50px;
+            text-align:center;
+            margin-top:80px;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .promo-banner-texto h1 {
+                font-size: 32px;
+            }
+
+            .promo-banner-texto p {
+                font-size: 15px;
+            }
+
+            .categorias{
+                flex-wrap: wrap;
+                gap: 20px;
+                padding: 18px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">ESSENCE BEAUTY</a>
+
+        <nav>
+            <ul>
+                <li><a href="cadastrar.html">Cadastrar</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="index.html#produtos">Produtos</a></li>
+                <li><a href="index.html#sobre">Sobre</a></li>
+                <li><a href="index.html#contato">Contato</a></li>
+                <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CATEGORIAS -->
+    <section class="categorias" style="padding:25px 0;">
+        <a href="skin-care.html">SKIN CARE</a>
+        <a href="maquiagem.html">MAQUIAGEM</a>
+        <a href="cabelos.html">CABELOS</a>
+        <a href="corpo.html">CORPO</a>
+        <a href="kits.html">KITS</a>
+        <a href="promocoes.html" class="ativo">PROMOÇÕES</a>
+    </section>
+
+    <!-- BANNER DE PROMOÇÃO -->
+    <section class="promo-banner">
+        <div class="promo-banner-texto">
+            <h1>ATÉ 40% OFF</h1>
+            <p>Aproveite descontos exclusivos em produtos selecionados de skin care, maquiagem, cabelos e mais. Por tempo limitado.</p>
+            <div class="contagem" id="contagem">
+                <div><span id="cd-dias">00</span><small>Dias</small></div>
+                <div><span id="cd-horas">00</span><small>Horas</small></div>
+                <div><span id="cd-min">00</span><small>Min</small></div>
+                <div><span id="cd-seg">00</span><small>Seg</small></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUTOS EM PROMOÇÃO -->
+    <section id="produtos">
+
+        <h2 class="section-title">PROMOÇÕES</h2>
+
+        <div class="filtros" id="filtros">
+            <button class="filtro-btn ativo" data-cat="todos">Todos</button>
+            <button class="filtro-btn" data-cat="skin-care">Skin Care</button>
+            <button class="filtro-btn" data-cat="maquiagem">Maquiagem</button>
+            <button class="filtro-btn" data-cat="cabelos">Cabelos</button>
+            <button class="filtro-btn" data-cat="corpo">Corpo</button>
+        </div>
+
+        <div class="products" id="listaProdutos"></div>
+
+    </section>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>©️ 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script src="produtos.js"></script>
+
+    <script>
+        // PRODUTOS: vêm da tabela "produtos" do Supabase (veja produtos.js)
+        let produtosPromocao = [];
+
+        const formatarPreco = valor => `R$ ${valor.toFixed(2).replace('.', ',')}`;
+        const calcularDesconto = (original, promo) => Math.round(100 - (promo / original) * 100);
+
+        const listaProdutos = document.getElementById('listaProdutos');
+
+        function renderizarProdutos(categoria = 'todos') {
+            listaProdutos.innerHTML = '';
+
+            const produtosFiltrados = categoria === 'todos'
+                ? produtosPromocao
+                : produtosPromocao.filter(p => p.categoria === categoria);
+
+            produtosFiltrados.forEach(produto => {
+                const desconto = calcularDesconto(produto.precoOriginal, produto.precoPromo);
+
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.id = produto.id;
+                card.dataset.nome = produto.nome;
+                card.dataset.preco = produto.precoPromo;
+
+                card.innerHTML = `
+                    <span class="desconto-tag">-${desconto}%</span>
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                    <div class="product-info">
+                        <h3>${produto.nome}</h3>
+                        <p class="descricao">${produto.descricao || ''}</p>
+                        <div class="precos">
+                            <span class="price-old">${formatarPreco(produto.precoOriginal)}</span>
+                            <span class="price">${formatarPreco(produto.precoPromo)}</span>
+                        </div>
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-adicionar">Adicionar</button>
+                    </div>
+                `;
+
+                listaProdutos.appendChild(card);
+            });
+
+            ativarBotoes();
+        }
+
+        async function iniciarProdutos() {
+            mensagemProdutos(listaProdutos, 'Carregando produtos...');
+            const lista = await carregarProdutos('promocoes');
+            if (!lista) return mensagemProdutos(listaProdutos, 'Não foi possível carregar os produtos. Tente novamente.');
+            produtosPromocao = lista;
+            if (!lista.length) return mensagemProdutos(listaProdutos, 'Nenhum produto cadastrado ainda.');
+            renderizarProdutos();
+        }
+
+        iniciarProdutos();
+
+        // ---------- FILTRO DE CATEGORIAS ----------
+        document.getElementById('filtros').addEventListener('click', e => {
+            const btn = e.target.closest('.filtro-btn');
+            if (!btn) return;
+            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo'));
+            btn.classList.add('ativo');
+            renderizarProdutos(btn.dataset.cat);
+        });
+
+        // ==========================================================
+        // CARRINHO (sem depender de exigirLogin/auth.js)
+        // ==========================================================
+        function ativarBotoes() {
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const btnComprar = card.querySelector('.btn-comprar');
+                const btnAdicionar = card.querySelector('.btn-adicionar');
+
+                const produto = {
+                    id: card.dataset.id,
+                    nome: card.dataset.nome,
+                    preco: parseFloat(card.dataset.preco),
+                    imagem: card.querySelector('img').getAttribute('src')
+                };
+
+                btnComprar.addEventListener('click', () => {
+                    localStorage.setItem('compraDireta', JSON.stringify(produto));
+                    window.location.href = 'checkout.html';
+                });
+
+                btnAdicionar.addEventListener('click', () => {
+                    adicionarAoCarrinho(produto);
+                    alert(`${produto.nome} adicionado ao carrinho!`);
+                });
+            });
+        }
+
+        function adicionarAoCarrinho(produto) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+            const existente = carrinho.find(item => item.id === produto.id);
+            if (existente) {
+                existente.quantidade += 1;
+            } else {
+                carrinho.push({ ...produto, quantidade: 1 });
+            }
+
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            atualizarContadorCarrinho();
+        }
+
+        // ==========================================================
+        // CONTAGEM REGRESSIVA
+        // -> defina a data/hora de término da promoção
+        // ==========================================================
+        const dataFinal = new Date();
+        dataFinal.setDate(dataFinal.getDate() + 4); // exemplo: termina em 4 dias
+
+        function atualizarContagem() {
+            const agora = new Date();
+            const diff = dataFinal - agora;
+
+            if (diff <= 0) {
+                document.getElementById('contagem').innerHTML = '<p>Promoção encerrada</p>';
+                return;
+            }
+
+            const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const min = Math.floor((diff / (1000 * 60)) % 60);
+            const seg = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('cd-dias').textContent = String(dias).padStart(2, '0');
+            document.getElementById('cd-horas').textContent = String(horas).padStart(2, '0');
+            document.getElementById('cd-min').textContent = String(min).padStart(2, '0');
+            document.getElementById('cd-seg').textContent = String(seg).padStart(2, '0');
+        }
+
+        atualizarContagem();
+        setInterval(atualizarContagem, 1000);
+    </script>
+
+</body>
+</html>
