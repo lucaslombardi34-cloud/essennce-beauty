@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar compra | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #f7fcff;
+            color: #000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ---------- CABEÇALHO ---------- */
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 36px;
+            letter-spacing: 3px;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .logo:hover {
+            color: #5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        nav ul {
+            align-items: center;
+        }
+
+        /* ---------- ÁREA DO USUÁRIO ---------- */
+        .item-usuario {
+            position: relative;
+        }
+
+        .usuario-botao {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: none;
+            border: 1px solid #e5e5e5;
+            border-radius: 40px;
+            padding: 5px 14px 5px 5px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 15px;
+            color: #000;
+            transition: .3s;
+        }
+
+        .usuario-botao:hover {
+            border-color: #000;
+        }
+
+        /* Deslogada: só o ícone redondo */
+        .item-usuario:not(.logado) .usuario-botao {
+            padding: 5px;
+        }
+
+        .item-usuario:not(.logado) .usuario-nome-curto {
+            display: none;
+        }
+
+        .usuario-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .item-usuario:not(.logado) .usuario-avatar {
+            background: #f2f2f2;
+            color: #000;
+        }
+
+        .usuario-avatar svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .usuario-avatar.grande {
+            width: 48px;
+            height: 48px;
+            font-size: 20px;
+        }
+
+        .usuario-nome-curto {
+            font-weight: bold;
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .usuario-seta {
+            font-size: 10px;
+            transition: .3s;
+        }
+
+        .item-usuario:not(.logado) .usuario-seta {
+            display: none;
+        }
+
+        .item-usuario.aberto .usuario-seta {
+            transform: rotate(180deg);
+        }
+
+        /* Menu que abre ao clicar */
+        .usuario-menu {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 12px);
+            width: 270px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.12);
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: .25s;
+            z-index: 1100;
+        }
+
+        .item-usuario.aberto .usuario-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .usuario-menu-topo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 10px 16px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 6px;
+        }
+
+        .usuario-menu-topo div {
+            min-width: 0;
+        }
+
+        .usuario-menu-topo strong {
+            display: block;
+            font-size: 15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .usuario-menu-topo small {
+            display: block;
+            font-size: 12.5px;
+            color: #888;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .usuario-desde {
+            margin-top: 3px;
+            font-size: 11.5px !important;
+            color: #aaa !important;
+        }
+
+        .usuario-menu a,
+        .usuario-menu button.usuario-sair {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 11px 12px;
+            border-radius: 10px;
+            font-size: 14.5px;
+            letter-spacing: 0;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .usuario-menu a:hover,
+        .usuario-menu button.usuario-sair:hover {
+            background: #f5f5f5;
+            color: #000;
+        }
+
+        .usuario-menu button.usuario-sair {
+            color: #c0392b;
+            margin-top: 4px;
+            border-top: 1px solid #eee;
+            border-radius: 0 0 10px 10px;
+        }
+
+        /* ---------- CHECKOUT ---------- */
+        main {
+            flex: 1;
+            padding: 50px 8% 70px;
+        }
+
+        .titulo-pagina {
+            font-size: 32px;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .checkout {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .caixa {
+            background: #fff;
+            border-radius: 25px;
+            padding: 32px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.06);
+        }
+
+        .caixa h2 {
+            font-size: 18px;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .caixa h2:not(:first-child) {
+            margin-top: 30px;
+        }
+
+        .linha-campos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .campo {
+            margin-bottom: 14px;
+        }
+
+        .campo label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .campo input {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1px solid #ddd;
+            border-radius: 14px;
+            font-size: 14.5px;
+            font-family: inherit;
+            outline: none;
+            transition: .3s;
+        }
+
+        .campo input:focus {
+            border-color: #000;
+        }
+
+        .pagamentos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .opcao-pagamento input {
+            display: none;
+        }
+
+        .opcao-pagamento span {
+            display: block;
+            text-align: center;
+            padding: 16px 10px;
+            border: 1px solid #ddd;
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: .3s;
+        }
+
+        .opcao-pagamento small {
+            display: block;
+            font-weight: normal;
+            color: #888;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .opcao-pagamento input:checked + span {
+            border-color: #000;
+            background: #000;
+            color: #fff;
+        }
+
+        .opcao-pagamento input:checked + span small {
+            color: #ccc;
+        }
+
+        /* Áreas de cada forma de pagamento */
+        .area-pagamento {
+            margin-top: 18px;
+            padding: 18px;
+            background: #f7fcff;
+            border-radius: 16px;
+            font-size: 14px;
+            color: #444;
+            line-height: 1.5;
+        }
+
+        .linha-campos.tres {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .campo select {
+            width: 100%;
+            padding: 13px 12px;
+            border: 1px solid #ddd;
+            border-radius: 14px;
+            font-size: 14.5px;
+            font-family: inherit;
+            background: #fff;
+            outline: none;
+        }
+
+        .campo input.invalido {
+            border-color: #d93025;
+        }
+
+        .bandeira {
+            float: right;
+            font-size: 12px;
+            color: #000;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 1px 9px;
+        }
+
+        .bandeira:empty {
+            display: none;
+        }
+
+        .btn-teste {
+            background: #fff;
+            border: 1px dashed #999;
+            border-radius: 40px;
+            padding: 9px 16px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: .3s;
+        }
+
+        .btn-teste:hover {
+            border-color: #000;
+        }
+
+        /* Tela de sucesso: Pix / boleto / cartão */
+        .caixa-pagamento {
+            background: #fff;
+            border-radius: 22px;
+            padding: 26px;
+            margin: 22px 0 6px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.06);
+        }
+
+        .caixa-pagamento h3 {
+            font-size: 17px;
+            margin-bottom: 14px;
+        }
+
+        .caixa-pagamento canvas {
+            display: block;
+            margin: 0 auto 14px;
+            border: 8px solid #fff;
+            box-shadow: 0 0 0 1px #eee;
+            border-radius: 10px;
+        }
+
+        .codigo-copiar {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .codigo-copiar input {
+            flex: 1;
+            min-width: 0;
+            padding: 11px 14px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 12.5px;
+            font-family: monospace;
+            color: #555;
+            background: #fafafa;
+        }
+
+        .codigo-copiar button {
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 0 16px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .expira {
+            font-size: 13px;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .aprovado {
+            color: #1e7b3a;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .aviso-simulado {
+            font-size: 12.5px;
+            color: #999;
+            margin-top: 12px;
+        }
+
+        /* Resumo */
+        .item-resumo {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14.5px;
+        }
+
+        .item-resumo .qtd {
+            color: #888;
+            font-size: 13px;
+            margin-top: 3px;
+        }
+
+        .item-resumo .valor {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .totais {
+            margin-top: 16px;
+            font-size: 14.5px;
+        }
+
+        .totais div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .totais .total {
+            font-size: 20px;
+            font-weight: bold;
+            color: #000;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid #eee;
+        }
+
+        .frete-gratis {
+            color: #1e7b3a !important;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: #000;
+            color: #fff;
+            padding: 16px 35px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            transition: .3s;
+            font-weight: bold;
+            font-size: 15px;
+            width: 100%;
+            margin-top: 22px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #535353;
+        }
+
+        .btn:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        .mensagem {
+            display: none;
+            margin-top: 16px;
+            padding: 13px 16px;
+            border-radius: 14px;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: center;
+            background: #fdecea;
+            color: #b3261e;
+        }
+
+        /* Carrinho vazio / pedido feito */
+        .tela-centro {
+            max-width: 520px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .tela-centro .icone {
+            font-size: 54px;
+            margin-bottom: 14px;
+        }
+
+        .tela-centro h2 {
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+
+        .tela-centro p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 6px;
+        }
+
+        .tela-centro .btn {
+            width: auto;
+        }
+
+        footer {
+            background: #e3f2fc;
+            color: #666;
+            padding: 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        @media (max-width: 900px) {
+            .checkout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .linha-campos,
+            .linha-campos.tres,
+            .pagamentos {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">ESSENCE BEAUTY</a>
+
+    <nav>
+        <ul>
+            <!-- Estes ids são usados pelo supabase.js (atualizarMenu) -->
+            <li><a href="cadastrar.html" id="link-cadastrar">Cadastrar</a></li>
+            <li><a href="login.html" id="link-login">Login</a></li>
+            <li><a href="index.html#produtos">Produtos</a></li>
+            <li><a href="index.html#sobre">Sobre</a></li>
+            <li><a href="index.html#contato">Contato</a></li>
+            <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+
+            <!-- ÁREA DO USUÁRIO (preenchida pelo supabase.js) -->
+            <li class="item-usuario" id="area-usuario">
+                <button type="button" class="usuario-botao" id="usuario-botao" aria-label="Minha conta">
+                    <span class="usuario-avatar" id="usuario-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="4"></circle>
+                            <path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path>
+                        </svg>
+                    </span>
+                    <span class="usuario-nome-curto" id="usuario-nome-curto"></span>
+                    <span class="usuario-seta">▼</span>
+                </button>
+
+                <div class="usuario-menu" id="usuario-menu">
+                    <div class="usuario-menu-topo">
+                        <span class="usuario-avatar grande" id="usuario-avatar-grande"></span>
+                        <div>
+                            <strong id="usuario-nome-completo"></strong>
+                            <small id="usuario-email"></small>
+                            <small class="usuario-desde" id="usuario-desde"></small>
+                        </div>
+                    </div>
+                    <a href="carrinho.html">🛒 Meu carrinho</a>
+                    <a href="checkout.html">📦 Finalizar compra</a>
+                    <button type="button" class="usuario-sair" id="usuario-sair">Sair da conta</button>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1 class="titulo-pagina">FINALIZAR COMPRA</h1>
+
+    <!-- Tela de carregando (enquanto confere o login) -->
+    <p id="carregando">Carregando...</p>
+
+    <!-- Formulário + resumo -->
+    <div class="checkout" id="telaCheckout" style="display:none;">
+
+        <form class="caixa" id="formCheckout" novalidate>
+            <h2>ENDEREÇO DE ENTREGA</h2>
+
+            <div class="campo">
+                <label for="nome">Nome de quem vai receber</label>
+                <input type="text" id="nome" required>
+            </div>
+
+            <div class="linha-campos">
+                <div class="campo">
+                    <label for="cep">CEP</label>
+                    <input type="text" id="cep" placeholder="00000-000" maxlength="9" inputmode="numeric" required>
+                </div>
+                <div class="campo">
+                    <label for="numero">Número</label>
+                    <input type="text" id="numero" required>
+                </div>
+            </div>
+
+            <div class="campo">
+                <label for="rua">Rua</label>
+                <input type="text" id="rua" required>
+            </div>
+
+            <div class="linha-campos">
+                <div class="campo">
+                    <label for="bairro">Bairro</label>
+                    <input type="text" id="bairro" required>
+                </div>
+                <div class="campo">
+                    <label for="complemento">Complemento</label>
+                    <input type="text" id="complemento" placeholder="Opcional">
+                </div>
+            </div>
+
+            <div class="linha-campos">
+                <div class="campo">
+                    <label for="cidade">Cidade</label>
+                    <input type="text" id="cidade" required>
+                </div>
+                <div class="campo">
+                    <label for="estado">Estado</label>
+                    <input type="text" id="estado" maxlength="2" placeholder="SP" required>
+                </div>
+            </div>
+
+            <h2>FORMA DE PAGAMENTO</h2>
+
+            <div class="pagamentos">
+                <label class="opcao-pagamento">
+                    <input type="radio" name="pagamento" value="pix" checked>
+                    <span>Pix<small>Aprovação na hora</small></span>
+                </label>
+                <label class="opcao-pagamento">
+                    <input type="radio" name="pagamento" value="cartao">
+                    <span>Cartão<small>Até 3x sem juros</small></span>
+                </label>
+                <label class="opcao-pagamento">
+                    <input type="radio" name="pagamento" value="boleto">
+                    <span>Boleto<small>Vence em 3 dias</small></span>
+                </label>
+            </div>
+            <!-- PIX -->
+            <div class="area-pagamento" id="areaPix">
+                <p>📱 O <strong>QR Code do Pix</strong> aparece assim que você finalizar o pedido.</p>
+            </div>
+
+            <!-- CARTÃO -->
+            <div class="area-pagamento" id="areaCartao" style="display:none;">
+                <button type="button" class="btn-teste" id="btnCartaoTeste">⚡ Preencher com cartão de teste</button>
+
+                <div class="campo">
+                    <label for="numeroCartao">Número do cartão <span class="bandeira" id="bandeira"></span></label>
+                    <input type="text" id="numeroCartao" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" autocomplete="off">
+                </div>
+
+                <div class="campo">
+                    <label for="nomeCartao">Nome impresso no cartão</label>
+                    <input type="text" id="nomeCartao" autocomplete="off">
+                </div>
+
+                <div class="linha-campos tres">
+                    <div class="campo">
+                        <label for="validade">Validade</label>
+                        <input type="text" id="validade" placeholder="MM/AA" maxlength="5" inputmode="numeric" autocomplete="off">
+                    </div>
+                    <div class="campo">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" placeholder="123" maxlength="4" inputmode="numeric" autocomplete="off">
+                    </div>
+                    <div class="campo">
+                        <label for="parcelas">Parcelas</label>
+                        <select id="parcelas"></select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOLETO -->
+            <div class="area-pagamento" id="areaBoleto" style="display:none;">
+                <p>🧾 O <strong>código do boleto</strong> aparece assim que você finalizar o pedido. Ele vence em 3 dias.</p>
+            </div>
+
+            <p class="aviso-simulado">* Pagamento simulado para o TCC. Use apenas dados de teste. O número completo do cartão e o CVV não são enviados nem salvos.</p>
+        </form>
+
+        <div class="caixa">
+            <h2>RESUMO DO PEDIDO</h2>
+            <div id="listaItens"></div>
+
+            <div class="totais">
+                <div><span>Subtotal</span><span id="subtotal"></span></div>
+                <div><span>Frete</span><span id="frete"></span></div>
+                <div class="total"><span>Total</span><span id="total"></span></div>
+            </div>
+
+            <button type="submit" form="formCheckout" class="btn" id="btnFinalizar">Finalizar pedido</button>
+            <p class="mensagem" id="mensagem"></p>
+        </div>
+    </div>
+
+    <!-- Carrinho vazio -->
+    <div class="tela-centro" id="telaVazia" style="display:none;">
+        <div class="icone">🛒</div>
+        <h2>Seu carrinho está vazio</h2>
+        <p>Escolha seus produtos favoritos e volte aqui para finalizar.</p>
+        <a href="index.html#produtos" class="btn">Ver produtos</a>
+    </div>
+
+    <!-- Pedido concluído -->
+    <div class="tela-centro" id="telaSucesso" style="display:none;">
+        <div class="icone">💖</div>
+        <h2>Pedido realizado!</h2>
+        <p id="textoSucesso"></p>
+        <div id="infoPagamento"></div>
+        <a href="index.html" class="btn">Voltar para a loja</a>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Essence Beauty - Todos os direitos reservados.</p>
+</footer>
+
+<!-- 1º: biblioteca do Supabase  |  2º: sua conexão (cria "db")  |  3º: script da página -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+// ==========================================================
+// CONFIGURAÇÃO
+// ==========================================================
+const FRETE_GRATIS_A_PARTIR = 150;  // igual ao selo "Frete grátis acima de R$ 150"
+const VALOR_FRETE = 19.90;          // frete quando não é grátis (mude se quiser)
+
+const dinheiro = valor => valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+// ==========================================================
+// QUAIS ITENS ESTÃO SENDO COMPRADOS
+// - Botão "Comprar" de um produto -> só aquele produto (compraDireta)
+// - Senão -> tudo que está no carrinho
+// ==========================================================
+let compraDireta = false;
+let itens = [];
+
+const direta = JSON.parse(localStorage.getItem('compraDireta'));
+if (direta) {
+    itens = [{ ...direta, quantidade: 1 }];
+    compraDireta = true;
+    localStorage.removeItem('compraDireta'); // usa uma vez só
+} else {
+    itens = JSON.parse(localStorage.getItem('carrinho')) || [];
+}
+
+const subtotal = itens.reduce((soma, i) => soma + i.preco * i.quantidade, 0);
+const frete = subtotal >= FRETE_GRATIS_A_PARTIR ? 0 : VALOR_FRETE;
+const total = subtotal + frete;
+
+function mostrarResumo() {
+    const lista = document.getElementById('listaItens');
+    lista.innerHTML = '';
+    itens.forEach(item => {
+        const linha = document.createElement('div');
+        linha.className = 'item-resumo';
+
+        const info = document.createElement('div');
+        const nome = document.createElement('div');
+        nome.textContent = item.nome;
+        const qtd = document.createElement('div');
+        qtd.className = 'qtd';
+        qtd.textContent = `Qtd: ${item.quantidade} × ${dinheiro(item.preco)}`;
+        info.append(nome, qtd);
+
+        const valor = document.createElement('div');
+        valor.className = 'valor';
+        valor.textContent = dinheiro(item.preco * item.quantidade);
+
+        linha.append(info, valor);
+        lista.appendChild(linha);
+    });
+
+    document.getElementById('subtotal').textContent = dinheiro(subtotal);
+    const elFrete = document.getElementById('frete');
+    elFrete.textContent = frete === 0 ? 'Grátis' : dinheiro(frete);
+    elFrete.classList.toggle('frete-gratis', frete === 0);
+    document.getElementById('total').textContent = dinheiro(total);
+}
+
+// ==========================================================
+// BUSCA O ENDEREÇO PELO CEP (ViaCEP)
+// ==========================================================
+const inputCep = document.getElementById('cep');
+
+inputCep.addEventListener('input', () => {
+    let v = inputCep.value.replace(/\D/g, '').slice(0, 8);
+    if (v.length > 5) v = v.slice(0, 5) + '-' + v.slice(5);
+    inputCep.value = v;
+});
+
+inputCep.addEventListener('blur', async () => {
+    const cep = inputCep.value.replace(/\D/g, '');
+    if (cep.length !== 8) return;
+    try {
+        const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const dados = await resposta.json();
+        if (dados.erro) return;
+        document.getElementById('rua').value = dados.logradouro || '';
+        document.getElementById('bairro').value = dados.bairro || '';
+        document.getElementById('cidade').value = dados.localidade || '';
+        document.getElementById('estado').value = dados.uf || '';
+        document.getElementById('numero').focus();
+    } catch (e) {
+        // sem internet ou ViaCEP fora do ar: a pessoa preenche na mão
+    }
+});
+
+// ==========================================================
+// FORMAS DE PAGAMENTO (tudo SIMULADO para o TCC)
+// ==========================================================
+const areas = {
+    pix: document.getElementById('areaPix'),
+    cartao: document.getElementById('areaCartao'),
+    boleto: document.getElementById('areaBoleto')
+};
+
+// Mostra só a área da forma de pagamento escolhida
+document.querySelectorAll('input[name="pagamento"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+        Object.entries(areas).forEach(([nome, area]) => {
+            area.style.display = nome === radio.value ? 'block' : 'none';
+        });
+    });
+});
+
+// ---------- CARTÃO ----------
+const inputNumero = document.getElementById('numeroCartao');
+const inputNomeCartao = document.getElementById('nomeCartao');
+const inputValidade = document.getElementById('validade');
+const inputCvv = document.getElementById('cvv');
+const selectParcelas = document.getElementById('parcelas');
+const spanBandeira = document.getElementById('bandeira');
+
+// Parcelas: até 3x sem juros (como diz o FAQ)
+for (let n = 1; n <= 3; n++) {
+    const opcao = document.createElement('option');
+    opcao.value = n;
+    opcao.textContent = `${n}x de ${dinheiro(total / n)}`;
+    selectParcelas.appendChild(opcao);
+}
+
+// Descobre a bandeira pelos primeiros números
+function descobrirBandeira(numero) {
+    if (/^(4011|4312|4389|4514|4576|5041|5066|5067|509|6277|6362|6363|650|6516|6550)/.test(numero)) return 'Elo';
+    if (/^3[47]/.test(numero)) return 'Amex';
+    if (/^(5[1-5]|2[2-7])/.test(numero)) return 'Mastercard';
+    if (/^4/.test(numero)) return 'Visa';
+    return '';
+}
+
+// Algoritmo de Luhn: confere se o número "parece" um cartão válido
+function numeroValido(numero) {
+    if (numero.length < 13 || numero.length > 16) return false;
+    let soma = 0;
+    let dobrar = false;
+    for (let i = numero.length - 1; i >= 0; i--) {
+        let d = parseInt(numero[i], 10);
+        if (dobrar) {
+            d *= 2;
+            if (d > 9) d -= 9;
+        }
+        soma += d;
+        dobrar = !dobrar;
+    }
+    return soma % 10 === 0;
+}
+
+function validadeValida(texto) {
+    const [mm, aa] = texto.split('/').map(Number);
+    if (!mm || mm < 1 || mm > 12 || isNaN(aa)) return false;
+    const fimDoMes = new Date(2000 + aa, mm, 0, 23, 59, 59);
+    return fimDoMes >= new Date();
+}
+
+// Máscaras: "4111111111111111" -> "4111 1111 1111 1111", "1230" -> "12/30"
+inputNumero.addEventListener('input', () => {
+    const numeros = inputNumero.value.replace(/\D/g, '').slice(0, 16);
+    inputNumero.value = numeros.replace(/(\d{4})(?=\d)/g, '$1 ');
+    spanBandeira.textContent = descobrirBandeira(numeros);
+    inputNumero.classList.remove('invalido');
+});
+
+inputValidade.addEventListener('input', () => {
+    let v = inputValidade.value.replace(/\D/g, '').slice(0, 4);
+    if (v.length > 2) v = v.slice(0, 2) + '/' + v.slice(2);
+    inputValidade.value = v;
+    inputValidade.classList.remove('invalido');
+});
+
+inputCvv.addEventListener('input', () => {
+    inputCvv.value = inputCvv.value.replace(/\D/g, '').slice(0, 4);
+    inputCvv.classList.remove('invalido');
+});
+
+// Botão "Preencher com cartão de teste" (número de teste, não é um cartão real)
+document.getElementById('btnCartaoTeste').addEventListener('click', () => {
+    inputNumero.value = '4111 1111 1111 1111';
+    inputNumero.dispatchEvent(new Event('input'));
+    inputNomeCartao.value = (document.getElementById('nome').value || 'CLIENTE TESTE').toUpperCase();
+    inputValidade.value = '12/30';
+    inputCvv.value = '123';
+    [inputNumero, inputValidade, inputCvv].forEach(i => i.classList.remove('invalido'));
+    mensagem.style.display = 'none';
+});
+
+// Confere o cartão. Devolve a mensagem de erro, ou '' se estiver tudo certo
+function conferirCartao() {
+    const numero = inputNumero.value.replace(/\D/g, '');
+    if (!numeroValido(numero)) {
+        inputNumero.classList.add('invalido');
+        return 'Número do cartão inválido. Use o botão "cartão de teste".';
+    }
+    if (!inputNomeCartao.value.trim()) return 'Digite o nome impresso no cartão.';
+    if (!validadeValida(inputValidade.value)) {
+        inputValidade.classList.add('invalido');
+        return 'Validade inválida ou cartão vencido (use MM/AA).';
+    }
+    if (inputCvv.value.length < 3) {
+        inputCvv.classList.add('invalido');
+        return 'CVV inválido.';
+    }
+    return '';
+}
+
+// ---------- PIX: QR Code FALSO desenhado no canvas ----------
+// Gera "aleatório" sempre igual para o mesmo pedido
+function geradorAleatorio(semente) {
+    let s = semente % 2147483647 || 1;
+    return () => (s = (s * 16807) % 2147483647) / 2147483647;
+}
+
+function desenharQrFalso(canvas, semente) {
+    const modulos = 29;          // quadradinhos por lado
+    const tamanho = 7;           // pixels por quadradinho
+    canvas.width = canvas.height = modulos * tamanho;
+    const ctx = canvas.getContext('2d');
+    const aleatorio = geradorAleatorio(semente);
+
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#000';
+
+    // Pontos aleatórios no meio
+    for (let y = 0; y < modulos; y++) {
+        for (let x = 0; x < modulos; x++) {
+            if (aleatorio() > 0.5) ctx.fillRect(x * tamanho, y * tamanho, tamanho, tamanho);
+        }
+    }
+
+    // Os 3 quadrados grandes dos cantos (é isso que faz parecer um QR Code)
+    function olho(cx, cy) {
+        ctx.fillStyle = '#fff';
+        ctx.fillRect((cx - 1) * tamanho, (cy - 1) * tamanho, 9 * tamanho, 9 * tamanho);
+        ctx.fillStyle = '#000';
+        ctx.fillRect(cx * tamanho, cy * tamanho, 7 * tamanho, 7 * tamanho);
+        ctx.fillStyle = '#fff';
+        ctx.fillRect((cx + 1) * tamanho, (cy + 1) * tamanho, 5 * tamanho, 5 * tamanho);
+        ctx.fillStyle = '#000';
+        ctx.fillRect((cx + 2) * tamanho, (cy + 2) * tamanho, 3 * tamanho, 3 * tamanho);
+    }
+    olho(0, 0);
+    olho(modulos - 7, 0);
+    olho(0, modulos - 7);
+}
+
+function codigoPixFalso(idPedido) {
+    const valor = total.toFixed(2);
+    const chave = 'essencebeauty' + String(idPedido).padStart(6, '0');
+    return `00020126360014BR.GOV.BCB.PIX0114${chave}52040000530398654${String(valor.length).padStart(2, '0')}${valor}5802BR5915ESSENCE BEAUTY6009SAO PAULO6304TCC${idPedido}`;
+}
+
+// ---------- BOLETO: linha digitável FALSA ----------
+function linhaBoletoFalsa(idPedido) {
+    const aleatorio = geradorAleatorio(idPedido * 7919);
+    let digitos = '';
+    for (let i = 0; i < 37; i++) digitos += Math.floor(aleatorio() * 10);
+    const valor = Math.round(total * 100).toString().padStart(10, '0');
+    const n = '34191' + digitos.slice(0, 32) + valor;
+    return `${n.slice(0,5)}.${n.slice(5,10)} ${n.slice(10,15)}.${n.slice(15,21)} ${n.slice(21,26)}.${n.slice(26,32)} ${n.slice(32,33)} ${n.slice(33,47)}`;
+}
+
+// Caixinha com código + botão "Copiar"
+function campoCopiar(texto) {
+    const div = document.createElement('div');
+    div.className = 'codigo-copiar';
+    const input = document.createElement('input');
+    input.readOnly = true;
+    input.value = texto;
+    const botao = document.createElement('button');
+    botao.type = 'button';
+    botao.textContent = 'Copiar';
+    botao.addEventListener('click', async () => {
+        try {
+            await navigator.clipboard.writeText(texto);
+        } catch (e) {
+            input.select();
+            document.execCommand('copy');
+        }
+        botao.textContent = 'Copiado!';
+        setTimeout(() => (botao.textContent = 'Copiar'), 1500);
+    });
+    div.append(input, botao);
+    return div;
+}
+
+// Monta a parte do pagamento na tela de "Pedido realizado!"
+function mostrarInfoPagamento(pagamento, idPedido, detalheCartao) {
+    const area = document.getElementById('infoPagamento');
+    area.innerHTML = '';
+    const caixa = document.createElement('div');
+    caixa.className = 'caixa-pagamento';
+
+    if (pagamento === 'pix') {
+        caixa.innerHTML = '<h3>Pague com Pix</h3>';
+        const canvas = document.createElement('canvas');
+        desenharQrFalso(canvas, idPedido * 104729 + Math.round(total * 100));
+        caixa.appendChild(canvas);
+        const p = document.createElement('p');
+        p.textContent = 'Ou use o Pix copia e cola:';
+        caixa.append(p, campoCopiar(codigoPixFalso(idPedido)));
+        const expira = document.createElement('p');
+        expira.className = 'expira';
+        caixa.appendChild(expira);
+
+        // Contagem regressiva de 30 minutos
+        let segundos = 30 * 60;
+        const relogio = setInterval(() => {
+            const m = String(Math.floor(segundos / 60)).padStart(2, '0');
+            const s = String(segundos % 60).padStart(2, '0');
+            expira.textContent = `⏱️ Este QR Code expira em ${m}:${s} (simulado)`;
+            if (--segundos < 0) {
+                clearInterval(relogio);
+                expira.textContent = 'QR Code expirado (simulado).';
+            }
+        }, 1000);
+    }
+
+    if (pagamento === 'boleto') {
+        const vencimento = new Date();
+        vencimento.setDate(vencimento.getDate() + 3);
+        caixa.innerHTML = '<h3>Boleto bancário</h3>';
+        const p = document.createElement('p');
+        p.textContent = `Vencimento: ${vencimento.toLocaleDateString('pt-BR')}. Copie a linha digitável:`;
+        caixa.append(p, campoCopiar(linhaBoletoFalsa(idPedido)));
+    }
+
+    if (pagamento === 'cartao') {
+        caixa.innerHTML = '<h3>Cartão de crédito</h3>';
+        const p = document.createElement('p');
+        p.className = 'aprovado';
+        p.textContent = `✅ Pagamento aprovado (simulado) — ${detalheCartao}`;
+        caixa.appendChild(p);
+    }
+
+    const aviso = document.createElement('p');
+    aviso.className = 'expira';
+    aviso.textContent = 'Pagamento fictício, criado só para demonstração do TCC.';
+    caixa.appendChild(aviso);
+    area.appendChild(caixa);
+}
+
+// ==========================================================
+// FINALIZAR PEDIDO -> salva na tabela "pedidos" do Supabase
+// ==========================================================
+const form = document.getElementById('formCheckout');
+const btnFinalizar = document.getElementById('btnFinalizar');
+const mensagem = document.getElementById('mensagem');
+
+function erro(texto) {
+    mensagem.textContent = texto;
+    mensagem.style.display = 'block';
+}
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    mensagem.style.display = 'none';
+
+    const campo = id => document.getElementById(id).value.trim();
+    const endereco = {
+        nome: campo('nome'),
+        cep: campo('cep'),
+        rua: campo('rua'),
+        numero: campo('numero'),
+        complemento: campo('complemento'),
+        bairro: campo('bairro'),
+        cidade: campo('cidade'),
+        estado: campo('estado').toUpperCase()
+    };
+
+    const obrigatorios = ['nome', 'cep', 'rua', 'numero', 'bairro', 'cidade', 'estado'];
+    if (obrigatorios.some(c => !endereco[c])) {
+        erro('Preencha todos os campos do endereço.');
+        return;
+    }
+
+    const pagamento = document.querySelector('input[name="pagamento"]:checked').value;
+
+    // Cartão: confere os dados e guarda SÓ bandeira + 4 últimos dígitos + parcelas
+    let detalheCartao = '';
+    if (pagamento === 'cartao') {
+        const problema = conferirCartao();
+        if (problema) {
+            erro(problema);
+            return;
+        }
+        const numero = inputNumero.value.replace(/\D/g, '');
+        const bandeira = descobrirBandeira(numero) || 'Cartão';
+        detalheCartao = `${bandeira} final ${numero.slice(-4)}, ${selectParcelas.value}x`;
+    }
+    const pagamentoSalvo = detalheCartao ? `cartao - ${detalheCartao}` : pagamento;
+
+    const { data: { session } } = await db.auth.getSession();
+
+    btnFinalizar.disabled = true;
+    btnFinalizar.textContent = 'Enviando pedido...';
+
+    const { data, error } = await db.from('pedidos').insert({
+        user_id: session.user.id,
+        itens,
+        subtotal,
+        frete,
+        total,
+        endereco,
+        pagamento: pagamentoSalvo
+    }).select('id').single();
+
+    btnFinalizar.disabled = false;
+    btnFinalizar.textContent = 'Finalizar pedido';
+
+    if (error) {
+        const msg = (error.message || '').toLowerCase();
+        console.error('Erro ao salvar pedido:', error);
+
+        if (error.code === '42P01' || error.code === 'PGRST205' || msg.includes('could not find the table')) {
+            erro('A tabela "pedidos" ainda não existe no Supabase. Rode o SQL de criação no SQL Editor.');
+        } else if (error.code === '42501' || msg.includes('row-level security')) {
+            erro('Sem permissão para salvar o pedido. Confira as policies da tabela "pedidos" no Supabase.');
+        } else {
+            erro(traduzirErro(error.message));
+        }
+        return;
+    }
+
+    // Se comprou pelo carrinho, esvazia o carrinho
+    if (!compraDireta) localStorage.removeItem('carrinho');
+
+    const nomesPagamento = { pix: 'Pix', cartao: 'cartão', boleto: 'boleto' };
+    document.getElementById('textoSucesso').textContent =
+        `Pedido nº ${data.id} no valor de ${dinheiro(total)} (${nomesPagamento[pagamento]}). ` +
+        `Vamos entregar em ${endereco.rua}, ${endereco.numero} - ${endereco.cidade}/${endereco.estado}.`;
+
+    mostrarInfoPagamento(pagamento, data.id, detalheCartao);
+
+    // Apaga os dados do cartão da tela
+    [inputNumero, inputNomeCartao, inputValidade, inputCvv].forEach(i => (i.value = ''));
+
+    document.getElementById('telaCheckout').style.display = 'none';
+    document.querySelector('.titulo-pagina').style.display = 'none';
+    document.getElementById('telaSucesso').style.display = 'block';
+
+    const icone = document.querySelector('.cart-icon');
+    if (icone && !compraDireta) icone.textContent = '🛒';
+    window.scrollTo(0, 0);
+});
+
+// ==========================================================
+// AO ABRIR A PÁGINA
+// ==========================================================
+(async function iniciar() {
+    const { data: { session } } = await db.auth.getSession();
+
+    // Sem login -> manda para o login e volta para cá depois
+    if (!session) {
+        if (compraDireta) localStorage.setItem('compraDireta', JSON.stringify(direta));
+        localStorage.setItem('voltarPara', 'checkout.html');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    document.getElementById('carregando').style.display = 'none';
+
+    // Contador do carrinho no ícone 🛒
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    const qtd = carrinho.reduce((s, i) => s + i.quantidade, 0);
+    const icone = document.querySelector('.cart-icon');
+    if (icone && qtd > 0) icone.textContent = `🛒 (${qtd})`;
+
+    if (itens.length === 0) {
+        document.getElementById('telaVazia').style.display = 'block';
+        return;
+    }
+
+    // Já preenche o nome com o nome da conta
+    const user = session.user;
+    document.getElementById('nome').value =
+        (user.user_metadata && user.user_metadata.nome) || '';
+
+    mostrarResumo();
+    document.getElementById('telaCheckout').style.display = 'grid';
+})();
+</script>
+
+</body>
+</html>

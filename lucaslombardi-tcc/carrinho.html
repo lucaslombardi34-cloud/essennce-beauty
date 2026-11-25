@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty - Carrinho">
+    <meta property="og:description" content="Seu carrinho de compras Essence Beauty.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <title>Carrinho | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        /* ---------- CABEÇALHO ---------- */
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 36px;
+            letter-spacing: 3px;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .logo:hover {
+            color: #5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        nav ul {
+            align-items: center;
+        }
+
+        /* ---------- ÁREA DO USUÁRIO ---------- */
+        .item-usuario {
+            position: relative;
+        }
+
+        .usuario-botao {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: none;
+            border: 1px solid #e5e5e5;
+            border-radius: 40px;
+            padding: 5px 14px 5px 5px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 15px;
+            color: #000;
+            transition: .3s;
+        }
+
+        .usuario-botao:hover {
+            border-color: #000;
+        }
+
+        /* Deslogada: só o ícone redondo */
+        .item-usuario:not(.logado) .usuario-botao {
+            padding: 5px;
+        }
+
+        .item-usuario:not(.logado) .usuario-nome-curto {
+            display: none;
+        }
+
+        .usuario-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .item-usuario:not(.logado) .usuario-avatar {
+            background: #f2f2f2;
+            color: #000;
+        }
+
+        .usuario-avatar svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .usuario-avatar.grande {
+            width: 48px;
+            height: 48px;
+            font-size: 20px;
+        }
+
+        .usuario-nome-curto {
+            font-weight: bold;
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .usuario-seta {
+            font-size: 10px;
+            transition: .3s;
+        }
+
+        .item-usuario:not(.logado) .usuario-seta {
+            display: none;
+        }
+
+        .item-usuario.aberto .usuario-seta {
+            transform: rotate(180deg);
+        }
+
+        /* Menu que abre ao clicar */
+        .usuario-menu {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 12px);
+            width: 270px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.12);
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: .25s;
+            z-index: 1100;
+        }
+
+        .item-usuario.aberto .usuario-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .usuario-menu-topo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 10px 16px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 6px;
+        }
+
+        .usuario-menu-topo div {
+            min-width: 0;
+        }
+
+        .usuario-menu-topo strong {
+            display: block;
+            font-size: 15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .usuario-menu-topo small {
+            display: block;
+            font-size: 12.5px;
+            color: #888;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .usuario-desde {
+            margin-top: 3px;
+            font-size: 11.5px !important;
+            color: #aaa !important;
+        }
+
+        .usuario-menu a,
+        .usuario-menu button.usuario-sair {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 11px 12px;
+            border-radius: 10px;
+            font-size: 14.5px;
+            letter-spacing: 0;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .usuario-menu a:hover,
+        .usuario-menu button.usuario-sair:hover {
+            background: #f5f5f5;
+            color: #000;
+        }
+
+        .usuario-menu button.usuario-sair {
+            color: #c0392b;
+            margin-top: 4px;
+            border-top: 1px solid #eee;
+            border-radius: 0 0 10px 10px;
+        }
+
+        section {
+            padding: 60px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 50px;
+            color: #000000;
+        }
+
+        /* ---------- CARRINHO VAZIO ---------- */
+        .carrinho-vazio{
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .carrinho-vazio p{
+            font-size: 18px;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .btn{
+            display: inline-block;
+            background:#000;
+            color:#fff;
+            padding:14px 35px;
+            border-radius:40px;
+            border:none;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:bold;
+            font-size: 15px;
+            text-decoration: none;
+        }
+
+        .btn:hover{
+            background:#535353;
+            transform:translateY(-3px);
+            box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+        }
+
+        /* ---------- LAYOUT DO CARRINHO ---------- */
+        .carrinho-wrap{
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .lista-itens{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .item-carrinho{
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.06);
+        }
+
+        .item-carrinho img{
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 14px;
+            flex-shrink: 0;
+            background: #f2f2f2;
+        }
+
+        .item-info{
+            flex: 1;
+        }
+
+        .item-info h3{
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .item-preco-unit{
+            font-size: 14px;
+            color: #888;
+        }
+
+        .item-qtd{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .qtd-btn{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #000;
+            background: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            transition: .3s;
+        }
+
+        .qtd-btn:hover{
+            background: #000;
+            color: #fff;
+        }
+
+        .qtd-valor{
+            min-width: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .item-subtotal{
+            font-size: 19px;
+            font-weight: bold;
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .remover-btn{
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 22px;
+            cursor: pointer;
+            transition: .3s;
+            line-height: 1;
+        }
+
+        .remover-btn:hover{
+            color: #a00000;
+        }
+
+        /* ---------- RESUMO ---------- */
+        .resumo{
+            background: #fff;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.06);
+            position: sticky;
+            top: 110px;
+        }
+
+        .resumo h2{
+            font-size: 22px;
+            margin-bottom: 24px;
+        }
+
+        .resumo-linha{
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 14px;
+        }
+
+        .resumo-total{
+            display: flex;
+            justify-content: space-between;
+            font-size: 22px;
+            font-weight: bold;
+            color: #000;
+            margin: 20px 0 26px;
+            padding-top: 16px;
+            border-top: 1px solid #eee;
+        }
+
+        .resumo .btn{
+            width: 100%;
+            text-align: center;
+        }
+
+        .continuar-link{
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 14px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .continuar-link:hover{
+            color: #000;
+        }
+
+        .item-sem-imagem{
+            width: 100px;
+            height: 100px;
+            border-radius: 14px;
+            flex-shrink: 0;
+            background: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+        }
+
+        .frete-gratis{
+            color: #1e7b3a;
+            font-weight: bold;
+        }
+
+        .aviso-frete{
+            font-size: 13px;
+            color: #888;
+            background: #f7fcff;
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        footer{
+            background:#e3f2fc;
+            color:#666;
+            padding:50px;
+            text-align:center;
+            margin-top:80px;
+        }
+
+        @media(max-width: 860px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .carrinho-wrap{
+                grid-template-columns: 1fr;
+            }
+
+            .item-carrinho{
+                flex-wrap: wrap;
+            }
+
+            .item-subtotal{
+                text-align: left;
+                margin-top: 10px;
+            }
+
+            .resumo{
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">ESSENCE BEAUTY</a>
+
+    <nav>
+        <ul>
+            <!-- Estes ids são usados pelo supabase.js (atualizarMenu) -->
+            <li><a href="cadastrar.html" id="link-cadastrar">Cadastrar</a></li>
+            <li><a href="login.html" id="link-login">Login</a></li>
+            <li><a href="index.html#produtos">Produtos</a></li>
+            <li><a href="index.html#sobre">Sobre</a></li>
+            <li><a href="#contato">Contato</a></li>
+            <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+
+            <!-- ÁREA DO USUÁRIO (preenchida pelo supabase.js) -->
+            <li class="item-usuario" id="area-usuario">
+                <button type="button" class="usuario-botao" id="usuario-botao" aria-label="Minha conta">
+                    <span class="usuario-avatar" id="usuario-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="4"></circle>
+                            <path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path>
+                        </svg>
+                    </span>
+                    <span class="usuario-nome-curto" id="usuario-nome-curto"></span>
+                    <span class="usuario-seta">▼</span>
+                </button>
+
+                <div class="usuario-menu" id="usuario-menu">
+                    <div class="usuario-menu-topo">
+                        <span class="usuario-avatar grande" id="usuario-avatar-grande"></span>
+                        <div>
+                            <strong id="usuario-nome-completo"></strong>
+                            <small id="usuario-email"></small>
+                            <small class="usuario-desde" id="usuario-desde"></small>
+                        </div>
+                    </div>
+                    <a href="carrinho.html">🛒 Meu carrinho</a>
+                    <a href="checkout.html">📦 Finalizar compra</a>
+                    <button type="button" class="usuario-sair" id="usuario-sair">Sair da conta</button>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <section>
+        <h2 class="section-title">MEU CARRINHO</h2>
+
+        <div id="carrinhoConteudo"></div>
+    </section>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>© 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- 1º: biblioteca do Supabase  |  2º: sua conexão (cria "db")  |  3º: script da página -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+
+    <script>
+        // ==========================================================
+        // CARRINHO — lê os produtos salvos em localStorage('carrinho')
+        // pelas páginas de produtos (mesmo padrão do site)
+        // ==========================================================
+        const conteudo = document.getElementById('carrinhoConteudo');
+
+        const formatarPreco = valor => `R$ ${valor.toFixed(2).replace('.', ',')}`;
+
+        // Mesmas regras do checkout.html
+        const FRETE_GRATIS_A_PARTIR = 150;
+        const VALOR_FRETE = 19.90;
+
+        // Mostra a quantidade de itens no ícone 🛒 do cabeçalho
+        function atualizarContadorCarrinho(){
+            const icone = document.querySelector('.cart-icon');
+            if(!icone) return;
+            const total = obterCarrinho().reduce((soma, item) => soma + item.quantidade, 0);
+            icone.textContent = total > 0 ? `🛒 (${total})` : '🛒';
+        }
+
+        function obterCarrinho(){
+            return JSON.parse(localStorage.getItem('carrinho')) || [];
+        }
+
+        function salvarCarrinho(carrinho){
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+
+        function renderizarCarrinho(){
+            const carrinho = obterCarrinho();
+            atualizarContadorCarrinho();
+
+            if(carrinho.length === 0){
+                conteudo.innerHTML = `
+                    <div class="carrinho-vazio">
+                        <p>Seu carrinho está vazio.</p>
+                        <a href="index.html#produtos" class="btn">Continuar comprando</a>
+                    </div>
+                `;
+                return;
+            }
+
+            const totalItens = carrinho.reduce((soma, item) => soma + item.quantidade, 0);
+            const subtotal = carrinho.reduce((soma, item) => soma + (item.preco * item.quantidade), 0);
+            const frete = subtotal >= FRETE_GRATIS_A_PARTIR ? 0 : VALOR_FRETE;
+            const total = subtotal + frete;
+            const falta = FRETE_GRATIS_A_PARTIR - subtotal;
+
+            const itensHtml = carrinho.map(item => `
+                <div class="item-carrinho" data-id="${item.id}">
+                    ${item.imagem ? `<img src="${item.imagem}" alt="${item.nome}">` : `<div class="item-sem-imagem">🛍️</div>`}
+                    <div class="item-info">
+                        <h3>${item.nome}</h3>
+                        <p class="item-preco-unit">${formatarPreco(item.preco)} / unidade</p>
+                        <div class="item-qtd">
+                            <button class="qtd-btn" data-acao="diminuir" data-id="${item.id}">−</button>
+                            <span class="qtd-valor">${item.quantidade}</span>
+                            <button class="qtd-btn" data-acao="aumentar" data-id="${item.id}">+</button>
+                        </div>
+                    </div>
+                    <div class="item-subtotal">${formatarPreco(item.preco * item.quantidade)}</div>
+                    <button class="remover-btn" data-acao="remover" data-id="${item.id}" title="Remover item">&times;</button>
+                </div>
+            `).join('');
+
+            conteudo.innerHTML = `
+                <div class="carrinho-wrap">
+                    <div class="lista-itens">
+                        ${itensHtml}
+                    </div>
+                    <div class="resumo">
+                        <h2>Resumo do pedido</h2>
+                        <div class="resumo-linha">
+                            <span>Itens (${totalItens})</span>
+                            <span>${formatarPreco(subtotal)}</span>
+                        </div>
+                        <div class="resumo-linha">
+                            <span>Frete</span>
+                            ${frete === 0
+                                ? '<span class="frete-gratis">Grátis</span>'
+                                : `<span>${formatarPreco(frete)}</span>`}
+                        </div>
+                        ${falta > 0
+                            ? `<p class="aviso-frete">Faltam <strong>${formatarPreco(falta)}</strong> para ganhar frete grátis 🚚</p>`
+                            : ''}
+                        <div class="resumo-total">
+                            <span>Total</span>
+                            <span>${formatarPreco(total)}</span>
+                        </div>
+                        <button class="btn" id="btnFinalizar">Finalizar compra</button>
+                        <a href="index.html#produtos" class="continuar-link">Continuar comprando</a>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('btnFinalizar').addEventListener('click', () => {
+                // Garante que o checkout use o carrinho inteiro (e não um "Comprar" antigo)
+                localStorage.removeItem('compraDireta');
+                window.location.href = 'checkout.html';
+            });
+        }
+
+        conteudo.addEventListener('click', e => {
+            const btn = e.target.closest('[data-acao]');
+            if(!btn) return;
+
+            const id = btn.dataset.id;
+            const acao = btn.dataset.acao;
+            let carrinho = obterCarrinho();
+            const item = carrinho.find(p => p.id === id);
+            if(!item) return;
+
+            if(acao === 'aumentar'){
+                item.quantidade += 1;
+            } else if(acao === 'diminuir'){
+                item.quantidade -= 1;
+                if(item.quantidade <= 0){
+                    carrinho = carrinho.filter(p => p.id !== id);
+                }
+            } else if(acao === 'remover'){
+                carrinho = carrinho.filter(p => p.id !== id);
+            }
+
+            salvarCarrinho(carrinho);
+            renderizarCarrinho();
+        });
+
+        renderizarCarrinho();
+    </script>
+
+</body>
+</html>

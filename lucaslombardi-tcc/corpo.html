@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty - Corpo">
+    <meta property="og:description" content="Produtos para o corpo Essence Beauty.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <title>Corpo | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo{
+            font-size:36px;
+            letter-spacing:3px;
+            color:#000;
+            text-decoration:none;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .logo:hover{
+            color:#5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        /* CATEGORIAS */
+        .categorias{
+            display:flex;
+            justify-content:center;
+            gap:45px;
+            background:#fff;
+            padding:25px 0;
+            border-top:1px solid #eee;
+            border-bottom:1px solid #eee;
+        }
+
+        .categorias a{
+            text-decoration:none;
+            color:#333;
+            font-size:17px;
+            letter-spacing:2px;
+            font-weight:500;
+            transition:.3s;
+        }
+
+        .categorias a:hover{
+            color:#9c9b9b;
+        }
+
+        .categorias a.ativo{
+            color:#000;
+            border-bottom:2px solid #000;
+            padding-bottom:4px;
+        }
+
+        /* BANNER */
+        .banner {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.banner img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+        .banner-texto{
+            position: absolute;
+            top: 50%;
+            left: 8%;
+            transform: translateY(-50%);
+            color: white;
+            max-width: 480px;
+        }
+
+        .banner-texto h1{
+            font-size: 42px;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .banner-texto p{
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .seta{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+
+        .esquerda{
+            left: 20px;
+        }
+
+        .direita{
+            right: 20px;
+        }
+
+        .btn{
+            background:#000;
+            color:#fff;
+            padding:14px 35px;
+            border-radius:40px;
+            border:none;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#535353;
+            transform:translateY(-3px);
+            box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+        }
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 14px;
+            color: #000000;
+        }
+
+        .section-sub{
+            text-align: center;
+            color: #777;
+            font-size: 16px;
+            margin-bottom: 50px;
+        }
+
+        .filtros{
+            display:flex;
+            justify-content:center;
+            gap:14px;
+            flex-wrap:wrap;
+            margin-bottom: 50px;
+        }
+
+        .filtro-btn{
+            padding: 10px 22px;
+            border: 1px solid #000;
+            border-radius: 40px;
+            background: #fff;
+            color: #000;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .filtro-btn:hover{
+            background: #f2f2f2;
+        }
+
+        .filtro-btn.ativo{
+            background: #000;
+            color: #fff;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .product-card{
+            position: relative;
+            border-radius:25px;
+            overflow:hidden;
+            background:#fff;
+            transition:.4s;
+            box-shadow:0 8px 25px rgba(0,0,0,.08);
+        }
+
+        .product-card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 20px 40px rgba(0,0,0,.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 20px 25px 0 0;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        /* DESCRIÇÃO DO PRODUTO */
+        .descricao{
+            color: #777;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: #000000;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-info .btn{
+            padding: 12px 26px;
+            font-size: 14px;
+            margin: 4px;
+        }
+
+        footer{
+            background:#e3f2fc;
+            color:#666;
+            padding:50px;
+            text-align:center;
+            margin-top:80px;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .banner-texto h1 {
+                font-size: 30px;
+            }
+
+            .banner-texto p {
+                font-size: 15px;
+            }
+
+            .categorias{
+                flex-wrap: wrap;
+                gap: 20px;
+                padding: 18px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="tcc.html" class="logo">ESSENCE BEAUTY</a>
+
+        <nav>
+            <ul>
+                <li><a href="cadastrar.php">Cadastrar</a></li>
+                <li><a href="login.php">Login</a></li>
+                <li><a href="tcc.html#produtos">Produtos</a></li>
+                <li><a href="tcc.html#sobre">Sobre</a></li>
+                <li><a href="tcc.html#contato">Contato</a></li>
+                <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CATEGORIAS -->
+    <section class="categorias" style="padding:25px 0;">
+        <a href="skin-care.html">SKIN CARE</a>
+        <a href="maquiagem.html">MAQUIAGEM</a>
+        <a href="cabelos.html">CABELOS</a>
+        <a href="corpo.html" class="ativo">CORPO</a>
+        <a href="kits.html">KITS</a>
+        <a href="promocoes.html">PROMOÇÕES</a>
+    </section>
+
+    <!-- BANNER -->
+    <section class="banner">
+        <img src="bannercorpo.jpg" class="banner-img" alt="Corpo Essence Beauty">
+        <button class="seta esquerda">&#10094;</button>
+        <button class="seta direita">&#10095;</button>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section id="produtos">
+
+        <h2 class="section-title">CORPO</h2>
+        <p class="section-sub">Rituais de cuidado da cabeça aos pés.</p>
+
+        <div class="filtros" id="filtros">
+            <button class="filtro-btn ativo" data-cat="todos">Todos</button>
+            <button class="filtro-btn" data-cat="hidratante">Hidratante</button>
+            <button class="filtro-btn" data-cat="esfoliante">Esfoliante</button>
+            <button class="filtro-btn" data-cat="oleo">Óleo Corporal</button>
+            <button class="filtro-btn" data-cat="splash">Body Splash</button>
+        </div>
+
+        <div class="products" id="listaProdutos"></div>
+
+    </section>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>©️ 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // ==========================================================
+        // PRODUTOS DE CORPO
+        // -> troque "imagem" pelo caminho real de cada foto
+        // ==========================================================
+        const produtosCorpo = [
+            { id: 'cor1', nome: 'Hidratante Corporal Manteiga de Karité', categoria: 'hidratante', preco: 54.90, imagem: 'karite.jpg', descricao: 'Com manteiga de karité, nutre profundamente a pele seca e forma uma barreira que mantém a hidratação por horas.' },
+            { id: 'cor2', nome: 'Hidratante Corporal de Amêndoas', categoria: 'hidratante', preco: 49.90, imagem: 'amendoas.jpg', descricao: 'Fórmula com óleo de amêndoas que acalma, hidrata e deixa a pele macia e perfumada.' },
+            { id: 'cor3', nome: 'Esfoliante Corporal Açúcar & Coco', categoria: 'esfoliante', preco: 44.90, imagem: 'esfoliante.jpg', descricao: 'Grânulos de açúcar e óleo de coco removem células mortas enquanto hidratam, deixando a pele lisa e luminosa.' },
+            { id: 'cor4', nome: 'Esfoliante Corporal Café Detox', categoria: 'esfoliante', preco: 47.90, imagem: 'cremees.jpg', descricao: 'Esfoliante com grãos de café que ativa a circulação, renova a pele e ajuda a melhorar o aspecto da celulite.' },
+            { id: 'cor5', nome: 'Óleo Corporal Secante Rosa Mosqueta', categoria: 'oleo', preco: 62.90, imagem: 'rosamos.jpg', descricao: 'Óleo de rosa mosqueta de rápida absorção que regenera a pele, ameniza marcas e estrias e não deixa sensação oleosa.' },
+            { id: 'cor6', nome: 'Óleo Corporal Iluminador', categoria: 'oleo', preco: 58.90, imagem: 'ilumi.jpg', descricao: 'Óleo com partículas iluminadoras que hidrata e deixa a pele com brilho dourado e acetinado.' },
+            { id: 'cor7', nome: 'Body Splash Rosa Branca', categoria: 'splash', preco: 39.90, imagem: 'body.jpg', descricao: 'Fragrância leve e floral de rosa branca que refresca e perfuma o corpo com delicadeza ao longo do dia.' },
+            { id: 'cor8', nome: 'Body Splash Baunilha & Âmbar', categoria: 'splash', preco: 42.90, imagem: 'eudorabody.jpg', descricao: 'Fragrância quente e envolvente de baunilha com âmbar, que perfuma a pele com um toque doce e marcante.' },
+        ];
+
+        const formatarPreco = valor => `R$ ${valor.toFixed(2).replace('.', ',')}`;
+
+        const listaProdutos = document.getElementById('listaProdutos');
+
+        function renderizarProdutos(categoria = 'todos') {
+            listaProdutos.innerHTML = '';
+
+            const produtosFiltrados = categoria === 'todos'
+                ? produtosCorpo
+                : produtosCorpo.filter(p => p.categoria === categoria);
+
+            produtosFiltrados.forEach(produto => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.id = produto.id;
+                card.dataset.nome = produto.nome;
+                card.dataset.preco = produto.preco;
+
+                card.innerHTML = `
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                    <div class="product-info">
+                        <h3>${produto.nome}</h3>
+                        <p class="descricao">${produto.descricao || ''}</p>
+                        <p class="price">${formatarPreco(produto.preco)}</p>
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-adicionar">Adicionar</button>
+                    </div>
+                `;
+
+                listaProdutos.appendChild(card);
+            });
+
+            ativarBotoes();
+        }
+
+        renderizarProdutos();
+
+        // ---------- FILTRO DE CATEGORIAS ----------
+        document.getElementById('filtros').addEventListener('click', e => {
+            const btn = e.target.closest('.filtro-btn');
+            if (!btn) return;
+            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo'));
+            btn.classList.add('ativo');
+            renderizarProdutos(btn.dataset.cat);
+        });
+
+        // ==========================================================
+        // CARRINHO (sem depender de exigirLogin/auth.js)
+        // ==========================================================
+        function ativarBotoes() {
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const btnComprar = card.querySelector('.btn-comprar');
+                const btnAdicionar = card.querySelector('.btn-adicionar');
+
+                const produto = {
+                    id: card.dataset.id,
+                    nome: card.dataset.nome,
+                    preco: parseFloat(card.dataset.preco)
+                };
+
+                btnComprar.addEventListener('click', () => {
+                    localStorage.setItem('compraDireta', JSON.stringify(produto));
+                    window.location.href = 'checkout.html';
+                });
+
+                btnAdicionar.addEventListener('click', () => {
+                    adicionarAoCarrinho(produto);
+                    alert(`${produto.nome} adicionado ao carrinho!`);
+                });
+            });
+        }
+
+        function adicionarAoCarrinho(produto) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+            const existente = carrinho.find(item => item.id === produto.id);
+            if (existente) {
+                existente.quantidade += 1;
+            } else {
+                carrinho.push({ ...produto, quantidade: 1 });
+            }
+
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+    </script>
+
+</body>
+</html>

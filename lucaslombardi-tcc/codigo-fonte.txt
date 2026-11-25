@@ -1,0 +1,5681 @@
+﻿===== cabelos.html =====
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty - Cabelos">
+    <meta property="og:description" content="Produtos para cabelos Essence Beauty.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <title>Cabelos | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo{
+            font-size:36px;
+            letter-spacing:3px;
+            color:#000;
+            text-decoration:none;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .logo:hover{
+            color:#5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        /* CATEGORIAS */
+        .categorias{
+            display:flex;
+            justify-content:center;
+            gap:45px;
+            background:#fff;
+            padding:25px 0;
+            border-top:1px solid #eee;
+            border-bottom:1px solid #eee;
+        }
+
+        .categorias a{
+            text-decoration:none;
+            color:#333;
+            font-size:17px;
+            letter-spacing:2px;
+            font-weight:500;
+            transition:.3s;
+        }
+
+        .categorias a:hover{
+            color:#9c9b9b;
+        }
+
+        .categorias a.ativo{
+            color:#000;
+            border-bottom:2px solid #000;
+            padding-bottom:4px;
+        }
+
+        /* BANNER */
+        .banner{
+            position: relative;
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+        }
+
+        .banner-img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .banner-texto{
+            position: absolute;
+            top: 50%;
+            left: 8%;
+            transform: translateY(-50%);
+            color: white;
+            max-width: 480px;
+        }
+
+        .banner-texto h1{
+            font-size: 42px;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .banner-texto p{
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .seta{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+
+        .esquerda{
+            left: 20px;
+        }
+
+        .direita{
+            right: 20px;
+        }
+
+        .btn{
+            background:#000;
+            color:#fff;
+            padding:14px 35px;
+            border-radius:40px;
+            border:none;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#535353;
+            transform:translateY(-3px);
+            box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+        }
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 14px;
+            color: #000000;
+        }
+
+        .section-sub{
+            text-align: center;
+            color: #777;
+            font-size: 16px;
+            margin-bottom: 50px;
+        }
+
+        .filtros{
+            display:flex;
+            justify-content:center;
+            gap:14px;
+            flex-wrap:wrap;
+            margin-bottom: 50px;
+        }
+
+        .filtro-btn{
+            padding: 10px 22px;
+            border: 1px solid #000;
+            border-radius: 40px;
+            background: #fff;
+            color: #000;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .filtro-btn:hover{
+            background: #f2f2f2;
+        }
+
+        .filtro-btn.ativo{
+            background: #000;
+            color: #fff;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card{
+            position: relative;
+            border-radius:25px;
+            overflow:hidden;
+            background:#fff;
+            transition:.4s;
+            box-shadow:0 8px 25px rgba(0,0,0,.08);
+        }
+
+        .product-card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 20px 40px rgba(0,0,0,.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 20px 25px 0 0;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .price {
+            color: #000000;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-info .btn{
+            padding: 12px 26px;
+            font-size: 14px;
+            margin: 4px;
+        }
+
+        footer{
+            background:#e3f2fc;
+            color:#666;
+            padding:50px;
+            text-align:center;
+            margin-top:80px;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .banner-texto h1 {
+                font-size: 30px;
+            }
+
+            .banner-texto p {
+                font-size: 15px;
+            }
+
+            .categorias{
+                flex-wrap: wrap;
+                gap: 20px;
+                padding: 18px 10px;
+            }
+        }
+    </style>
+    <script src="assets/auth.js"></script>
+</head>
+<body>
+
+    <header>
+        <a href="tcc.html" class="logo">ESSENCE BEAUTY</a>
+
+        <nav>
+            <ul>
+                <li><a href="cadastrar.html">Cadastrar</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="tcc.html#produtos">Produtos</a></li>
+                <li><a href="tcc.html#sobre">Sobre</a></li>
+                <li><a href="tcc.html#contato">Contato</a></li>
+                <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CATEGORIAS -->
+    <section class="categorias" style="padding:25px 0;">
+        <a href="skin-care.html">SKIN CARE</a>
+        <a href="maquiagem.html">MAQUIAGEM</a>
+        <a href="cabelos.html" class="ativo">CABELOS</a>
+        <a href="corpo.html">CORPO</a>
+        <a href="kits.html">KITS</a>
+        <a href="promocoes.html">PROMOÇÕES</a>
+    </section>
+
+    <!-- BANNER -->
+    <section class="banner">
+        <img src="banner-cabelos.jpg" class="banner-img" alt="Cabelos Essence Beauty">
+        <div class="banner-texto">
+            <h1>CUIDADO CAPILAR</h1>
+            <p>Shampoos, máscaras e óleos para nutrir, fortalecer e devolver o brilho dos seus fios.</p>
+        </div>
+        <button class="seta esquerda">&#10094;</button>
+        <button class="seta direita">&#10095;</button>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section id="produtos">
+
+        <h2 class="section-title">CABELOS</h2>
+        <p class="section-sub">Rotina completa para todos os tipos de cabelo.</p>
+
+        <div class="filtros" id="filtros">
+            <button class="filtro-btn ativo" data-cat="todos">Todos</button>
+            <button class="filtro-btn" data-cat="shampoo">Shampoo</button>
+            <button class="filtro-btn" data-cat="condicionador">Condicionador</button>
+            <button class="filtro-btn" data-cat="mascara">Máscara</button>
+            <button class="filtro-btn" data-cat="oleo">Óleo & Finalizador</button>
+        </div>
+
+        <div class="products" id="listaProdutos"></div>
+
+    </section>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>©️ 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // ==========================================================
+        // PRODUTOS DE CABELOS
+        // -> troque "imagem" pelo caminho real de cada foto
+        // ==========================================================
+        const produtosCabelos = [
+            { id: 'cab1', nome: 'Shampoo Nutrição Profunda', categoria: 'shampoo', preco: 49.90, imagem: 'shampoo-nutricao.jpg' },
+            { id: 'cab2', nome: 'Shampoo Anticaspa Mentol', categoria: 'shampoo', preco: 44.90, imagem: 'shampoo-anticaspa.jpg' },
+            { id: 'cab3', nome: 'Condicionador Reconstrução', categoria: 'condicionador', preco: 52.90, imagem: 'condicionador-reconstrucao.jpg' },
+            { id: 'cab4', nome: 'Condicionador Hidratação Intensa', categoria: 'condicionador', preco: 47.90, imagem: 'condicionador-hidratacao.jpg' },
+            { id: 'cab5', nome: 'Máscara Capilar Seda Líquida', categoria: 'mascara', preco: 69.90, imagem: 'mascara-seda.jpg' },
+            { id: 'cab6', nome: 'Máscara Reparadora Pontas Duplas', categoria: 'mascara', preco: 64.90, imagem: 'mascara-pontas.jpg' },
+            { id: 'cab7', nome: 'Óleo Reparador Capilar', categoria: 'oleo', preco: 74.90, imagem: 'oleo-reparador.jpg' },
+            { id: 'cab8', nome: 'Sérum Finalizador Anti-Frizz', categoria: 'oleo', preco: 58.90, imagem: 'serum-antifrizz.jpg' },
+        ];
+
+        const formatarPreco = valor => `R$ ${valor.toFixed(2).replace('.', ',')}`;
+
+        const listaProdutos = document.getElementById('listaProdutos');
+
+        function renderizarProdutos(categoria = 'todos') {
+            listaProdutos.innerHTML = '';
+
+            const produtosFiltrados = categoria === 'todos'
+                ? produtosCabelos
+                : produtosCabelos.filter(p => p.categoria === categoria);
+
+            produtosFiltrados.forEach(produto => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.id = produto.id;
+                card.dataset.nome = produto.nome;
+                card.dataset.preco = produto.preco;
+
+                card.innerHTML = `
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                    <div class="product-info">
+                        <h3>${produto.nome}</h3>
+                        <p class="price">${formatarPreco(produto.preco)}</p>
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-adicionar">Adicionar</button>
+                    </div>
+                `;
+
+                listaProdutos.appendChild(card);
+            });
+
+            ativarBotoes();
+        }
+
+        renderizarProdutos();
+
+        // ---------- FILTRO DE CATEGORIAS ----------
+        document.getElementById('filtros').addEventListener('click', e => {
+            const btn = e.target.closest('.filtro-btn');
+            if (!btn) return;
+            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo'));
+            btn.classList.add('ativo');
+            renderizarProdutos(btn.dataset.cat);
+        });
+
+        // ==========================================================
+        // CARRINHO (mesmo padrão usado nas outras páginas do site)
+        // ==========================================================
+        function ativarBotoes() {
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const btnComprar = card.querySelector('.btn-comprar');
+                const btnAdicionar = card.querySelector('.btn-adicionar');
+
+                const produto = {
+                    id: card.dataset.id,
+                    nome: card.dataset.nome,
+                    preco: parseFloat(card.dataset.preco)
+                };
+
+                btnComprar.addEventListener('click', () => {
+                    exigirLogin(() => {
+                        localStorage.setItem('compraDireta', JSON.stringify(produto));
+                        window.location.href = 'checkout.html';
+                    });
+                });
+
+                btnAdicionar.addEventListener('click', () => {
+                    exigirLogin(() => {
+                        adicionarAoCarrinho(produto);
+                        alert(`${produto.nome} adicionado ao carrinho!`);
+                    });
+                });
+            });
+        }
+
+        function adicionarAoCarrinho(produto) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+            const existente = carrinho.find(item => item.id === produto.id);
+            if (existente) {
+                existente.quantidade += 1;
+            } else {
+                carrinho.push({ ...produto, quantidade: 1 });
+            }
+
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+    </script>
+
+</body>
+</html>
+
+===== cadastrar.php =====
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty - Cadastro">
+    <meta property="og:description" content="Crie sua conta Essence Beauty.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <title>Cadastro | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo{
+            font-size:36px;
+            letter-spacing:3px;
+            color:#000;
+            text-decoration:none;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .logo:hover{
+            color:#5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        .btn{
+            background:#000;
+            color:#fff;
+            padding:14px 35px;
+            border-radius:40px;
+            border:none;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#535353;
+            transform:translateY(-3px);
+            box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+        }
+
+        /* ---------- LAYOUT DE CADASTRO ---------- */
+        .auth-wrap{
+            min-height: calc(100vh - 93px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 8%;
+            background: #f7fcff;
+        }
+
+        .auth-card{
+            background: #fff;
+            width: 100%;
+            max-width: 620px;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.08);
+            padding: 48px 44px;
+        }
+
+        .auth-card h2{
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: #000;
+        }
+
+        .auth-card .sub{
+            text-align: center;
+            color: #777;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .secao-titulo{
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #999;
+            margin: 26px 0 14px;
+            padding-top: 14px;
+            border-top: 1px solid #eee;
+        }
+
+        .secao-titulo:first-of-type{
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .linha{
+            display: grid;
+            gap: 16px;
+        }
+
+        .linha.dois{
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .linha.tres{
+            grid-template-columns: 1.3fr 1fr 1fr;
+        }
+
+        .campo{
+            margin-bottom: 18px;
+        }
+
+        .campo label{
+            display: block;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .campo label .opcional{
+            text-transform: none;
+            letter-spacing: 0;
+            color: #aaa;
+            font-weight: normal;
+        }
+
+        .campo input{
+            width: 100%;
+            padding: 13px 16px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            transition: .3s;
+            font-family: inherit;
+        }
+
+        .campo input:focus{
+            border-color: #000;
+        }
+
+        .campo input:disabled{
+            background: #f4f4f4;
+            color: #888;
+        }
+
+        .campo-erro{
+            color: #a00000;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .cep-status{
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .cep-status.carregando{
+            display: block;
+            color: #888;
+        }
+
+        .cep-status.ok{
+            display: block;
+            color: #1a7a3c;
+        }
+
+        .cep-status.falha{
+            display: block;
+            color: #a00000;
+        }
+
+        .auth-card .btn{
+            width: 100%;
+            font-size: 15px;
+            padding: 15px 0;
+            margin-top: 8px;
+        }
+
+        .mensagem{
+            text-align: center;
+            font-size: 14px;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .mensagem.sucesso{
+            color: #1a7a3c;
+        }
+
+        .mensagem.erro{
+            color: #a00000;
+        }
+
+        .rodape-auth{
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: 24px;
+        }
+
+        .rodape-auth a{
+            color: #000;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .rodape-auth a:hover{
+            text-decoration: underline;
+        }
+
+        footer{
+            background:#e3f2fc;
+            color:#666;
+            padding:50px;
+            text-align:center;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .auth-card{
+                padding: 36px 24px;
+            }
+
+            .linha.dois,
+            .linha.tres{
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="tcc.html" class="logo">ESSENCE BEAUTY</a>
+
+        <nav>
+            <ul>
+                <li><a href="tcc.html">Início</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="auth-wrap">
+        <div class="auth-card">
+            <h2>Criar conta</h2>
+            <p class="sub">Preencha seus dados para se cadastrar</p>
+
+            <form id="formCadastro" novalidate>
+
+                <p class="secao-titulo">Dados pessoais</p>
+
+                <div class="campo">
+                    <label for="nome">Nome completo</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+                    <span class="campo-erro" id="erroNome">Informe seu nome completo.</span>
+                </div>
+
+                <div class="linha dois">
+                    <div class="campo">
+                        <label for="cpf">CPF</label>
+                        <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" maxlength="14" required>
+                        <span class="campo-erro" id="erroCpf">Informe um CPF válido.</span>
+                    </div>
+                    <div class="campo">
+                        <label for="telefone">Telefone</label>
+                        <input type="text" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
+                        <span class="campo-erro" id="erroTelefone">Informe um telefone válido.</span>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+                    <span class="campo-erro" id="erroEmail">Informe um e-mail válido.</span>
+                </div>
+
+                <p class="secao-titulo">Endereço</p>
+
+                <div class="linha dois">
+                    <div class="campo">
+                        <label for="cep">CEP</label>
+                        <input type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9" required>
+                        <span class="cep-status" id="cepStatus"></span>
+                        <span class="campo-erro" id="erroCep">Informe um CEP válido.</span>
+                    </div>
+                    <div class="campo">
+                        <label for="numero">Número</label>
+                        <input type="text" id="numero" name="numero" placeholder="Nº" required>
+                        <span class="campo-erro" id="erroNumero">Informe o número.</span>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="rua">Rua</label>
+                    <input type="text" id="rua" name="rua" placeholder="Preenchido automaticamente pelo CEP" disabled>
+                </div>
+
+                <div class="linha dois">
+                    <div class="campo">
+                        <label for="bairro">Bairro</label>
+                        <input type="text" id="bairro" name="bairro" placeholder="Preenchido automaticamente pelo CEP" disabled>
+                    </div>
+                    <div class="campo">
+                        <label for="cidade">Cidade / UF</label>
+                        <input type="text" id="cidade" name="cidade" placeholder="Preenchido automaticamente pelo CEP" disabled>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="complemento">Complemento <span class="opcional">(opcional)</span></label>
+                    <input type="text" id="complemento" name="complemento" placeholder="Apartamento, bloco, casa...">
+                </div>
+
+                <div class="campo">
+                    <label for="referencia">Ponto de referência <span class="opcional">(opcional)</span></label>
+                    <input type="text" id="referencia" name="referencia" placeholder="Ex: perto do mercado tal">
+                </div>
+
+                <p class="secao-titulo">Acesso</p>
+
+                <div class="linha dois">
+                    <div class="campo">
+                        <label for="senha">Senha</label>
+                        <input type="password" id="senha" name="senha" placeholder="Mínimo 6 caracteres" required minlength="6">
+                        <span class="campo-erro" id="erroSenha">A senha deve ter pelo menos 6 caracteres.</span>
+                    </div>
+                    <div class="campo">
+                        <label for="confirmarSenha">Confirmar senha</label>
+                        <input type="password" id="confirmarSenha" name="confirmarSenha" placeholder="Repita a senha" required minlength="6">
+                        <span class="campo-erro" id="erroConfirmarSenha">As senhas não coincidem.</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">Criar conta</button>
+
+                <p class="mensagem" id="mensagem"></p>
+            </form>
+
+            <p class="rodape-auth">
+                Já tem uma conta? <a href="login.html">Fazer login</a>
+            </p>
+        </div>
+    </div>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>©️ 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // ==========================================================
+        // MÁSCARAS DE CAMPO
+        // ==========================================================
+        const campoCpf = document.getElementById('cpf');
+        const campoTelefone = document.getElementById('telefone');
+        const campoCep = document.getElementById('cep');
+
+        campoCpf.addEventListener('input', () => {
+            let v = campoCpf.value.replace(/\D/g, '').slice(0, 11);
+            v = v.replace(/(\d{3})(\d)/, '$1.$2');
+            v = v.replace(/(\d{3})(\d)/, '$1.$2');
+            v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            campoCpf.value = v;
+        });
+
+        campoTelefone.addEventListener('input', () => {
+            let v = campoTelefone.value.replace(/\D/g, '').slice(0, 11);
+            v = v.replace(/(\d{2})(\d)/, '($1) $2');
+            v = v.replace(/(\d{5})(\d{1,4})$/, '$1-$2');
+            campoTelefone.value = v;
+        });
+
+        campoCep.addEventListener('input', () => {
+            let v = campoCep.value.replace(/\D/g, '').slice(0, 8);
+            v = v.replace(/(\d{5})(\d{1,3})$/, '$1-$2');
+            campoCep.value = v;
+        });
+
+        // ==========================================================
+        // BUSCA DE ENDEREÇO PELO CEP (API ViaCEP - gratuita, sem chave)
+        // ==========================================================
+        const campoRua = document.getElementById('rua');
+        const campoBairro = document.getElementById('bairro');
+        const campoCidade = document.getElementById('cidade');
+        const cepStatus = document.getElementById('cepStatus');
+        const erroCep = document.getElementById('erroCep');
+
+        campoCep.addEventListener('blur', async () => {
+            const cepLimpo = campoCep.value.replace(/\D/g, '');
+            erroCep.style.display = 'none';
+
+            if(cepLimpo.length !== 8){
+                if(cepLimpo.length > 0){
+                    erroCep.style.display = 'block';
+                }
+                return;
+            }
+
+            cepStatus.className = 'cep-status carregando';
+            cepStatus.textContent = 'Buscando endereço...';
+
+            try {
+                const resposta = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+                const dados = await resposta.json();
+
+                if(dados.erro){
+                    cepStatus.className = 'cep-status falha';
+                    cepStatus.textContent = 'CEP não encontrado.';
+                    campoRua.value = '';
+                    campoBairro.value = '';
+                    campoCidade.value = '';
+                    return;
+                }
+
+                campoRua.value = dados.logradouro || '';
+                campoBairro.value = dados.bairro || '';
+                campoCidade.value = `${dados.localidade || ''} / ${dados.uf || ''}`;
+
+                cepStatus.className = 'cep-status ok';
+                cepStatus.textContent = 'Endereço encontrado!';
+
+                document.getElementById('numero').focus();
+
+            } catch (err) {
+                cepStatus.className = 'cep-status falha';
+                cepStatus.textContent = 'Não foi possível buscar o CEP. Tente novamente.';
+            }
+        });
+
+        // ==========================================================
+        // VALIDAÇÃO E ENVIO DO CADASTRO
+        // ==========================================================
+        const form = document.getElementById('formCadastro');
+        const mensagem = document.getElementById('mensagem');
+
+        function validarCpf(cpf){
+            cpf = cpf.replace(/\D/g, '');
+            if(cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+
+            let soma = 0;
+            for(let i = 0; i < 9; i++) soma += parseInt(cpf[i]) * (10 - i);
+            let resto = (soma * 10) % 11;
+            if(resto === 10 || resto === 11) resto = 0;
+            if(resto !== parseInt(cpf[9])) return false;
+
+            soma = 0;
+            for(let i = 0; i < 10; i++) soma += parseInt(cpf[i]) * (11 - i);
+            resto = (soma * 10) % 11;
+            if(resto === 10 || resto === 11) resto = 0;
+            if(resto !== parseInt(cpf[10])) return false;
+
+            return true;
+        }
+
+        function mostrarMensagem(texto, tipo){
+            mensagem.textContent = texto;
+            mensagem.className = `mensagem ${tipo}`;
+            mensagem.style.display = 'block';
+        }
+
+        const btnEnviar = form.querySelector('button[type="submit"]');
+
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+            mensagem.style.display = 'none';
+
+            let valido = true;
+            document.querySelectorAll('.campo-erro').forEach(el => el.style.display = 'none');
+
+            const nome = document.getElementById('nome').value.trim();
+            const cpf = document.getElementById('cpf').value.trim();
+            const telefone = document.getElementById('telefone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const cep = document.getElementById('cep').value.trim();
+            const numero = document.getElementById('numero').value.trim();
+            const rua = document.getElementById('rua').value.trim();
+            const bairro = document.getElementById('bairro').value.trim();
+            const cidade = document.getElementById('cidade').value.trim();
+            const complemento = document.getElementById('complemento').value.trim();
+            const referencia = document.getElementById('referencia').value.trim();
+            const senha = document.getElementById('senha').value;
+            const confirmarSenha = document.getElementById('confirmarSenha').value;
+
+            if(nome.length < 3){
+                document.getElementById('erroNome').style.display = 'block';
+                valido = false;
+            }
+
+            if(!validarCpf(cpf)){
+                document.getElementById('erroCpf').style.display = 'block';
+                valido = false;
+            }
+
+            if(telefone.replace(/\D/g, '').length < 10){
+                document.getElementById('erroTelefone').style.display = 'block';
+                valido = false;
+            }
+
+            if(!email.includes('@')){
+                document.getElementById('erroEmail').style.display = 'block';
+                valido = false;
+            }
+
+            if(cep.replace(/\D/g, '').length !== 8 || !rua){
+                document.getElementById('erroCep').style.display = 'block';
+                valido = false;
+            }
+
+            if(!numero){
+                document.getElementById('erroNumero').style.display = 'block';
+                valido = false;
+            }
+
+            if(senha.length < 6){
+                document.getElementById('erroSenha').style.display = 'block';
+                valido = false;
+            }
+
+            if(senha !== confirmarSenha){
+                document.getElementById('erroConfirmarSenha').style.display = 'block';
+                valido = false;
+            }
+
+            if(!valido) return;
+
+            // ---------- Envia os dados para o back-end (PHP + MySQL) ----------
+            btnEnviar.disabled = true;
+            btnEnviar.textContent = 'Enviando...';
+
+            try {
+                const resposta = await fetch('backend/cadastrar.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        nome, cpf, telefone, email, senha,
+                        cep, rua, numero, bairro, cidade,
+                        complemento, referencia
+                    })
+                });
+
+                const resultado = await resposta.json();
+
+                if(resultado.sucesso){
+                    mostrarMensagem('Cadastro realizado com sucesso! Redirecionando para o login...', 'sucesso');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 1400);
+                } else {
+                    mostrarMensagem(resultado.mensagem || 'Não foi possível concluir o cadastro.', 'erro');
+                }
+
+            } catch (err) {
+                mostrarMensagem('Erro de conexão com o servidor. Tente novamente.', 'erro');
+            } finally {
+                btnEnviar.disabled = false;
+                btnEnviar.textContent = 'Criar conta';
+            }
+        });
+    </script>
+
+</body>
+</html>
+
+===== cadastro.php =====
+<?php
+// ==========================================================
+// cadastro.php
+// Página de cadastro: grava nome, email e senha (com hash)
+// na tabela "usuarios" do banco "essence".
+// ==========================================================
+
+require_once 'conexao.php';
+
+
+$erro = '';
+$sucesso = '';
+
+// ---------- SE O FORMULÁRIO FOI ENVIADO ----------
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $nome = trim($_POST['nome'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $senha = trim($_POST['senha'] ?? '');
+    $confirmarSenha = trim($_POST['confirmar_senha'] ?? '');
+
+    if ($nome === '' || $email === '' || $senha === '') {
+        $erro = 'Preencha todos os campos.';
+    } elseif ($senha !== $confirmarSenha) {
+        $erro = 'As senhas não coincidem.';
+    } elseif (strlen($senha) < 6) {
+        $erro = 'A senha precisa ter pelo menos 6 caracteres.';
+    } else {
+
+        $conexao = new mysqli($host, $usuarioBanco, $senhaBanco, $nomeBanco);
+
+        if ($conexao->connect_error) {
+            $erro = 'Erro ao conectar ao banco de dados.';
+        } else {
+
+            // Verifica se o e-mail já está cadastrado
+            $stmtVerifica = $conexao->prepare('SELECT id FROM usuarios WHERE email = ? LIMIT 1');
+            $stmtVerifica->bind_param('s', $email);
+            $stmtVerifica->execute();
+            $resultadoVerifica = $stmtVerifica->get_result();
+
+            if ($resultadoVerifica->num_rows > 0) {
+                $erro = 'Este e-mail já está cadastrado.';
+                $stmtVerifica->close();
+            } else {
+                $stmtVerifica->close();
+
+                $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
+                $stmtInsere = $conexao->prepare('INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)');
+                $stmtInsere->bind_param('sss', $nome, $email, $senhaHash);
+
+                if ($stmtInsere->execute()) {
+                    $sucesso = 'Cadastro realizado com sucesso! Redirecionando para o login...';
+                    header('refresh:2;url=login.php');
+                } else {
+                    $erro = 'Erro ao cadastrar. Tente novamente.';
+                }
+
+                $stmtInsere->close();
+            }
+
+            $conexao->close();
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty - Cadastro">
+    <meta property="og:description" content="Crie sua conta na Essence Beauty.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <title>Cadastrar | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo{
+            font-size:36px;
+            letter-spacing:3px;
+            color:#000;
+            text-decoration:none;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .logo:hover{
+            color:#5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        .btn{
+            background:#000;
+            color:#fff;
+            padding:14px 35px;
+            border-radius:40px;
+            border:none;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#535353;
+            transform:translateY(-3px);
+            box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+        }
+
+        /* ÁREA DE CADASTRO */
+        .cadastro-wrapper{
+            min-height: calc(100vh - 300px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 8%;
+        }
+
+        .cadastro-box{
+            background: #fff;
+            width: 100%;
+            max-width: 420px;
+            padding: 45px 40px;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.08);
+        }
+
+        .cadastro-box h1{
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .cadastro-box .subtitulo{
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .campo{
+            margin-bottom: 18px;
+        }
+
+        .campo label{
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #444;
+        }
+
+        .campo input{
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 14.5px;
+            outline: none;
+            font-family: inherit;
+            transition: .3s;
+        }
+
+        .campo input:focus{
+            border-color: #000;
+        }
+
+        .cadastro-box .btn{
+            width: 100%;
+            padding: 13px;
+            font-size: 15px;
+            margin-top: 8px;
+        }
+
+        .cadastro-erro{
+            background: #fdecec;
+            color: #c0392b;
+            font-size: 13.5px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .cadastro-sucesso{
+            background: #e8f8ee;
+            color: #1e7e42;
+            font-size: 13.5px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .cadastro-rodape{
+            text-align: center;
+            margin-top: 22px;
+            font-size: 13.5px;
+            color: #666;
+        }
+
+        .cadastro-rodape a{
+            color: #000;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .cadastro-rodape a:hover{
+            text-decoration: underline;
+        }
+
+        footer{
+            background:#e3f2fc;
+            color:#666;
+            padding:50px;
+            text-align:center;
+            margin-top:0;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .cadastro-box{
+                padding: 35px 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="tcc.html" class="logo">ESSENCE BEAUTY</a>
+
+        <nav>
+            <ul>
+                <li><a href="cadastrar.php">Cadastrar</a></li>
+                <li><a href="login.php">Login</a></li>
+                <li><a href="tcc.html#produtos">Produtos</a></li>
+                <li><a href="tcc.html#sobre">Sobre</a></li>
+                <li><a href="tcc.html#contato">Contato</a></li>
+                <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CADASTRO -->
+    <section class="cadastro-wrapper">
+        <div class="cadastro-box">
+            <h1>CRIAR CONTA</h1>
+            <p class="subtitulo">Preencha os dados abaixo</p>
+
+            <?php if ($erro !== ''): ?>
+                <p class="cadastro-erro"><?php echo htmlspecialchars($erro); ?></p>
+            <?php endif; ?>
+
+            <?php if ($sucesso !== ''): ?>
+                <p class="cadastro-sucesso"><?php echo htmlspecialchars($sucesso); ?></p>
+            <?php endif; ?>
+
+            <form method="POST" action="cadastrar.php">
+                <div class="campo">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+                </div>
+
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+                </div>
+
+                <div class="campo">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" placeholder="Mínimo 6 caracteres" required>
+                </div>
+
+                <div class="campo">
+                    <label for="confirmar_senha">Confirmar senha</label>
+                    <input type="password" id="confirmar_senha" name="confirmar_senha" placeholder="Repita a senha" required>
+                </div>
+
+                <button type="submit" class="btn">Cadastrar</button>
+            </form>
+
+            <p class="cadastro-rodape">
+                Já tem conta? <a href="login.php">Entrar</a>
+            </p>
+        </div>
+    </section>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>©️ 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
+
+===== carrinho.html =====
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty - Carrinho">
+    <meta property="og:description" content="Seu carrinho de compras Essence Beauty.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <title>Carrinho | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo{
+            font-size:36px;
+            letter-spacing:3px;
+            color:#000;
+            text-decoration:none;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .logo:hover{
+            color:#5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        section {
+            padding: 60px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 50px;
+            color: #000000;
+        }
+
+        /* ---------- CARRINHO VAZIO ---------- */
+        .carrinho-vazio{
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .carrinho-vazio p{
+            font-size: 18px;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .btn{
+            display: inline-block;
+            background:#000;
+            color:#fff;
+            padding:14px 35px;
+            border-radius:40px;
+            border:none;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:bold;
+            font-size: 15px;
+            text-decoration: none;
+        }
+
+        .btn:hover{
+            background:#535353;
+            transform:translateY(-3px);
+            box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+        }
+
+        /* ---------- LAYOUT DO CARRINHO ---------- */
+        .carrinho-wrap{
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .lista-itens{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .item-carrinho{
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.06);
+        }
+
+        .item-carrinho img{
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 14px;
+            flex-shrink: 0;
+            background: #f2f2f2;
+        }
+
+        .item-info{
+            flex: 1;
+        }
+
+        .item-info h3{
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .item-preco-unit{
+            font-size: 14px;
+            color: #888;
+        }
+
+        .item-qtd{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .qtd-btn{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #000;
+            background: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            transition: .3s;
+        }
+
+        .qtd-btn:hover{
+            background: #000;
+            color: #fff;
+        }
+
+        .qtd-valor{
+            min-width: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .item-subtotal{
+            font-size: 19px;
+            font-weight: bold;
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .remover-btn{
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 22px;
+            cursor: pointer;
+            transition: .3s;
+            line-height: 1;
+        }
+
+        .remover-btn:hover{
+            color: #a00000;
+        }
+
+        /* ---------- RESUMO ---------- */
+        .resumo{
+            background: #fff;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.06);
+            position: sticky;
+            top: 110px;
+        }
+
+        .resumo h2{
+            font-size: 22px;
+            margin-bottom: 24px;
+        }
+
+        .resumo-linha{
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 14px;
+        }
+
+        .resumo-total{
+            display: flex;
+            justify-content: space-between;
+            font-size: 22px;
+            font-weight: bold;
+            color: #000;
+            margin: 20px 0 26px;
+            padding-top: 16px;
+            border-top: 1px solid #eee;
+        }
+
+        .resumo .btn{
+            width: 100%;
+            text-align: center;
+        }
+
+        .continuar-link{
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 14px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .continuar-link:hover{
+            color: #000;
+        }
+
+        footer{
+            background:#e3f2fc;
+            color:#666;
+            padding:50px;
+            text-align:center;
+            margin-top:80px;
+        }
+
+        @media(max-width: 860px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .carrinho-wrap{
+                grid-template-columns: 1fr;
+            }
+
+            .item-carrinho{
+                flex-wrap: wrap;
+            }
+
+            .item-subtotal{
+                text-align: left;
+                margin-top: 10px;
+            }
+
+            .resumo{
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="tcc.html" class="logo">ESSENCE BEAUTY</a>
+
+        <nav>
+            <ul>
+                <li><a href="tcc.html">Início</a></li>
+                <li><a href="cadastrar.html">Cadastrar</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <h2 class="section-title">MEU CARRINHO</h2>
+
+        <div id="carrinhoConteudo"></div>
+    </section>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>©️ 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // ==========================================================
+        // CARRINHO — lê os produtos salvos em localStorage('carrinho')
+        // pelas páginas de produtos (mesmo padrão do site)
+        // ==========================================================
+        const conteudo = document.getElementById('carrinhoConteudo');
+
+        const formatarPreco = valor => `R$ ${valor.toFixed(2).replace('.', ',')}`;
+
+        function obterCarrinho(){
+            return JSON.parse(localStorage.getItem('carrinho')) || [];
+        }
+
+        function salvarCarrinho(carrinho){
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+
+        function renderizarCarrinho(){
+            const carrinho = obterCarrinho();
+
+            if(carrinho.length === 0){
+                conteudo.innerHTML = `
+                    <div class="carrinho-vazio">
+                        <p>Seu carrinho está vazio.</p>
+                        <a href="tcc.html" class="btn">Continuar comprando</a>
+                    </div>
+                `;
+                return;
+            }
+
+            const totalItens = carrinho.reduce((soma, item) => soma + item.quantidade, 0);
+            const subtotal = carrinho.reduce((soma, item) => soma + (item.preco * item.quantidade), 0);
+
+            const itensHtml = carrinho.map(item => `
+                <div class="item-carrinho" data-id="${item.id}">
+                    ${item.imagem ? `<img src="${item.imagem}" alt="${item.nome}">` : `<img src="" alt="${item.nome}">`}
+                    <div class="item-info">
+                        <h3>${item.nome}</h3>
+                        <p class="item-preco-unit">${formatarPreco(item.preco)} / unidade</p>
+                        <div class="item-qtd">
+                            <button class="qtd-btn" data-acao="diminuir" data-id="${item.id}">−</button>
+                            <span class="qtd-valor">${item.quantidade}</span>
+                            <button class="qtd-btn" data-acao="aumentar" data-id="${item.id}">+</button>
+                        </div>
+                    </div>
+                    <div class="item-subtotal">${formatarPreco(item.preco * item.quantidade)}</div>
+                    <button class="remover-btn" data-acao="remover" data-id="${item.id}" title="Remover item">&times;</button>
+                </div>
+            `).join('');
+
+            conteudo.innerHTML = `
+                <div class="carrinho-wrap">
+                    <div class="lista-itens">
+                        ${itensHtml}
+                    </div>
+                    <div class="resumo">
+                        <h2>Resumo do pedido</h2>
+                        <div class="resumo-linha">
+                            <span>Itens (${totalItens})</span>
+                            <span>${formatarPreco(subtotal)}</span>
+                        </div>
+                        <div class="resumo-linha">
+                            <span>Frete</span>
+                            <span>A calcular</span>
+                        </div>
+                        <div class="resumo-total">
+                            <span>Total</span>
+                            <span>${formatarPreco(subtotal)}</span>
+                        </div>
+                        <button class="btn" id="btnFinalizar">Finalizar compra</button>
+                        <a href="tcc.html" class="continuar-link">Continuar comprando</a>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('btnFinalizar').addEventListener('click', () => {
+                window.location.href = 'checkout.html';
+            });
+        }
+
+        conteudo.addEventListener('click', e => {
+            const btn = e.target.closest('[data-acao]');
+            if(!btn) return;
+
+            const id = btn.dataset.id;
+            const acao = btn.dataset.acao;
+            let carrinho = obterCarrinho();
+            const item = carrinho.find(p => p.id === id);
+            if(!item) return;
+
+            if(acao === 'aumentar'){
+                item.quantidade += 1;
+            } else if(acao === 'diminuir'){
+                item.quantidade -= 1;
+                if(item.quantidade <= 0){
+                    carrinho = carrinho.filter(p => p.id !== id);
+                }
+            } else if(acao === 'remover'){
+                carrinho = carrinho.filter(p => p.id !== id);
+            }
+
+            salvarCarrinho(carrinho);
+            renderizarCarrinho();
+        });
+
+        renderizarCarrinho();
+    </script>
+
+</body>
+</html>
+
+===== conexao.php =====
+<?php
+
+$host = "localhost";
+$dbname = "essence";
+$usuario = "root";
+$senha = "";
+
+try {
+
+    $pdo = new PDO(
+        "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
+        $usuario,
+        $senha
+    );
+
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+
+    die("Erro na conexão com o banco de dados: " . $e->getMessage());
+}
+
+===== corpo.html =====
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty - Corpo">
+    <meta property="og:description" content="Produtos para o corpo Essence Beauty.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <title>Corpo | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo{
+            font-size:36px;
+            letter-spacing:3px;
+            color:#000;
+            text-decoration:none;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .logo:hover{
+            color:#5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        /* CATEGORIAS */
+        .categorias{
+            display:flex;
+            justify-content:center;
+            gap:45px;
+            background:#fff;
+            padding:25px 0;
+            border-top:1px solid #eee;
+            border-bottom:1px solid #eee;
+        }
+
+        .categorias a{
+            text-decoration:none;
+            color:#333;
+            font-size:17px;
+            letter-spacing:2px;
+            font-weight:500;
+            transition:.3s;
+        }
+
+        .categorias a:hover{
+            color:#9c9b9b;
+        }
+
+        .categorias a.ativo{
+            color:#000;
+            border-bottom:2px solid #000;
+            padding-bottom:4px;
+        }
+
+        /* BANNER */
+        .banner{
+            position: relative;
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+        }
+
+        .banner-img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .banner-texto{
+            position: absolute;
+            top: 50%;
+            left: 8%;
+            transform: translateY(-50%);
+            color: white;
+            max-width: 480px;
+        }
+
+        .banner-texto h1{
+            font-size: 42px;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .banner-texto p{
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .seta{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+
+        .esquerda{
+            left: 20px;
+        }
+
+        .direita{
+            right: 20px;
+        }
+
+        .btn{
+            background:#000;
+            color:#fff;
+            padding:14px 35px;
+            border-radius:40px;
+            border:none;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#535353;
+            transform:translateY(-3px);
+            box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+        }
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 14px;
+            color: #000000;
+        }
+
+        .section-sub{
+            text-align: center;
+            color: #777;
+            font-size: 16px;
+            margin-bottom: 50px;
+        }
+
+        .filtros{
+            display:flex;
+            justify-content:center;
+            gap:14px;
+            flex-wrap:wrap;
+            margin-bottom: 50px;
+        }
+
+        .filtro-btn{
+            padding: 10px 22px;
+            border: 1px solid #000;
+            border-radius: 40px;
+            background: #fff;
+            color: #000;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .filtro-btn:hover{
+            background: #f2f2f2;
+        }
+
+        .filtro-btn.ativo{
+            background: #000;
+            color: #fff;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card{
+            position: relative;
+            border-radius:25px;
+            overflow:hidden;
+            background:#fff;
+            transition:.4s;
+            box-shadow:0 8px 25px rgba(0,0,0,.08);
+        }
+
+        .product-card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 20px 40px rgba(0,0,0,.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 20px 25px 0 0;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .price {
+            color: #000000;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-info .btn{
+            padding: 12px 26px;
+            font-size: 14px;
+            margin: 4px;
+        }
+
+        footer{
+            background:#e3f2fc;
+            color:#666;
+            padding:50px;
+            text-align:center;
+            margin-top:80px;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .banner-texto h1 {
+                font-size: 30px;
+            }
+
+            .banner-texto p {
+                font-size: 15px;
+            }
+
+            .categorias{
+                flex-wrap: wrap;
+                gap: 20px;
+                padding: 18px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="tcc.html" class="logo">ESSENCE BEAUTY</a>
+
+        <nav>
+            <ul>
+                <li><a href="cadastrar.html">Cadastrar</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="tcc.html#produtos">Produtos</a></li>
+                <li><a href="tcc.html#sobre">Sobre</a></li>
+                <li><a href="tcc.html#contato">Contato</a></li>
+                <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CATEGORIAS -->
+    <section class="categorias" style="padding:25px 0;">
+        <a href="skin-care.html">SKIN CARE</a>
+        <a href="maquiagem.html">MAQUIAGEM</a>
+        <a href="cabelos.html">CABELOS</a>
+        <a href="corpo.html" class="ativo">CORPO</a>
+        <a href="kits.html">KITS</a>
+        <a href="promocoes.html">PROMOÇÕES</a>
+    </section>
+
+    <!-- BANNER -->
+    <section class="banner">
+        <img src="banner-corpo.jpg" class="banner-img" alt="Corpo Essence Beauty">
+        <div class="banner-texto">
+            <h1>CUIDADOS COM O CORPO</h1>
+            <p>Hidratantes, esfoliantes e body splashes para deixar a pele macia, nutrida e perfumada.</p>
+        </div>
+        <button class="seta esquerda">&#10094;</button>
+        <button class="seta direita">&#10095;</button>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section id="produtos">
+
+        <h2 class="section-title">CORPO</h2>
+        <p class="section-sub">Rituais de cuidado da cabeça aos pés.</p>
+
+        <div class="filtros" id="filtros">
+            <button class="filtro-btn ativo" data-cat="todos">Todos</button>
+            <button class="filtro-btn" data-cat="hidratante">Hidratante</button>
+            <button class="filtro-btn" data-cat="esfoliante">Esfoliante</button>
+            <button class="filtro-btn" data-cat="oleo">Óleo Corporal</button>
+            <button class="filtro-btn" data-cat="splash">Body Splash</button>
+        </div>
+
+        <div class="products" id="listaProdutos"></div>
+
+    </section>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>©️ 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // ==========================================================
+        // PRODUTOS DE CORPO
+        // -> troque "imagem" pelo caminho real de cada foto
+        // ==========================================================
+        const produtosCorpo = [
+            { id: 'cor1', nome: 'Hidratante Corporal Manteiga de Karité', categoria: 'hidratante', preco: 54.90, imagem: 'hidratante-karite.jpg' },
+            { id: 'cor2', nome: 'Hidratante Corporal Aveia & Amêndoas', categoria: 'hidratante', preco: 49.90, imagem: 'hidratante-aveia.jpg' },
+            { id: 'cor3', nome: 'Esfoliante Corporal Açúcar & Coco', categoria: 'esfoliante', preco: 44.90, imagem: 'esfoliante-coco.jpg' },
+            { id: 'cor4', nome: 'Esfoliante Corporal Café Detox', categoria: 'esfoliante', preco: 47.90, imagem: 'esfoliante-cafe.jpg' },
+            { id: 'cor5', nome: 'Óleo Corporal Secante Rosa Mosqueta', categoria: 'oleo', preco: 62.90, imagem: 'oleo-rosa-mosqueta.jpg' },
+            { id: 'cor6', nome: 'Óleo Corporal Iluminador', categoria: 'oleo', preco: 58.90, imagem: 'oleo-iluminador.jpg' },
+            { id: 'cor7', nome: 'Body Splash Rosa Branca', categoria: 'splash', preco: 39.90, imagem: 'splash-rosa-branca.jpg' },
+            { id: 'cor8', nome: 'Body Splash Baunilha & Âmbar', categoria: 'splash', preco: 42.90, imagem: 'splash-baunilha.jpg' },
+        ];
+
+        const formatarPreco = valor => `R$ ${valor.toFixed(2).replace('.', ',')}`;
+
+        const listaProdutos = document.getElementById('listaProdutos');
+
+        function renderizarProdutos(categoria = 'todos') {
+            listaProdutos.innerHTML = '';
+
+            const produtosFiltrados = categoria === 'todos'
+                ? produtosCorpo
+                : produtosCorpo.filter(p => p.categoria === categoria);
+
+            produtosFiltrados.forEach(produto => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.id = produto.id;
+                card.dataset.nome = produto.nome;
+                card.dataset.preco = produto.preco;
+
+                card.innerHTML = `
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                    <div class="product-info">
+                        <h3>${produto.nome}</h3>
+                        <p class="price">${formatarPreco(produto.preco)}</p>
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-adicionar">Adicionar</button>
+                    </div>
+                `;
+
+                listaProdutos.appendChild(card);
+            });
+
+            ativarBotoes();
+        }
+
+        renderizarProdutos();
+
+        // ---------- FILTRO DE CATEGORIAS ----------
+        document.getElementById('filtros').addEventListener('click', e => {
+            const btn = e.target.closest('.filtro-btn');
+            if (!btn) return;
+            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo'));
+            btn.classList.add('ativo');
+            renderizarProdutos(btn.dataset.cat);
+        });
+
+        // ==========================================================
+        // CARRINHO (sem depender de exigirLogin/auth.js)
+        // ==========================================================
+        function ativarBotoes() {
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const btnComprar = card.querySelector('.btn-comprar');
+                const btnAdicionar = card.querySelector('.btn-adicionar');
+
+                const produto = {
+                    id: card.dataset.id,
+                    nome: card.dataset.nome,
+                    preco: parseFloat(card.dataset.preco)
+                };
+
+                btnComprar.addEventListener('click', () => {
+                    localStorage.setItem('compraDireta', JSON.stringify(produto));
+                    window.location.href = 'checkout.html';
+                });
+
+                btnAdicionar.addEventListener('click', () => {
+                    adicionarAoCarrinho(produto);
+                    alert(`${produto.nome} adicionado ao carrinho!`);
+                });
+            });
+        }
+
+        function adicionarAoCarrinho(produto) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+            const existente = carrinho.find(item => item.id === produto.id);
+            if (existente) {
+                existente.quantidade += 1;
+            } else {
+                carrinho.push({ ...produto, quantidade: 1 });
+            }
+
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+    </script>
+
+</body>
+</html>
+
+===== index.html =====
+<script>
+
+function adicionar(nome,preco,imagem){
+
+    let carrinho =
+        JSON.parse(localStorage.getItem("carrinho")) || [];
+
+    carrinho.push({
+        nome:nome,
+        preco:preco,
+        imagem:imagem
+    });
+
+    localStorage.setItem(
+        "carrinho",
+        JSON.stringify(carrinho)
+    );
+
+    alert("Produto adicionado ao carrinho!");
+    <a href="skincare.html">SKIN CARE</a>
+
+}
+
+</script>
+
+===== kits.html =====
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty - Kits">
+    <meta property="og:description" content="Kits especiais de cosméticos Essence Beauty.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <title>Kits | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo{
+            font-size:36px;
+            letter-spacing:3px;
+            color:#000;
+            text-decoration:none;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .logo:hover{
+            color:#5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        /* CATEGORIAS */
+        .categorias{
+            display:flex;
+            justify-content:center;
+            gap:45px;
+            background:#fff;
+            padding:25px 0;
+            border-top:1px solid #eee;
+            border-bottom:1px solid #eee;
+        }
+
+        .categorias a{
+            text-decoration:none;
+            color:#333;
+            font-size:17px;
+            letter-spacing:2px;
+            font-weight:500;
+            transition:.3s;
+        }
+
+        .categorias a:hover{
+            color:#9c9b9b;
+        }
+
+        .categorias a.ativo{
+            color:#000;
+            border-bottom:2px solid #000;
+            padding-bottom:4px;
+        }
+
+        /* BANNER */
+        .banner{
+            position: relative;
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+        }
+
+        .banner-img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .banner-texto{
+            position: absolute;
+            top: 50%;
+            left: 8%;
+            transform: translateY(-50%);
+            color: white;
+            max-width: 480px;
+        }
+
+        .banner-texto h1{
+            font-size: 42px;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .banner-texto p{
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .seta{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+
+        .esquerda{
+            left: 20px;
+        }
+
+        .direita{
+            right: 20px;
+        }
+
+        .btn{
+            background:#000;
+            color:#fff;
+            padding:14px 35px;
+            border-radius:40px;
+            border:none;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#535353;
+            transform:translateY(-3px);
+            box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+        }
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 14px;
+            color: #000000;
+        }
+
+        .section-sub{
+            text-align: center;
+            color: #777;
+            font-size: 16px;
+            margin-bottom: 50px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card{
+            position: relative;
+            border-radius:25px;
+            overflow:hidden;
+            background:#fff;
+            transition:.4s;
+            box-shadow:0 8px 25px rgba(0,0,0,.08);
+        }
+
+        .product-card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 20px 40px rgba(0,0,0,.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 20px 25px 0 0;
+        }
+
+        .kit-tag{
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: #000;
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 6px 14px;
+            border-radius: 30px;
+            letter-spacing: 1px;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .itens-kit{
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .precos{
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .price-old{
+            color: #999;
+            font-size: 15px;
+            text-decoration: line-through;
+        }
+
+        .price {
+            color: #000000;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .product-info .btn{
+            padding: 12px 26px;
+            font-size: 14px;
+            margin: 4px;
+        }
+
+        footer{
+            background:#e3f2fc;
+            color:#666;
+            padding:50px;
+            text-align:center;
+            margin-top:80px;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .banner-texto h1 {
+                font-size: 30px;
+            }
+
+            .banner-texto p {
+                font-size: 15px;
+            }
+
+            .categorias{
+                flex-wrap: wrap;
+                gap: 20px;
+                padding: 18px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="tcc.html" class="logo">ESSENCE BEAUTY</a>
+
+        <nav>
+            <ul>
+                <li><a href="cadastrar.html">Cadastrar</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="tcc.html#produtos">Produtos</a></li>
+                <li><a href="tcc.html#sobre">Sobre</a></li>
+                <li><a href="tcc.html#contato">Contato</a></li>
+                <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CATEGORIAS -->
+    <section class="categorias" style="padding:25px 0;">
+        <a href="skin-care.html">SKIN CARE</a>
+        <a href="maquiagem.html">MAQUIAGEM</a>
+        <a href="cabelos.html">CABELOS</a>
+        <a href="corpo.html">CORPO</a>
+        <a href="kits.html" class="ativo">KITS</a>
+        <a href="promocoes.html">PROMOÇÕES</a>
+    </section>
+
+    <!-- BANNER -->
+    <section class="banner">
+        <img src="black.jpg" class="banner-img" alt="Kits Essence Beauty">
+        <button class="seta esquerda">&#10094;</button>
+        <button class="seta direita">&#10095;</button>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section id="produtos">
+
+        <h2 class="section-title">KITS</h2>
+        <p class="section-sub">Leve mais, pague menos.</p>
+
+        <div class="products">
+
+            <div class="product-card" data-id="kit1" data-nome="Kit Skin Care Madagascar" data-preco="259,40">
+                <span class="kit-tag">-23%</span>
+                <img src="kitskin.jpg" alt="Kit Skin Care Madagascar">
+                <div class="product-info">
+                    <h3>Kit Skin Care Madagascar</h3>
+                    <p class="itens-kit">Ampoule Foam + Tônico Centella + Soothing Cream + Óleo de limpeza Centella Light + Centella Ampoule</p>
+                    <div class="precos">
+                        <span class="price-old">R$ 259,40</span>
+                        <span class="price">R$ 210,90</span>
+                    </div>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-adicionar">Adicionar</button>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="kit2" data-nome="Kit Make Dia a Dia" data-preco="329.90">
+                <span class="kit-tag">-15%</span>
+                <img src="kitmakeup.jpg" alt="Kit Make Dia a Dia">
+                <div class="product-info">
+                    <h3>Kit Make Dia a Dia</h3>
+                    <p class="itens-kit">Dior Addict Lip Glow 001 Pink + Dior Addict Lip Glow Oil 001 Pink</p>
+                    <div class="precos">
+                        <span class="price-old">R$ 736,00</span>
+                        <span class="price">R$ 629,00</span>
+                    </div>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-adicionar">Adicionar</button>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="kit3" data-nome="Kit Cabelos Nutrição Profunda" data-preco="149.90">
+                <span class="kit-tag">-23%</span>
+                <img src="kerastase.jpg" alt="Kit Cabelos Nutrição Profunda">
+                <div class="product-info">
+                    <h3>Kit Cabelos Nutrição Profunda</h3>
+                    <p class="itens-kit">Shampoo + máscara capilar + condicionador</p>
+                    <div class="precos">
+                        <span class="price-old">R$ 358,00</span>
+                        <span class="price">R$ 275,66</span>
+                    </div>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-adicionar">Adicionar</button>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="kit4" data-nome="Kit Corpo Hidratação Total" data-preco="139.90">
+                <span class="kit-tag">-15%</span>
+                <img src="nativa.jpg" alt="Kit Corpo Hidratação Total">
+                <div class="product-info">
+                    <h3>Kit Corpo loção e body splash</h3>
+                    <p class="itens-kit">loção corporal + body splash + sabonete + óleo corporal + esfoliante corporal</p>
+                    <div class="precos">
+                        <span class="price-old">R$ 534,30</span>
+                        <span class="price">R$ 452,30</span>
+                    </div>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-adicionar">Adicionar</button>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="kit5" data-nome="Kit Proteção Solar" data-preco="149.90">
+                <span class="kit-tag">-21%</span>
+                <img src="kit-solar.jpg" alt="Kit Proteção Solar">
+                <div class="product-info">
+                    <h3>Kit Proteção Solar</h3>
+                    <p class="itens-kit">Protetor solar facial + protetor solar corporal</p>
+                    <div class="precos">
+                        <span class="price-old">R$ 189,80</span>
+                        <span class="price">R$ 149,90</span>
+                    </div>
+                    <button class="btn btn-comprar">Comprar</button>
+                    <button class="btn btn-adicionar">Adicionar</button>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>©️ 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // ==========================================================
+        // CARRINHO (mesmo padrão usado nas outras páginas do site)
+        // ==========================================================
+        document.querySelectorAll('.product-card').forEach(card => {
+            const produto = {
+                id: card.dataset.id,
+                nome: card.dataset.nome,
+                preco: parseFloat(card.dataset.preco)
+            };
+
+            card.querySelector('.btn-comprar').addEventListener('click', () => {
+                localStorage.setItem('compraDireta', JSON.stringify(produto));
+                window.location.href = 'checkout.html';
+            });
+
+            card.querySelector('.btn-adicionar').addEventListener('click', () => {
+                adicionarAoCarrinho(produto);
+                alert(`${produto.nome} adicionado ao carrinho!`);
+            });
+        });
+
+        function adicionarAoCarrinho(produto) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+            const existente = carrinho.find(item => item.id === produto.id);
+            if (existente) {
+                existente.quantidade += 1;
+            } else {
+                carrinho.push({ ...produto, quantidade: 1 });
+            }
+
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+    </script>
+
+</body>
+</html>
+
+===== login.php =====
+<?php
+session_start();
+
+require_once 'conexao.php';
+
+$erro = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $email = trim($_POST['email'] ?? '');
+    $senha = trim($_POST['senha'] ?? '');
+
+    if ($email === '' || $senha === '') {
+
+        $erro = 'Preencha e-mail e senha.';
+
+    } else {
+
+        try {
+
+            // Busca o usuário pelo e-mail
+            $sql = "SELECT id, nome, email, senha 
+                    FROM usuarios 
+                    WHERE email = :email 
+                    LIMIT 1";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindValue(':email', $email);
+            $stmt->execute();
+
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Verifica se o usuário existe
+            if (!$usuario) {
+
+                $erro = 'E-mail ou senha incorretos.';
+
+            } else {
+
+                // Verifica a senha criptografada
+                if (password_verify($senha, $usuario['senha'])) {
+
+                    // Cria a sessão
+                    $_SESSION['usuario_id'] = $usuario['id'];
+                    $_SESSION['usuario_nome'] = $usuario['nome'];
+                    $_SESSION['usuario_email'] = $usuario['email'];
+
+                    // Redireciona para a página principal
+                    header('Location: tcc.html');
+                    exit;
+
+                } else {
+
+                    $erro = 'E-mail ou senha incorretos.';
+                }
+            }
+
+        } catch (PDOException $e) {
+
+            $erro = 'Erro ao acessar o banco de dados.';
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty - Login">
+    <meta property="og:description" content="Entre na sua conta Essence Beauty.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <title>Login | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo{
+            font-size:36px;
+            letter-spacing:3px;
+            color:#000;
+            text-decoration:none;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .logo:hover{
+            color:#5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        .btn{
+            background:#000;
+            color:#fff;
+            padding:14px 35px;
+            border-radius:40px;
+            border:none;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#535353;
+            transform:translateY(-3px);
+            box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+        }
+
+        /* ÁREA DE LOGIN */
+        .login-wrapper{
+            min-height: calc(100vh - 300px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 8%;
+        }
+
+        .login-box{
+            background: #fff;
+            width: 100%;
+            max-width: 400px;
+            padding: 45px 40px;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.08);
+        }
+
+        .login-box h1{
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .login-box .subtitulo{
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .campo{
+            margin-bottom: 20px;
+        }
+
+        .campo label{
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #444;
+        }
+
+        .campo input{
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 14.5px;
+            outline: none;
+            font-family: inherit;
+            transition: .3s;
+        }
+
+        .campo input:focus{
+            border-color: #000;
+        }
+
+        .login-box .btn{
+            width: 100%;
+            padding: 13px;
+            font-size: 15px;
+            margin-top: 8px;
+        }
+
+        .login-erro{
+            background: #fdecec;
+            color: #c0392b;
+            font-size: 13.5px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .login-rodape{
+            text-align: center;
+            margin-top: 22px;
+            font-size: 13.5px;
+            color: #666;
+        }
+
+        .login-rodape a{
+            color: #000;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .login-rodape a:hover{
+            text-decoration: underline;
+        }
+
+        footer{
+            background:#e3f2fc;
+            color:#666;
+            padding:50px;
+            text-align:center;
+            margin-top:0;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .login-box{
+                padding: 35px 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="tcc.html" class="logo">ESSENCE BEAUTY</a>
+
+        <nav>
+            <ul>
+                <li><a href="cadastrar.html">Cadastrar</a></li>
+                <li><a href="login.php">Login</a></li>
+                <li><a href="tcc.html#produtos">Produtos</a></li>
+                <li><a href="tcc.html#sobre">Sobre</a></li>
+                <li><a href="tcc.html#contato">Contato</a></li>
+                <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- LOGIN -->
+    <section class="login-wrapper">
+        <div class="login-box">
+            <h1>BEM-VINDA</h1>
+            <p class="subtitulo">Entre com seu e-mail e senha</p>
+
+            <?php if ($erro !== ''): ?>
+                <p class="login-erro"><?php echo htmlspecialchars($erro); ?></p>
+            <?php endif; ?>
+
+            <form method="POST" action="login.php">
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+                </div>
+
+                <div class="campo">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                </div>
+
+                <button type="submit" class="btn">Entrar</button>
+            </form>
+
+            <p class="login-rodape">
+                Ainda não tem conta? <a href="cadastrar.html">Cadastre-se</a>
+            </p>
+        </div>
+    </section>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>©️ 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
+
+===== maquiagem.html =====
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty - Maquiagem">
+    <meta property="og:description" content="Produtos de maquiagem Essence Beauty.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <title>Maquiagem | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo{
+            font-size:36px;
+            letter-spacing:3px;
+            color:#000;
+            text-decoration:none;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .logo:hover{
+            color:#5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        /* CATEGORIAS */
+        .categorias{
+            display:flex;
+            justify-content:center;
+            gap:45px;
+            background:#fff;
+            padding:25px 0;
+            border-top:1px solid #eee;
+            border-bottom:1px solid #eee;
+        }
+
+        .categorias a{
+            text-decoration:none;
+            color:#333;
+            font-size:17px;
+            letter-spacing:2px;
+            font-weight:500;
+            transition:.3s;
+        }
+
+        .categorias a:hover{
+            color:#9c9b9b;
+        }
+
+        .categorias a.ativo{
+            color:#000;
+            border-bottom:2px solid #000;
+            padding-bottom:4px;
+        }
+
+        /* BANNER */
+        .banner{
+            position: relative;
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+        }
+
+        .banner-img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .banner-texto{
+            position: absolute;
+            top: 50%;
+            left: 8%;
+            transform: translateY(-50%);
+            color: white;
+            max-width: 480px;
+        }
+
+        .banner-texto h1{
+            font-size: 42px;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .banner-texto p{
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .seta{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+
+        .esquerda{
+            left: 20px;
+        }
+
+        .direita{
+            right: 20px;
+        }
+
+        .btn{
+            background:#000;
+            color:#fff;
+            padding:14px 35px;
+            border-radius:40px;
+            border:none;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#535353;
+            transform:translateY(-3px);
+            box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+        }
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 14px;
+            color: #000000;
+        }
+
+        .section-sub{
+            text-align: center;
+            color: #777;
+            font-size: 16px;
+            margin-bottom: 50px;
+        }
+
+        .filtros{
+            display:flex;
+            justify-content:center;
+            gap:14px;
+            flex-wrap:wrap;
+            margin-bottom: 50px;
+        }
+
+        .filtro-btn{
+            padding: 10px 22px;
+            border: 1px solid #000;
+            border-radius: 40px;
+            background: #fff;
+            color: #000;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .filtro-btn:hover{
+            background: #f2f2f2;
+        }
+
+        .filtro-btn.ativo{
+            background: #000;
+            color: #fff;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-radius:25px;
+            overflow:hidden;
+            background:#fff;
+            transition:.4s;
+            box-shadow:0 8px 25px rgba(0,0,0,.08);
+        }
+
+        .product-card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 20px 40px rgba(0,0,0,.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background: #f5f5f5;
+            border-radius: 20px 25px 0 0;
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        /* DESCRIÇÃO DO PRODUTO */
+        .descricao{
+            color: #777;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: #000000;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
+
+        .product-info .btn{
+            padding: 12px 26px;
+            font-size: 14px;
+            margin: 4px;
+        }
+
+        .botoes{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        footer{
+            background:#e3f2fc;
+            color:#666;
+            padding:50px;
+            text-align:center;
+            margin-top:80px;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .banner-texto h1 {
+                font-size: 30px;
+            }
+
+            .banner-texto p {
+                font-size: 15px;
+            }
+
+            .categorias{
+                flex-wrap: wrap;
+                gap: 20px;
+                padding: 18px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="tcc.html" class="logo">ESSENCE BEAUTY</a>
+
+        <nav>
+            <ul>
+                <li><a href="cadastrar.html">Cadastrar</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="tcc.html#produtos">Produtos</a></li>
+                <li><a href="tcc.html#sobre">Sobre</a></li>
+                <li><a href="tcc.html#contato">Contato</a></li>
+                <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CATEGORIAS -->
+    <section class="categorias" style="padding:25px 0;">
+        <a href="skin-care.html">SKIN CARE</a>
+        <a href="maquiagem.html" class="ativo">MAQUIAGEM</a>
+        <a href="cabelos.html">CABELOS</a>
+        <a href="corpo.html">CORPO</a>
+        <a href="kits.html">KITS</a>
+        <a href="promocoes.html">PROMOÇÕES</a>
+    </section>
+
+    <!-- BANNER -->
+    <section class="banner">
+        <img src="banner-maquiagem.jpg" class="banner-img" alt="Maquiagem Essence Beauty">
+        <div class="banner-texto">
+            <h1>MAQUIAGEM</h1>
+            <p>Bases, sombras, máscaras e labiais para todos os estilos, com acabamento profissional.</p>
+        </div>
+        <button class="seta esquerda">&#10094;</button>
+        <button class="seta direita">&#10095;</button>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section id="produtos">
+
+        <h2 class="section-title">MAQUIAGEM</h2>
+        <p class="section-sub">Realce sua beleza com produtos de alta pigmentação.</p>
+
+        <div class="filtros" id="filtros">
+            <button class="filtro-btn ativo" data-cat="todos">Todos</button>
+            <button class="filtro-btn" data-cat="rosto">Rosto</button>
+            <button class="filtro-btn" data-cat="olhos">Olhos</button>
+            <button class="filtro-btn" data-cat="labios">Lábios</button>
+        </div>
+
+        <div class="products" id="listaProdutos"></div>
+
+    </section>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>©️ 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // ==========================================================
+        // PRODUTOS DE MAQUIAGEM
+        // -> "imagem": caminho da foto (ex.: 'imagens/mac.jpg')
+        // -> "descricao": texto que aparece abaixo do nome
+        // Para adicionar um produto novo, copie uma linha e altere os dados.
+        // ==========================================================
+        const produtosMaquiagem = [
+            {
+                id: 'maq1',
+                nome: 'Base Líquida MAC Matte',
+                categoria: 'rosto',
+                preco: 249.90,
+                imagem: 'mac.jpg',
+                descricao: 'Base de alta cobertura com acabamento matte e controle de oleosidade por até 24 horas.'
+            },
+            {
+                id: 'maq2',
+                nome: 'Pó Compacto Ollie Ultrafino FPS 50',
+                categoria: 'rosto',
+                preco: 119.90,
+                imagem: 'po.jpg',
+                descricao: 'Pó compacto ultrafino com proteção solar FPS 50 e toque seco, ideal para o dia a dia.'
+            },
+            {
+                id: 'maq3',
+                nome: 'Blush Cremoso Rosé',
+                categoria: 'rosto',
+                preco: 47.90,
+                imagem: 'blush-dailus.jpg',
+                descricao: 'Blush de textura cremosa que se funde à pele e deixa um efeito natural de bochechas coradas.'
+            },
+            {
+                id: 'maq4',
+                nome: 'Paleta de Sombras Terracota',
+                categoria: 'olhos',
+                preco: 119.90,
+                imagem: 'paleta-sombras.jpg',
+                descricao: 'Paleta com tons terrosos matte e cintilantes, altamente pigmentados e fáceis de esfumar.'
+            },
+            {
+                id: 'maq5',
+                nome: 'Máscara de Cílios Volume XL',
+                categoria: 'olhos',
+                preco: 54.90,
+                imagem: 'mascara-cilios.jpg',
+                descricao: 'Máscara que aumenta o volume e separa os cílios, sem grumos e com longa duração.'
+            },
+            {
+                id: 'maq6',
+                nome: 'Delineador Líquido Preto Intenso',
+                categoria: 'olhos',
+                preco: 39.90,
+                imagem: 'delineador.jpg',
+                descricao: 'Delineador com ponta precisa, preto intenso e secagem rápida, resistente à água.'
+            },
+            {
+                id: 'maq7',
+                nome: 'Lip Gloss Rhode Jelly Bean',
+                categoria: 'labios',
+                preco: 261.90,
+                imagem: 'rhode.jpg',
+                descricao: 'Gloss de brilho espelhado com textura confortável e hidratação para os lábios.'
+            },
+            {
+                id: 'maq8',
+                nome: 'Batom Matte Longa Duração',
+                categoria: 'labios',
+                preco: 44.90,
+                imagem: 'batom-matte.jpg',
+                descricao: 'Batom matte de alta pigmentação e longa duração, com acabamento aveludado.'
+            },
+        ];
+
+        const formatarPreco = valor => `R$ ${valor.toFixed(2).replace('.', ',')}`;
+
+        const listaProdutos = document.getElementById('listaProdutos');
+
+        function renderizarProdutos(categoria = 'todos') {
+            listaProdutos.innerHTML = '';
+
+            const produtosFiltrados = categoria === 'todos'
+                ? produtosMaquiagem
+                : produtosMaquiagem.filter(p => p.categoria === categoria);
+
+            produtosFiltrados.forEach(produto => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.id = produto.id;
+                card.dataset.nome = produto.nome;
+                card.dataset.preco = produto.preco;
+
+                card.innerHTML = `
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                    <div class="product-info">
+                        <h3>${produto.nome}</h3>
+                        <p class="descricao">${produto.descricao || ''}</p>
+                        <p class="price">${formatarPreco(produto.preco)}</p>
+                        <div class="botoes">
+                            <button class="btn btn-comprar">Comprar</button>
+                            <button class="btn btn-adicionar">Adicionar</button>
+                        </div>
+                    </div>
+                `;
+
+                listaProdutos.appendChild(card);
+            });
+
+            ativarBotoes();
+        }
+
+        renderizarProdutos();
+
+        // ---------- FILTRO DE CATEGORIAS ----------
+        document.getElementById('filtros').addEventListener('click', e => {
+            const btn = e.target.closest('.filtro-btn');
+            if (!btn) return;
+            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo'));
+            btn.classList.add('ativo');
+            renderizarProdutos(btn.dataset.cat);
+        });
+
+        // ==========================================================
+        // CARRINHO (sem depender de exigirLogin/auth.js)
+        // ==========================================================
+        function ativarBotoes() {
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const btnComprar = card.querySelector('.btn-comprar');
+                const btnAdicionar = card.querySelector('.btn-adicionar');
+
+                const produto = {
+                    id: card.dataset.id,
+                    nome: card.dataset.nome,
+                    preco: parseFloat(card.dataset.preco)
+                };
+
+                btnComprar.addEventListener('click', () => {
+                    localStorage.setItem('compraDireta', JSON.stringify(produto));
+                    window.location.href = 'checkout.html';
+                });
+
+                btnAdicionar.addEventListener('click', () => {
+                    adicionarAoCarrinho(produto);
+                    alert(`${produto.nome} adicionado ao carrinho!`);
+                });
+            });
+        }
+
+        function adicionarAoCarrinho(produto) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+            const existente = carrinho.find(item => item.id === produto.id);
+            if (existente) {
+                existente.quantidade += 1;
+            } else {
+                carrinho.push({ ...produto, quantidade: 1 });
+            }
+
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+    </script>
+
+</body>
+</html>
+
+===== promocoes.html =====
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty - Promoções">
+    <meta property="og:description" content="Ofertas por tempo limitado na Essence Beauty.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <title>Promoções | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo{
+            font-size:36px;
+            letter-spacing:3px;
+            color:#000;
+            text-decoration:none;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .logo:hover{
+            color:#5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        /* CATEGORIAS */
+        .categorias{
+            display:flex;
+            justify-content:center;
+            gap:45px;
+            background:#fff;
+            padding:25px 0;
+            border-top:1px solid #eee;
+            border-bottom:1px solid #eee;
+        }
+
+        .categorias a{
+            text-decoration:none;
+            color:#333;
+            font-size:17px;
+            letter-spacing:2px;
+            font-weight:500;
+            transition:.3s;
+        }
+
+        .categorias a:hover{
+            color:#9c9b9b;
+        }
+
+        .categorias a.ativo{
+            color:#000;
+            border-bottom:2px solid #000;
+            padding-bottom:4px;
+        }
+
+        /* BANNER DE PROMOÇÃO */
+        .promo-banner{
+            position: relative;
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .promo-banner-img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.55;
+            display: block;
+        }
+
+        .promo-banner-texto{
+            position: absolute;
+            top: 50%;
+            left: 8%;
+            transform: translateY(-50%);
+            color: #fff;
+            max-width: 520px;
+        }
+
+        .promo-banner-texto h1{
+            font-size: 46px;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .promo-banner-texto p{
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        /* CONTAGEM REGRESSIVA */
+        .contagem{
+            display: flex;
+            gap: 16px;
+        }
+
+        .contagem div{
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 10px;
+            padding: 12px 16px;
+            min-width: 64px;
+            text-align: center;
+        }
+
+        .contagem span{
+            display: block;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .contagem small{
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .btn{
+            background:#000;
+            color:#fff;
+            padding:14px 35px;
+            border-radius:40px;
+            border:none;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#535353;
+            transform:translateY(-3px);
+            box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+        }
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 50px;
+            color: #000000;
+        }
+
+        .filtros{
+            display:flex;
+            justify-content:center;
+            gap:14px;
+            flex-wrap:wrap;
+            margin-bottom: 50px;
+        }
+
+        .filtro-btn{
+            padding: 10px 22px;
+            border: 1px solid #000;
+            border-radius: 40px;
+            background: #fff;
+            color: #000;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .filtro-btn:hover{
+            background: #f2f2f2;
+        }
+
+        .filtro-btn.ativo{
+            background: #000;
+            color: #fff;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card{
+            position: relative;
+            border-radius:25px;
+            overflow:hidden;
+            background:#fff;
+            transition:.4s;
+            box-shadow:0 8px 25px rgba(0,0,0,.08);
+        }
+
+        .product-card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 20px 40px rgba(0,0,0,.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 20px 25px 0 0;
+        }
+
+        .desconto-tag{
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: #000;
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 6px 14px;
+            border-radius: 30px;
+            letter-spacing: 1px;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .precos{
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .price-old{
+            color: #999;
+            font-size: 15px;
+            text-decoration: line-through;
+        }
+
+        .price {
+            color: #000000;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .product-info .btn{
+            padding: 12px 26px;
+            font-size: 14px;
+            margin: 4px;
+        }
+
+        footer{
+            background:#e3f2fc;
+            color:#666;
+            padding:50px;
+            text-align:center;
+            margin-top:80px;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .promo-banner-texto h1 {
+                font-size: 32px;
+            }
+
+            .promo-banner-texto p {
+                font-size: 15px;
+            }
+
+            .categorias{
+                flex-wrap: wrap;
+                gap: 20px;
+                padding: 18px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="tcc.html" class="logo">ESSENCE BEAUTY</a>
+
+        <nav>
+            <ul>
+                <li><a href="cadastrar.html">Cadastrar</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="tcc.html#produtos">Produtos</a></li>
+                <li><a href="tcc.html#sobre">Sobre</a></li>
+                <li><a href="tcc.html#contato">Contato</a></li>
+                <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CATEGORIAS -->
+    <section class="categorias" style="padding:25px 0;">
+        <a href="skin-care.html">SKIN CARE</a>
+        <a href="maquiagem.html">MAQUIAGEM</a>
+        <a href="cabelos.html">CABELOS</a>
+        <a href="corpo.html">CORPO</a>
+        <a href="kits.html">KITS</a>
+        <a href="promocoes.html" class="ativo">PROMOÇÕES</a>
+    </section>
+
+    <!-- BANNER DE PROMOÇÃO -->
+    <section class="promo-banner">
+        <img src="banner-promocao.jpg" class="promo-banner-img" alt="Promoção Essence Beauty">
+        <div class="promo-banner-texto">
+            <h1>ATÉ 40% OFF</h1>
+            <p>Aproveite descontos exclusivos em produtos selecionados de skin care, maquiagem, cabelos e mais. Por tempo limitado.</p>
+            <div class="contagem" id="contagem">
+                <div><span id="cd-dias">00</span><small>Dias</small></div>
+                <div><span id="cd-horas">00</span><small>Horas</small></div>
+                <div><span id="cd-min">00</span><small>Min</small></div>
+                <div><span id="cd-seg">00</span><small>Seg</small></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUTOS EM PROMOÇÃO -->
+    <section id="produtos">
+
+        <h2 class="section-title">PROMOÇÕES</h2>
+
+        <div class="filtros" id="filtros">
+            <button class="filtro-btn ativo" data-cat="todos">Todos</button>
+            <button class="filtro-btn" data-cat="skin-care">Skin Care</button>
+            <button class="filtro-btn" data-cat="maquiagem">Maquiagem</button>
+            <button class="filtro-btn" data-cat="cabelos">Cabelos</button>
+            <button class="filtro-btn" data-cat="corpo">Corpo</button>
+        </div>
+
+        <div class="products" id="listaProdutos"></div>
+
+    </section>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>©️ 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // ==========================================================
+        // PRODUTOS EM PROMOÇÃO
+        // -> troque "imagem" pelo caminho real de cada foto,
+        //    ex: "mixsoon.jpg" (mesmo padrão usado no site)
+        // ==========================================================
+        const produtosPromocao = [
+            { id: 'promo1', nome: 'mixsoon Bean Essence 50ml', categoria: 'skin-care', precoOriginal: 103.90, precoPromo: 79.90, imagem: 'mixsoon.jpg' },
+            { id: 'promo2', nome: 'medicube deep vitamin C', categoria: 'skin-care', precoOriginal: 116.90, precoPromo: 89.90, imagem: 'vitamina.jpg' },
+            { id: 'promo3', nome: 'lip gloss rhode Jelly Bean', categoria: 'maquiagem', precoOriginal: 261.90, precoPromo: 199.90, imagem: 'rhode.jpg' },
+            { id: 'promo4', nome: 'serum madagascar centella tone', categoria: 'skin-care', precoOriginal: 125.90, precoPromo: 94.90, imagem: 'tonee.jpg' },
+            { id: 'promo5', nome: 'Protetor Solar La Roche-Posay FPS 80', categoria: 'skin-care', precoOriginal: 94.90, precoPromo: 69.90, imagem: 'protetor.jpg' },
+        ];
+
+        const formatarPreco = valor => `R$ ${valor.toFixed(2).replace('.', ',')}`;
+        const calcularDesconto = (original, promo) => Math.round(100 - (promo / original) * 100);
+
+        const listaProdutos = document.getElementById('listaProdutos');
+
+        function renderizarProdutos(categoria = 'todos') {
+            listaProdutos.innerHTML = '';
+
+            const produtosFiltrados = categoria === 'todos'
+                ? produtosPromocao
+                : produtosPromocao.filter(p => p.categoria === categoria);
+
+            produtosFiltrados.forEach(produto => {
+                const desconto = calcularDesconto(produto.precoOriginal, produto.precoPromo);
+
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.id = produto.id;
+                card.dataset.nome = produto.nome;
+                card.dataset.preco = produto.precoPromo;
+
+                card.innerHTML = `
+                    <span class="desconto-tag">-${desconto}%</span>
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                    <div class="product-info">
+                        <h3>${produto.nome}</h3>
+                        <div class="precos">
+                            <span class="price-old">${formatarPreco(produto.precoOriginal)}</span>
+                            <span class="price">${formatarPreco(produto.precoPromo)}</span>
+                        </div>
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-adicionar">Adicionar</button>
+                    </div>
+                `;
+
+                listaProdutos.appendChild(card);
+            });
+
+            ativarBotoes();
+        }
+
+        renderizarProdutos();
+
+        // ---------- FILTRO DE CATEGORIAS ----------
+        document.getElementById('filtros').addEventListener('click', e => {
+            const btn = e.target.closest('.filtro-btn');
+            if (!btn) return;
+            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo'));
+            btn.classList.add('ativo');
+            renderizarProdutos(btn.dataset.cat);
+        });
+
+        // ==========================================================
+        // CARRINHO (sem depender de exigirLogin/auth.js)
+        // ==========================================================
+        function ativarBotoes() {
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const btnComprar = card.querySelector('.btn-comprar');
+                const btnAdicionar = card.querySelector('.btn-adicionar');
+
+                const produto = {
+                    id: card.dataset.id,
+                    nome: card.dataset.nome,
+                    preco: parseFloat(card.dataset.preco)
+                };
+
+                btnComprar.addEventListener('click', () => {
+                    localStorage.setItem('compraDireta', JSON.stringify(produto));
+                    window.location.href = 'checkout.html';
+                });
+
+                btnAdicionar.addEventListener('click', () => {
+                    adicionarAoCarrinho(produto);
+                    alert(`${produto.nome} adicionado ao carrinho!`);
+                });
+            });
+        }
+
+        function adicionarAoCarrinho(produto) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+            const existente = carrinho.find(item => item.id === produto.id);
+            if (existente) {
+                existente.quantidade += 1;
+            } else {
+                carrinho.push({ ...produto, quantidade: 1 });
+            }
+
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+
+        // ==========================================================
+        // CONTAGEM REGRESSIVA
+        // -> defina a data/hora de término da promoção
+        // ==========================================================
+        const dataFinal = new Date();
+        dataFinal.setDate(dataFinal.getDate() + 4); // exemplo: termina em 4 dias
+
+        function atualizarContagem() {
+            const agora = new Date();
+            const diff = dataFinal - agora;
+
+            if (diff <= 0) {
+                document.getElementById('contagem').innerHTML = '<p>Promoção encerrada</p>';
+                return;
+            }
+
+            const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const min = Math.floor((diff / (1000 * 60)) % 60);
+            const seg = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('cd-dias').textContent = String(dias).padStart(2, '0');
+            document.getElementById('cd-horas').textContent = String(horas).padStart(2, '0');
+            document.getElementById('cd-min').textContent = String(min).padStart(2, '0');
+            document.getElementById('cd-seg').textContent = String(seg).padStart(2, '0');
+        }
+
+        atualizarContagem();
+        setInterval(atualizarContagem, 1000);
+    </script>
+
+</body>
+</html>
+
+===== skin-care.html =====
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty - Skin Care">
+    <meta property="og:description" content="Produtos de skin care Essence Beauty.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <title>Skin Care | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo{
+            font-size:36px;
+            letter-spacing:3px;
+            color:#000;
+            text-decoration:none;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .logo:hover{
+            color:#5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        /* CATEGORIAS */
+        .categorias{
+            display:flex;
+            justify-content:center;
+            gap:45px;
+            background:#fff;
+            padding:25px 0;
+            border-top:1px solid #eee;
+            border-bottom:1px solid #eee;
+        }
+
+        .categorias a{
+            text-decoration:none;
+            color:#333;
+            font-size:17px;
+            letter-spacing:2px;
+            font-weight:500;
+            transition:.3s;
+        }
+
+        .categorias a:hover{
+            color:#9c9b9b;
+        }
+
+        .categorias a.ativo{
+            color:#000;
+            border-bottom:2px solid #000;
+            padding-bottom:4px;
+        }
+
+        /* BANNER */
+        .banner{
+            position: relative;
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+        }
+
+        .banner-img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .banner-texto{
+            position: absolute;
+            top: 50%;
+            left: 8%;
+            transform: translateY(-50%);
+            color: white;
+            max-width: 480px;
+        }
+
+        .banner-texto h1{
+            font-size: 42px;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .banner-texto p{
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .seta{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+
+        .esquerda{
+            left: 20px;
+        }
+
+        .direita{
+            right: 20px;
+        }
+
+        .btn{
+            background:#000;
+            color:#fff;
+            padding:14px 35px;
+            border-radius:40px;
+            border:none;
+            cursor:pointer;
+            transition:.3s;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#535353;
+            transform:translateY(-3px);
+            box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+        }
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 14px;
+            color: #000000;
+        }
+
+        .section-sub{
+            text-align: center;
+            color: #777;
+            font-size: 16px;
+            margin-bottom: 50px;
+        }
+
+        .filtros{
+            display:flex;
+            justify-content:center;
+            gap:14px;
+            flex-wrap:wrap;
+            margin-bottom: 50px;
+        }
+
+        .filtro-btn{
+            padding: 10px 22px;
+            border: 1px solid #000;
+            border-radius: 40px;
+            background: #fff;
+            color: #000;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .filtro-btn:hover{
+            background: #f2f2f2;
+        }
+
+        .filtro-btn.ativo{
+            background: #000;
+            color: #fff;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card{
+            position: relative;
+            border-radius:25px;
+            overflow:hidden;
+            background:#fff;
+            transition:.4s;
+            box-shadow:0 8px 25px rgba(0,0,0,.08);
+        }
+
+        .product-card:hover{
+            transform:translateY(-8px);
+            box-shadow:0 20px 40px rgba(0,0,0,.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 20px 25px 0 0;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .price {
+            color: #000000;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-info .btn{
+            padding: 12px 26px;
+            font-size: 14px;
+            margin: 4px;
+        }
+
+        footer{
+            background:#e3f2fc;
+            color:#666;
+            padding:50px;
+            text-align:center;
+            margin-top:80px;
+        }
+
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .banner-texto h1 {
+                font-size: 30px;
+            }
+
+            .banner-texto p {
+                font-size: 15px;
+            }
+
+            .categorias{
+                flex-wrap: wrap;
+                gap: 20px;
+                padding: 18px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="tcc.html" class="logo">ESSENCE BEAUTY</a>
+
+        <nav>
+            <ul>
+                <li><a href="cadastrar.html">Cadastrar</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="tcc.html#produtos">Produtos</a></li>
+                <li><a href="tcc.html#sobre">Sobre</a></li>
+                <li><a href="tcc.html#contato">Contato</a></li>
+                <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CATEGORIAS -->
+    <section class="categorias" style="padding:25px 0;">
+        <a href="skin-care.html" class="ativo">SKIN CARE</a>
+        <a href="maquiagem.html">MAQUIAGEM</a>
+        <a href="cabelos.html">CABELOS</a>
+        <a href="corpo.html">CORPO</a>
+        <a href="kits.html">KITS</a>
+        <a href="promocoes.html">PROMOÇÕES</a>
+    </section>
+
+    <!-- BANNER -->
+    <section class="banner">
+        <img src="banerskin.jpg" class="banner-img" alt="Skin Care Essence Beauty">
+        <button class="seta esquerda">&#10094;</button>
+        <button class="seta direita">&#10095;</button>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section id="produtos">
+
+        <h2 class="section-title">SKIN CARE</h2>
+        <p class="section-sub">Sua rotina de cuidados faciais completa.</p>
+
+        <div class="filtros" id="filtros">
+            <button class="filtro-btn ativo" data-cat="todos">Todos</button>
+            <button class="filtro-btn" data-cat="limpeza">Limpeza</button>
+            <button class="filtro-btn" data-cat="tratamento">Tratamento</button>
+            <button class="filtro-btn" data-cat="hidratacao">Hidratação</button>
+            <button class="filtro-btn" data-cat="protecao">Proteção Solar</button>
+        </div>
+
+        <div class="products" id="listaProdutos"></div>
+
+    </section>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>©️ 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // ==========================================================
+        // PRODUTOS DE SKIN CARE
+        // -> troque "imagem" pelo caminho real de cada foto
+        // ==========================================================
+        const produtosSkinCare = [
+            { id: 'sk1', nome: 'Água Micelar Suave', categoria: 'limpeza', preco: 39.90, imagem: 'aguac.jpg' },
+            { id: 'sk2', nome: 'Gel de Limpeza Facial', categoria: 'limpeza', preco: 42.90, imagem: 'cerave.jpg' },
+            { id: 'sk3', nome: 'mixsoon Bean Essence 50ml', categoria: 'tratamento', preco: 103.90, imagem: 'mixsoon.jpg' },
+            { id: 'sk4', nome: 'medicube deep vitamin C', categoria: 'tratamento', preco: 116.90, imagem: 'vitamina.jpg' },
+            { id: 'sk5', nome: 'serum madagascar centella tone', categoria: 'tratamento', preco: 125.90, imagem: 'tonee.jpg' },
+            { id: 'sk6', nome: 'Hidratante Facial Ácido Hialurônico', categoria: 'hidratacao', preco: 84.90, imagem: 'hidrafacial.jpg' },
+            { id: 'sk7', nome: 'Creme Noturno Regenerador', categoria: 'hidratacao', preco: 97.90, imagem: 'hidranoite.jpg' },
+            { id: 'sk8', nome: 'Protetor Solar Facial La Roche-Posay FPS 80 Incolor 40g', categoria: 'protecao', preco: 94.90, imagem: 'protetor.jpg' },
+        ];
+
+        const formatarPreco = valor => `R$ ${valor.toFixed(2).replace('.', ',')}`;
+
+        const listaProdutos = document.getElementById('listaProdutos');
+
+        function renderizarProdutos(categoria = 'todos') {
+            listaProdutos.innerHTML = '';
+
+            const produtosFiltrados = categoria === 'todos'
+                ? produtosSkinCare
+                : produtosSkinCare.filter(p => p.categoria === categoria);
+
+            produtosFiltrados.forEach(produto => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.id = produto.id;
+                card.dataset.nome = produto.nome;
+                card.dataset.preco = produto.preco;
+
+                card.innerHTML = `
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                    <div class="product-info">
+                        <h3>${produto.nome}</h3>
+                        <p class="price">${formatarPreco(produto.preco)}</p>
+                        <button class="btn btn-comprar">Comprar</button>
+                        <button class="btn btn-adicionar">Adicionar</button>
+                    </div>
+                `;
+
+                listaProdutos.appendChild(card);
+            });
+
+            ativarBotoes();
+        }
+
+        renderizarProdutos();
+
+        // ---------- FILTRO DE CATEGORIAS ----------
+        document.getElementById('filtros').addEventListener('click', e => {
+            const btn = e.target.closest('.filtro-btn');
+            if (!btn) return;
+            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo'));
+            btn.classList.add('ativo');
+            renderizarProdutos(btn.dataset.cat);
+        });
+
+        // ==========================================================
+        // CARRINHO (sem depender de exigirLogin/auth.js)
+        // ==========================================================
+        function ativarBotoes() {
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const btnComprar = card.querySelector('.btn-comprar');
+                const btnAdicionar = card.querySelector('.btn-adicionar');
+
+                const produto = {
+                    id: card.dataset.id,
+                    nome: card.dataset.nome,
+                    preco: parseFloat(card.dataset.preco)
+                };
+
+                btnComprar.addEventListener('click', () => {
+                    localStorage.setItem('compraDireta', JSON.stringify(produto));
+                    window.location.href = 'checkout.html';
+                });
+
+                btnAdicionar.addEventListener('click', () => {
+                    adicionarAoCarrinho(produto);
+                    alert(`${produto.nome} adicionado ao carrinho!`);
+                });
+            });
+        }
+
+        function adicionarAoCarrinho(produto) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+            const existente = carrinho.find(item => item.id === produto.id);
+            if (existente) {
+                existente.quantidade += 1;
+            } else {
+                carrinho.push({ ...produto, quantidade: 1 });
+            }
+
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+    </script>
+
+</body>
+</html>
+
+===== tcc.html =====
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Essence Beauty">
+    <meta property="og:description" content="Loja virtual de cosméticos moderna e elegante.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:image:type" content="image/png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #fefefe;
+            color: #000;
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo{
+    font-size:36px;
+    letter-spacing:3px;
+    color:#000;
+    text-decoration:none;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.logo:hover{
+    color:#5a5a5a;
+}
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+    text-decoration: none;
+    color: #000;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        .categorias a{
+    text-decoration: none;
+    color: #333;
+    font-size: 17px;
+    font-family: Arial, sans-serif;
+    font-weight: 500;
+    letter-spacing: 2px;
+    transition: .3s;
+}
+
+        .banner{
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.banner-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.banner-texto{
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    color: white;
+    max-width: 450px;
+}
+
+.seta{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+}
+
+.esquerda{
+    left: 20px;
+}
+
+.direita{
+    right: 20px;
+}
+
+        .btn{
+    background:#000;
+    color:#fff;
+    padding:14px 35px;
+    border-radius:40px;
+    border:none;
+    cursor:pointer;
+    transition:.3s;
+    font-weight:bold;
+        }
+
+.btn:hover{
+    background:#000000;
+    transform:translateY(-3px);
+    box-shadow:0 10px 20px rgba(109, 109, 109, 0.35);
+}
+
+        .btn:hover {
+            background-color: #535353;
+            transform: scale(1.05);
+        }
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 50px;
+            color: #000000;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card{
+    border-radius:25px;
+    overflow:hidden;
+    background:#fff;
+    transition:.4s;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.product-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 40px rgba(0,0,0,.15);
+}
+
+.product-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 20px 25px 0 0;
+}
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .price {
+            color: #000000;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .about {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h2 {
+            color: #7c7c7c;
+            margin-bottom: 20px;
+            font-size: 36px;
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            font-size: 18px;
+        }
+
+        footer{
+    background:#e3f2fc;
+    color:#666;
+    padding:50px;
+    text-align:center;
+    margin-top:80px;
+}
+
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .banner h1 {
+                font-size: 38px;
+            }
+
+            .banner p {
+                font-size: 16px;
+            }
+
+              }
+    </style>
+</head>
+<body>
+
+    <header>
+    <a href="tcc.html" class="logo">ESSENCE BEAUTY</a>
+
+    <nav>
+        <ul>
+            <li><a href="cadastro.php">Cadastrar</a></li>
+            <li><a href="login.php">Login</a></li>
+            <li><a href="#produtos">Produtos</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#contato">Contato</a></li>
+            <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- CATEGORIAS -->
+<section class="categorias">
+    <a href="skin-care.html">SKIN CARE</a>
+    <a href="maquiagem.html">MAQUIAGEM</a>
+    <a href="cabelos.html">CABELOS</a>
+    <a href="corpo.html">CORPO</a>
+    <a href="kits.html">KITS</a>
+    <a href="promocoes.html">PROMOÇÕES</a>
+</section>
+
+<!-- BANNER -->
+<section class="banner" id="inicio">
+    <img src="banner.jpg" class="banner-img" alt="Banner">
+
+
+    <button class="seta esquerda">&#10094;</button>
+    <button class="seta direita">&#10095;</button>
+</section>
+
+ <style>
+.banner {
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8%;
+    background: #f7fcff;
+}
+
+.banner-content {
+    max-width: 500px;
+}
+
+.banner-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.banner-images img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+</style>
+
+<!-- SELOS DE CONFIANÇA -->
+<section class="selos">
+    <div class="selo-item">
+        <span class="selo-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="6" width="14" height="11"></rect>
+                <path d="M15 9h4l3 3v5h-7z"></path>
+                <circle cx="6" cy="19" r="2"></circle>
+                <circle cx="18" cy="19" r="2"></circle>
+            </svg>
+        </span>
+        <div>
+            <strong>Frete grátis</strong>
+            <p>Acima de R$ 150</p>
+        </div>
+    </div>
+    <div class="selo-item">
+        <span class="selo-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 11a8 8 0 1 0-2.6 5.9"></path>
+                <path d="M20 4v6h-6"></path>
+            </svg>
+        </span>
+        <div>
+            <strong>Troca garantida</strong>
+            <p>Até 7 dias corridos</p>
+        </div>
+    </div>
+    <div class="selo-item">
+        <span class="selo-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="10" width="16" height="10" rx="1.5"></rect>
+                <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+            </svg>
+        </span>
+        <div>
+            <strong>Pagamento seguro</strong>
+            <p>Pix, cartão ou boleto</p>
+        </div>
+    </div>
+    <div class="selo-item">
+        <span class="selo-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2 4 13h6l-1 9 9-13h-6z"></path>
+            </svg>
+        </span>
+        <div>
+            <strong>Entrega rápida</strong>
+            <p>Enviamos em até 24h</p>
+        </div>
+    </div>
+</section>
+
+<style>
+.selos{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 40px 8%;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.selo-item{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    justify-content: center;
+}
+
+.selo-icone{
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    color: #000;
+}
+
+.selo-icone svg{
+    width: 100%;
+    height: 100%;
+}
+
+.selo-item strong{
+    display: block;
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+.selo-item p{
+    font-size: 13px;
+    color: #888;
+}
+
+@media(max-width: 860px){
+    .selos{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
+
+<section id="produtos">
+
+    <h2 class="section-title">PRODUTOS</h2>
+
+    <div class="products">
+
+        <!-- Produto 1 -->
+        <div class="product-card" data-id="dest1" data-nome="mixsoon Bean Essence 50ml" data-preco="103.90">
+            <img src="mixsoon.jpg" alt="">
+            <div class="product-info">
+                <h3>mixsoon Bean Essence 50ml</h3>
+                <p class="price">R$ 103,90</p>
+                <button class="btn btn-comprar">Comprar</button>
+                <button class="btn btn-adicionar">Adicionar</button>
+            </div>
+        </div>
+
+        <!-- Produto 2 -->
+        <div class="product-card" data-id="dest2" data-nome="medicube deep vitamin C" data-preco="116.90">
+            <img src="vitamina.jpg" alt="">
+            <div class="product-info">
+                <h3>medicube deep vitamin C</h3>
+                <p class="price">R$ 116,90</p>
+                <button class="btn btn-comprar">Comprar</button>
+                <button class="btn btn-adicionar">Adicionar</button>
+            </div>
+        </div>
+
+        <!-- Produto 3 -->
+        <div class="product-card" data-id="dest3" data-nome="lip gloss rhode Jelly Bean" data-preco="261.90">
+            <img src="rhode.jpg" alt="">
+            <div class="product-info">
+                <h3>lip gloss rhode Jelly Bean</h3>
+                <p class="price">R$ 261,90</p>
+                <button class="btn btn-comprar">Comprar</button>
+                <button class="btn btn-adicionar">Adicionar</button>
+            </div>
+        </div>
+
+        <!-- Produto 4 -->
+        <div class="product-card" data-id="dest4" data-nome="serum madagascar centella tone 1000ml" data-preco="125.90">
+    <img src="tonee.jpg" alt="">
+    <div class="product-info">
+        <h3>serum madagascar centella tone 1000ml</h3>
+        <p class="price">R$ 125,90</p>
+        <button class="btn btn-comprar">Comprar</button>
+        <button class="btn btn-adicionar">Adicionar</button>
+    </div>
+</div>
+
+<!-- Produto 5 -->
+<div class="product-card" data-id="dest5" data-nome="Protetor Solar Facial La Roche-Posay FPS 80 Incolor 40g" data-preco="94.90">
+    <img src="protetor.jpg" alt="">
+    <div class="product-info">
+        <h3>Protetor Solar Facial La Roche-Posay FPS 80 Incolor 40g</h3>
+        <p class="price">R$ 94,90</p>
+        <button class="btn btn-comprar">Comprar</button>
+        <button class="btn btn-adicionar">Adicionar</button>
+    </div>
+</div>
+
+    </div>
+
+</section>
+
+<style>
+ 
+ .categorias{
+    display:flex;
+    justify-content:center;
+    gap:45px;
+    background:#fff;
+    padding:25px 0;
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
+}
+
+.categorias a{
+    text-decoration:none;
+    color:#333;
+    font-size:17px;
+    letter-spacing:2px;
+    font-weight:500;
+    transition:.3s;
+}
+
+.categorias a:hover{
+    color:#9c9b9b;
+}
+
+.promo{
+    color:#ffffff;
+    font-weight:bold;
+}
+    </style>
+
+<!-- MAIS VENDIDOS -->
+<section id="mais-vendidos" style="background:#f7fcff;">
+
+    <h2 class="section-title">MAIS VENDIDOS</h2>
+
+    <div class="products">
+
+        <div class="product-card" data-id="mv1" data-nome="Água Micelar Suave" data-preco="39.90">
+            <img src="aguac.jpg" alt="">
+            <div class="product-info">
+                <h3>Água Micelar Garnie</h3>
+                <p class="price">R$ 49,90</p>
+                <button class="btn btn-comprar">Comprar</button>
+                <button class="btn btn-adicionar">Adicionar</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-id="mv2" data-nome="Shampoo Nutrição Profunda" data-preco="49.90">
+            <img src="kera.jpg" alt="">
+            <div class="product-info">
+                <h3>Shampoo Kerástase Nutrição </h3>
+                <p class="price">R$ 109,90</p>
+                <button class="btn btn-comprar">Comprar</button>
+                <button class="btn btn-adicionar">Adicionar</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-id="mv4" data-nome="Hidratante Corporal Manteiga de Karité" data-preco="54.90">
+            <img src="prin.jpg" alt="">
+            <div class="product-info">
+                <h3>Hidratante Facial Manteiga de Karité</h3>
+                <p class="price">R$ 34,90</p>
+                <button class="btn btn-comprar">Comprar</button>
+                <button class="btn btn-adicionar">Adicionar</button>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SOBRE NÓS -->
+<section id="sobre">
+    <div class="about">
+        <img src="sobre.jpg" alt="Sobre a Essence Beauty">
+        <div class="about-text">
+            <h2>SOBRE NÓS</h2>
+            <p>
+                A Essence Beauty nasceu com um propósito simples: tornar produtos de beleza de
+                qualidade acessíveis para todas. Selecionamos cuidadosamente cada item do nosso
+                catálogo, das marcas internacionais de skin care às queridinhas nacionais, sempre
+                pensando em oferecer eficácia, segurança e um toque de sofisticação na rotina de
+                quem confia na gente.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- AVALIAÇÕES DE CLIENTES -->
+<section id="avaliacoes" style="background:#f7fcff;">
+
+    <h2 class="section-title">O QUE NOSSAS CLIENTES DIZEM</h2>
+
+    <div class="avaliacoes-grid">
+
+        <div class="avaliacao-card">
+            <div class="estrelas">★★★★★</div>
+            <p>"Comprei o sérum de vitamina C e já no primeiro mês notei diferença na pele. Entrega rapidíssima!"</p>
+            <span class="avaliacao-nome">— Camila R.</span>
+        </div>
+
+        <div class="avaliacao-card">
+            <div class="estrelas">★★★★★</div>
+            <p>"Site fácil de navegar e produtos originais. Já é a terceira vez que compro e nunca tive problema."</p>
+            <span class="avaliacao-nome">— Beatriz S.</span>
+        </div>
+
+        <div class="avaliacao-card">
+            <div class="estrelas">★★★★☆</div>
+            <p>"Adorei o kit de skin care, veio tudo bem embalado. Só acho que o frete podia ser um pouco mais rápido."</p>
+            <span class="avaliacao-nome">— Larissa M.</span>
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+.avaliacoes-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+}
+
+.avaliacao-card{
+    background: #fff;
+    border-radius: 20px;
+    padding: 26px 24px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.06);
+}
+
+.estrelas{
+    color: #000;
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.avaliacao-card p{
+    font-size: 14.5px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.avaliacao-nome{
+    font-size: 13px;
+    color: #999;
+    font-weight: bold;
+}
+</style>
+
+<!-- PERGUNTAS FREQUENTES -->
+<section id="faq">
+
+    <h2 class="section-title">PERGUNTAS FREQUENTES</h2>
+
+    <div class="faq-lista">
+
+        <details class="faq-item">
+            <summary>Qual o prazo de entrega?</summary>
+            <p>O prazo médio é de 3 a 7 dias úteis, dependendo da sua região. Você recebe o código de rastreio assim que o pedido é enviado.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Quais formas de pagamento vocês aceitam?</summary>
+            <p>Aceitamos Pix, cartão de crédito (em até 3x sem juros) e boleto bancário.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Posso trocar um produto?</summary>
+            <p>Sim! Você tem até 7 dias corridos após o recebimento para solicitar troca ou devolução, desde que o produto esteja lacrado.</p>
+        </details>
+
+        <details class="faq-item">
+            <summary>Os produtos são originais?</summary>
+            <p>Sim, todos os produtos vendidos na Essence Beauty são 100% originais, adquiridos diretamente de distribuidores autorizados.</p>
+        </details>
+
+    </div>
+
+</section>
+
+<style>
+.faq-lista{
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.faq-item{
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.05);
+}
+
+.faq-item summary{
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15.5px;
+    list-style: none;
+    position: relative;
+    padding-right: 24px;
+}
+
+.faq-item summary::-webkit-details-marker{
+    display: none;
+}
+
+.faq-item summary::after{
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 20px;
+    transition: .3s;
+}
+
+.faq-item[open] summary::after{
+    content: "−";
+}
+
+.faq-item p{
+    margin-top: 12px;
+    font-size: 14.5px;
+    color: #555;
+    line-height: 1.6;
+}
+</style>
+
+<!-- NEWSLETTER -->
+<section id="newsletter" style="background:#000; padding:60px 8%;">
+    <div class="newsletter-caixa">
+        <h2>RECEBA NOSSAS PROMOÇÕES</h2>
+        <p>Cadastre seu e-mail e seja a primeira a saber sobre lançamentos e descontos exclusivos.</p>
+        <form id="formNewsletter" class="newsletter-form">
+            <input type="email" placeholder="Digite seu e-mail" required>
+            <button type="submit" class="btn">Inscrever-se</button>
+        </form>
+        <p class="newsletter-mensagem" id="newsletterMensagem"></p>
+    </div>
+</section>
+
+<style>
+.newsletter-caixa{
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: center;
+    color: #fff;
+}
+
+.newsletter-caixa h2{
+    font-size: 30px;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.newsletter-caixa p{
+    font-size: 15px;
+    color: #ccc;
+    margin-bottom: 26px;
+    line-height: 1.6;
+}
+
+.newsletter-form{
+    display: flex;
+    gap: 12px;
+}
+
+.newsletter-form input{
+    flex: 1;
+    padding: 13px 18px;
+    border-radius: 40px;
+    border: none;
+    font-size: 14.5px;
+    outline: none;
+    font-family: inherit;
+}
+
+.newsletter-form .btn{
+    background: #fff;
+    color: #000;
+    white-space: nowrap;
+}
+
+.newsletter-form .btn:hover{
+    background: #ddd;
+}
+
+.newsletter-mensagem{
+    margin-top: 14px;
+    font-size: 14px;
+    color: #9be69b;
+    display: none;
+}
+
+@media(max-width: 600px){
+    .newsletter-form{
+        flex-direction: column;
+    }
+}
+</style>
+
+    <footer id="contato">
+        <h3>ESSENCE BEAUTY</h3>
+        <p>Email: essencebeauty@email.com</p>
+        <p>Instagram: @officialessencebeauty</p>
+        <p>©️ 2026 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+    // ==========================================================
+    // CARRINHO (sem depender de exigirLogin/auth.js)
+    // ==========================================================
+    const cards = document.querySelectorAll('.product-card');
+
+    cards.forEach(card => {
+        const btnComprar = card.querySelector('.btn-comprar');
+        const btnAdicionar = card.querySelector('.btn-adicionar');
+
+        const produto = {
+            id: card.dataset.id,
+            nome: card.dataset.nome,
+            preco: parseFloat(card.dataset.preco)
+        };
+
+        btnComprar.addEventListener('click', () => {
+            localStorage.setItem('compraDireta', JSON.stringify(produto));
+            window.location.href = 'checkout.html';
+        });
+
+        btnAdicionar.addEventListener('click', () => {
+            adicionarAoCarrinho(produto);
+            alert(`${produto.nome} adicionado ao carrinho!`);
+        });
+    });
+
+    function adicionarAoCarrinho(produto) {
+        let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+        const existente = carrinho.find(item => item.id === produto.id);
+        if (existente) {
+            existente.quantidade += 1;
+        } else {
+            carrinho.push({ ...produto, quantidade: 1 });
+        }
+
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    }
+
+    // ---------- NEWSLETTER (por enquanto só visual) ----------
+    const formNewsletter = document.getElementById('formNewsletter');
+    if(formNewsletter){
+        formNewsletter.addEventListener('submit', e => {
+            e.preventDefault();
+            const msg = document.getElementById('newsletterMensagem');
+            msg.textContent = 'Inscrição realizada! Fique de olho no seu e-mail.';
+            msg.style.display = 'block';
+            formNewsletter.reset();
+        });
+    }
+</script>
+
+</body>
+</html>
+

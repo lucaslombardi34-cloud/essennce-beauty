@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar | Essence Beauty</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #f7fcff;
+            color: #000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ---------- CABEÇALHO ---------- */
+        header {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 36px;
+            letter-spacing: 3px;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .logo:hover {
+            color: #5a5a5a;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #3e3e3e;
+        }
+
+        nav ul {
+            align-items: center;
+        }
+
+        /* ---------- ÁREA DO USUÁRIO ---------- */
+        .item-usuario {
+            position: relative;
+        }
+
+        .usuario-botao {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: none;
+            border: 1px solid #e5e5e5;
+            border-radius: 40px;
+            padding: 5px 14px 5px 5px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 15px;
+            color: #000;
+            transition: .3s;
+        }
+
+        .usuario-botao:hover {
+            border-color: #000;
+        }
+
+        /* Deslogada: só o ícone redondo */
+        .item-usuario:not(.logado) .usuario-botao {
+            padding: 5px;
+        }
+
+        .item-usuario:not(.logado) .usuario-nome-curto {
+            display: none;
+        }
+
+        .usuario-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .item-usuario:not(.logado) .usuario-avatar {
+            background: #f2f2f2;
+            color: #000;
+        }
+
+        .usuario-avatar svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .usuario-avatar.grande {
+            width: 48px;
+            height: 48px;
+            font-size: 20px;
+        }
+
+        .usuario-nome-curto {
+            font-weight: bold;
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .usuario-seta {
+            font-size: 10px;
+            transition: .3s;
+        }
+
+        .item-usuario:not(.logado) .usuario-seta {
+            display: none;
+        }
+
+        .item-usuario.aberto .usuario-seta {
+            transform: rotate(180deg);
+        }
+
+        /* Menu que abre ao clicar */
+        .usuario-menu {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 12px);
+            width: 270px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.12);
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: .25s;
+            z-index: 1100;
+        }
+
+        .item-usuario.aberto .usuario-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .usuario-menu-topo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 10px 16px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 6px;
+        }
+
+        .usuario-menu-topo div {
+            min-width: 0;
+        }
+
+        .usuario-menu-topo strong {
+            display: block;
+            font-size: 15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .usuario-menu-topo small {
+            display: block;
+            font-size: 12.5px;
+            color: #888;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .usuario-desde {
+            margin-top: 3px;
+            font-size: 11.5px !important;
+            color: #aaa !important;
+        }
+
+        .usuario-menu a,
+        .usuario-menu button.usuario-sair {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 11px 12px;
+            border-radius: 10px;
+            font-size: 14.5px;
+            letter-spacing: 0;
+            color: #333;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .usuario-menu a:hover,
+        .usuario-menu button.usuario-sair:hover {
+            background: #f5f5f5;
+            color: #000;
+        }
+
+        .usuario-menu button.usuario-sair {
+            color: #c0392b;
+            margin-top: 4px;
+            border-top: 1px solid #eee;
+            border-radius: 0 0 10px 10px;
+        }
+
+        /* ---------- FORMULÁRIO ---------- */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .caixa-form {
+            width: 100%;
+            max-width: 440px;
+            background: #fff;
+            border-radius: 25px;
+            padding: 45px 40px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.08);
+        }
+
+        .caixa-form h1 {
+            font-size: 30px;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .caixa-form .subtitulo {
+            text-align: center;
+            color: #888;
+            font-size: 14.5px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .campo {
+            margin-bottom: 18px;
+        }
+
+        .campo label {
+            display: block;
+            font-size: 13.5px;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #333;
+        }
+
+        .campo-senha {
+            position: relative;
+        }
+
+        .campo input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #ddd;
+            border-radius: 40px;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+            transition: .3s;
+        }
+
+        .campo-senha input {
+            padding-right: 70px;
+        }
+
+        .campo input:focus {
+            border-color: #000;
+        }
+
+        .ver-senha {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 12.5px;
+            font-weight: bold;
+            color: #888;
+            cursor: pointer;
+        }
+
+        .ver-senha:hover {
+            color: #000;
+        }
+
+        .dica {
+            font-size: 12px;
+            color: #999;
+            margin-top: 6px;
+            padding-left: 6px;
+        }
+
+        .btn {
+            background: #000;
+            color: #fff;
+            padding: 15px 35px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            transition: .3s;
+            font-weight: bold;
+            font-size: 15px;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .btn:hover {
+            background-color: #535353;
+        }
+
+        .btn:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        .mensagem {
+            display: none;
+            margin-top: 18px;
+            padding: 13px 16px;
+            border-radius: 14px;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .mensagem.erro {
+            display: block;
+            background: #fdecea;
+            color: #b3261e;
+        }
+
+        .mensagem.sucesso {
+            display: block;
+            background: #e8f6ec;
+            color: #1e7b3a;
+        }
+
+        .troca-pagina {
+            text-align: center;
+            margin-top: 26px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .troca-pagina a {
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* ---------- RODAPÉ ---------- */
+        footer {
+            background: #e3f2fc;
+            color: #666;
+            padding: 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .caixa-form {
+                padding: 35px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">ESSENCE BEAUTY</a>
+
+    <nav>
+        <ul>
+            <!-- Estes ids são usados pelo supabase.js (atualizarMenu) -->
+            <li><a href="cadastrar.html" id="link-cadastrar">Cadastrar</a></li>
+            <li><a href="login.html" id="link-login">Login</a></li>
+            <li><a href="index.html#produtos">Produtos</a></li>
+            <li><a href="index.html#sobre">Sobre</a></li>
+            <li><a href="index.html#contato">Contato</a></li>
+            <li><a href="carrinho.html" class="cart-icon">🛒</a></li>
+
+            <!-- ÁREA DO USUÁRIO (preenchida pelo supabase.js) -->
+            <li class="item-usuario" id="area-usuario">
+                <button type="button" class="usuario-botao" id="usuario-botao" aria-label="Minha conta">
+                    <span class="usuario-avatar" id="usuario-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="4"></circle>
+                            <path d="M4 21c0-4 4-7 8-7s8 3 8 7"></path>
+                        </svg>
+                    </span>
+                    <span class="usuario-nome-curto" id="usuario-nome-curto"></span>
+                    <span class="usuario-seta">▼</span>
+                </button>
+
+                <div class="usuario-menu" id="usuario-menu">
+                    <div class="usuario-menu-topo">
+                        <span class="usuario-avatar grande" id="usuario-avatar-grande"></span>
+                        <div>
+                            <strong id="usuario-nome-completo"></strong>
+                            <small id="usuario-email"></small>
+                            <small class="usuario-desde" id="usuario-desde"></small>
+                        </div>
+                    </div>
+                    <a href="carrinho.html">🛒 Meu carrinho</a>
+                    <a href="checkout.html">📦 Finalizar compra</a>
+                    <button type="button" class="usuario-sair" id="usuario-sair">Sair da conta</button>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="caixa-form">
+        <h1>ENTRAR</h1>
+        <p class="subtitulo">Que bom te ver de novo! Entre na sua conta para continuar.</p>
+
+        <form id="formLogin" novalidate>
+            <div class="campo">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="seuemail@exemplo.com" autocomplete="email" required>
+            </div>
+
+            <div class="campo">
+                <label for="senha">Senha</label>
+                <div class="campo-senha">
+                    <input type="password" id="senha" placeholder="Sua senha" autocomplete="current-password" required>
+                    <button type="button" class="ver-senha" data-alvo="senha">Mostrar</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn" id="btnEntrar">Entrar</button>
+        </form>
+
+        <p class="mensagem" id="mensagem"></p>
+
+        <p class="troca-pagina">Ainda não tem conta? <a href="cadastrar.html">Cadastre-se</a></p>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Essence Beauty - Todos os direitos reservados.</p>
+</footer>
+
+<!-- 1º: biblioteca do Supabase  |  2º: sua conexão (cria "db")  |  3º: script da página -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+// Mostra/esconde a senha
+document.querySelectorAll('.ver-senha').forEach(botao => {
+    botao.addEventListener('click', () => {
+        const input = document.getElementById(botao.dataset.alvo);
+        const mostrando = input.type === 'text';
+        input.type = mostrando ? 'password' : 'text';
+        botao.textContent = mostrando ? 'Mostrar' : 'Ocultar';
+    });
+});
+
+// Mensagens de erro/sucesso
+const mensagem = document.getElementById('mensagem');
+function mostrarMensagem(texto, tipo) {
+    mensagem.textContent = texto;
+    mensagem.className = 'mensagem ' + tipo;
+}
+
+// Contador do carrinho no ícone 🛒
+(function () {
+    const icone = document.querySelector('.cart-icon');
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    const total = carrinho.reduce((soma, item) => soma + item.quantidade, 0);
+    if (icone && total > 0) icone.textContent = `🛒 (${total})`;
+})();
+
+// Para onde ir depois de entrar (ex.: checkout, se veio do botão "Comprar")
+function irParaDestino() {
+    const destino = localStorage.getItem('voltarPara') || 'index.html';
+    localStorage.removeItem('voltarPara');
+    window.location.href = destino;
+}
+
+// Se já estiver logada, não faz sentido ficar nesta página
+db.auth.getSession().then(({ data: { session } }) => {
+    if (session) irParaDestino();
+});
+
+// ==========================================================
+// LOGIN
+// ==========================================================
+const formLogin = document.getElementById('formLogin');
+const btnEntrar = document.getElementById('btnEntrar');
+
+formLogin.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value.trim();
+    const senha = document.getElementById('senha').value;
+
+    if (!email || !senha) {
+        mostrarMensagem('Preencha o e-mail e a senha.', 'erro');
+        return;
+    }
+
+    btnEntrar.disabled = true;
+    btnEntrar.textContent = 'Entrando...';
+
+    const { error } = await db.auth.signInWithPassword({ email, password: senha });
+
+    if (error) {
+        btnEntrar.disabled = false;
+        btnEntrar.textContent = 'Entrar';
+        mostrarMensagem(traduzirErro(error.message), 'erro');
+        return;
+    }
+
+    mostrarMensagem('Login feito! Redirecionando...', 'sucesso');
+    setTimeout(irParaDestino, 800);
+});
+</script>
+
+</body>
+</html>
